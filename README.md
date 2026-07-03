@@ -71,8 +71,9 @@
 | Method | Endpoint | 설명 | 요청 | 응답 |
 |---|---|---|---|---|
 | POST | /auth/signup | 회원가입 | JSON {"id": "madcamp", "email": "madcamp@gmail.com", "password": "123456", "pw_repeat": "123456"} | 200 OK {"message": "회원가입이 완료되었습니다."} 400 Bad Request {"message": "이미 가입된 이메일입니다."} {"message": "비밀번호와 비밀번호 확인 문자가 같은지 확인해주세요."} {"message": "비밀번호는 숫자와 문자로 구성되고 8자리 이상이어야 합니다."} {"message": "중복된 아이디입니다."}|
-|POST|/auth/login|로그인|JSON {id: "madcamp", "password": "123456"}|200 OK 400 Bad Request {"message: ID 또는 비밀번호가 일치하지 않습니다."}|
+|POST|/auth/login|로그인|JSON {"id": "madcamp", "password": "123456"}|200 OK {"accessToken": "...", "refreshToken": "...", "userInfo": {"userID": "MADCAMP123", "DailyStreak": "15"}} 400 Bad Request {"message: ID 또는 비밀번호가 일치하지 않습니다."}|
 
+||||||
 ---
 
 ## 배포 결과물
