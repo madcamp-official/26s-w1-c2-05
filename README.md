@@ -12,8 +12,8 @@
 
 | 이름 | GitHub | 역할 |
 |---|---|---|
-| 이재준 | dannyiscard |  |
-| 박소요 | oyossss |  |
+| 이재준 | dannyiscard | 백엔드 |
+| 박소요 | oyossss | 프론트엔드 |
 
 ---
 
