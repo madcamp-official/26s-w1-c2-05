@@ -21,21 +21,28 @@ function Signup(){
             return;
         }
 
+        if (password.length < 8 || !/[0-9]/.test(password) || !/[a-zA-Z]/.test(password)){
+            alert("비밀번호는 숫자와 문자로 구성되고 8자리 이상이어야 합니다.");
+            return;
+        }
+
         try {
-            const res = await axios.post("/auth/signup", {
-                id,
+            await axios.post("/auth/signup", {
+                username: id,
                 email,
                 password,
                 pw_repeat: pwRepeat,
             });
-            const { accessToken, refreshToken, isOnboardingComplete } = res.data;
 
-            localStorage.setItem("accessToken", accessToken);
-            localStorage.setItem("refreshToken", refreshToken);
-
-            navigate(isOnboardingComplete ? "/dashboard" : "/onboarding");
+            alert("회원가입이 완료되었습니다. 로그인해주세요.");
+            navigate("/login");
         } catch (err) {
-            alert(err.response?.data?.message ?? "회원가입에 실패했습니다.");
+            console.error("회원가입 실패:", err.response?.data);
+            const detail = err.response?.data?.detail;
+            const message = Array.isArray(detail)
+                ? detail.map((d) => d.msg).join("\n")
+                : detail ?? "회원가입에 실패했습니다.";
+            alert(message);
         }
     };
 
