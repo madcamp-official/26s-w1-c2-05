@@ -24,7 +24,7 @@ class Token(BaseModel):
 class UserResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: int
+    user_id: str
     email: EmailStr
     nickname: str | None = None
     profile_img: int | None = None
