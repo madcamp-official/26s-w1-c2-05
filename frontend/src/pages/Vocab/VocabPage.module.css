@@ -1,0 +1,65 @@
+.page {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #1a1a1a;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 24px;
+}
+
+.wordList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wordItem {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.wordItem:hover {
+  border-color: #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.wordNumber {
+  flex: 0 0 24px;
+  color: #999;
+  font-size: 13px;
+}
+
+.wordBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.word {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.meaning {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+}
+
+.example {
+  font-size: 13px;
+  color: #888;
+  font-style: italic;
+  margin: 4px 0 0;
+}
