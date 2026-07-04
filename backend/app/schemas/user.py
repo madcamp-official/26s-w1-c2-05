@@ -9,12 +9,15 @@ class UserCreate(BaseModel):
 
 
 class UserLogin(BaseModel):
-    email: EmailStr
+    id: str
     password: str = Field(min_length=8)
 
+class UserLogout(BaseModel):
+    refresh_token: str
 
 class Token(BaseModel):
     access_token: str
+    refresh_token: str
     token_type: str
 
 
