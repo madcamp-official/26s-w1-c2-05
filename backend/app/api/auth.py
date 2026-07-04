@@ -1,3 +1,5 @@
+import uuid
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from datetime import timedelta
@@ -85,7 +87,7 @@ async def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
     )
 
     refresh_token = create_access_token(
-        data={"sub": user.email},
+        data={"sub": user.email, "jti": str(uuid.uuid4())},
         expires_delta=timedelta(days=30)
     )
 
