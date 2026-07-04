@@ -68,6 +68,27 @@
   padding: 11px 13px;
 }
 
+.auth-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.auth-row label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.auth-row a {
+  color: #08060d;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .auth-submit {
   width: 100%;
   padding: 14px;

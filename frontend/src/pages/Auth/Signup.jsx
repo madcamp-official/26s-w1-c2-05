@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import "./Signup.css";
+import "./Auth.css";
 
 function Signup(){
     const [id, setId] = useState("");
