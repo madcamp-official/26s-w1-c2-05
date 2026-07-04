@@ -1,0 +1,135 @@
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  color: #08060d;
+  background: #fff;
+  text-align: left;
+  justify-content: center;
+}
+
+.auth-form-side {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 24px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.auth-logo {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.auth-tagline {
+  color: #6b6375;
+  margin: 6px 0 40px;
+  font-size: 14px;
+}
+
+.auth-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 28px;
+}
+
+.auth-field {
+  margin-bottom: 20px;
+}
+
+.auth-field label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.auth-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  border: 1px solid #08060d;
+  background: #fff;
+  color: #08060d;
+}
+
+.auth-field input::placeholder {
+  color: #b3b0b8;
+}
+
+.auth-field input:focus {
+  outline: none;
+  border-width: 2px;
+  padding: 11px 13px;
+}
+
+.auth-submit {
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  background: #08060d;
+  color: #fff;
+  border: 1px solid #08060d;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.auth-submit:hover {
+  background: #2a2733;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #b3b0b8;
+  font-size: 12px;
+  margin: 24px 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid #e5e4e7;
+}
+
+.auth-google {
+  width: 100%;
+  padding: 12px;
+  background: #fff;
+  color: #08060d;
+  border: 1px solid #e5e4e7;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.auth-google:hover {
+  border-color: #08060d;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 14px;
+  color: #6b6375;
+}
+
+.auth-switch a {
+  color: #08060d;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .auth-form-side {
+    padding: 32px 24px;
+  }
+}

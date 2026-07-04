@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import "./Signup.css";
 
 function Signup(){
     const [id, setId] = useState("");
@@ -25,38 +26,63 @@ function Signup(){
             pwRepeat
         });
     };
+
     return (
-        <div>
-            <h1>회원가입</h1>
-            <div>
-                <label>아이디</label>
-                <br />
-                <input type = "text" placeholder ="아이디를 입력하세요" value={id} onChange={(e) => setId(e.target.value)}/>
-            </div>
-            <div>
-                <label>이메일</label>
-                <br />
-                <input type = "text" placeholder = "이메일을 입력하세요" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            </div>
+        <div className="auth-page">
+            <div className="auth-form-side">
+                <p className="auth-logo">[서비스 이름]</p>
+                <p className="auth-tagline">Language Learning</p>
 
-            <div>
-                <label>비밀번호</label>
-                <br />
-                <input type = "password" placeholder = "비밀번호를 입력하세요" value={password} onChange={(e) => setPassword(e.target.value)}/>
-            </div>
-            <div>
-                <label>비밀번호 확인</label>
-                <br />
-                <input type = "password" placeholder = "비밀번호를 다시 입력하세요" value={pwRepeat} onChange={(e) => setPwRepeat(e.target.value)}/>
-            </div>
+                <h1 className="auth-title">회원가입</h1>
 
-            <br />
+                <div className="auth-field">
+                    <label>아이디</label>
+                    <input
+                        type="text"
+                        placeholder="아이디를 입력하세요"
+                        value={id}
+                        onChange={(e) => setId(e.target.value)}
+                    />
+                </div>
 
-            <button onClick={handleSignup}>회원가입</button>
+                <div className="auth-field">
+                    <label>이메일</label>
+                    <input
+                        type="text"
+                        placeholder="user@email.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+
+                <div className="auth-field">
+                    <label>비밀번호</label>
+                    <input
+                        type="password"
+                        placeholder="비밀번호를 입력하세요"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+
+                <div className="auth-field">
+                    <label>비밀번호 확인</label>
+                    <input
+                        type="password"
+                        placeholder="비밀번호를 다시 입력하세요"
+                        value={pwRepeat}
+                        onChange={(e) => setPwRepeat(e.target.value)}
+                    />
+                </div>
+
+                <button className="auth-submit" onClick={handleSignup}>회원가입</button>
+
+                <p className="auth-switch">
+                    이미 계정이 있으신가요? <a>로그인</a>
+                </p>
+            </div>
         </div>
-
     );
-
 };
 
 export default Signup;
