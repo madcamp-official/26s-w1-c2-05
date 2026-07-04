@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./Auth.css";
 
 function Signup(){
@@ -7,8 +8,9 @@ function Signup(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [pwRepeat, setPwRepeat] = useState("");
+    const navigate = useNavigate();
 
-    const handleSignup = ()=>{
+    const handleSignup = async ()=>{
         if (!id || !email || !password || !pwRepeat){
             alert("모든 항목을 입력해주세요.");
             return;
@@ -19,12 +21,22 @@ function Signup(){
             return;
         }
 
-        console.log({
-            id,
-            email,
-            password,
-            pwRepeat
-        });
+        try {
+            const res = await axios.post("/auth/signup", {
+                id,
+                email,
+                password,
+                pw_repeat: pwRepeat,
+            });
+            const { accessToken, refreshToken, isOnboardingComplete } = res.data;
+
+            localStorage.setItem("accessToken", accessToken);
+            localStorage.setItem("refreshToken", refreshToken);
+
+            navigate(isOnboardingComplete ? "/dashboard" : "/onboarding");
+        } catch (err) {
+            alert(err.response?.data?.message ?? "회원가입에 실패했습니다.");
+        }
     };
 
     return (
