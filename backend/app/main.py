@@ -1,8 +1,17 @@
 from fastapi import FastAPI
 
-from app.api import auth, vocabulary, onboarding, me
-from app.database import Base, engine, SessionLocal
+from app.models.content import Content
+from app.models.grammar import Grammar
+from app.models.vocabulary import Vocabulary
+from app.models.grammar_quiz import GrammarQuiz
+from app.models.user import User
 from app.models.language import Language
+from app.models.learning_progress import LearningProgresses
+from app.models.refresh_token import RefreshToken
+from app.models.eventlog import EventLog
+
+from app.api import auth, vocabulary, onboarding, me, learning
+from app.database import Base, engine, SessionLocal
 
 app = FastAPI(
     title="LinguaAI",
@@ -12,6 +21,7 @@ app.include_router(auth.router)
 app.include_router(vocabulary.router)
 app.include_router(onboarding.router)
 app.include_router(me.router)
+app.include_router(learning.router)
 
 # 온보딩(language: 1~8)과 프론트 언어 선택지(frontend/src/pages/Onboarding/data/languages.js)의
 # id 순서와 반드시 일치해야 한다.
