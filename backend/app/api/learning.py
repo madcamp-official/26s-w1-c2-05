@@ -29,7 +29,7 @@ async def get_flashcard(current_user: User = Depends(get_current_user), db: Sess
 
     # 일단 지금은 랜덤하게 단어 5개를 추출해서 의미의 선택지와 함께 제공
     current_user_lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id
-    vocabulary_content_id_list = db.query(Content.content_id).filter(Content.lang_id == current_user_lang_id and Content.type == 1).order_by(func.random()).limit(5).all()
+    vocabulary_content_id_list = db.query(Content.content_id).filter(Content.lang_id == current_user_lang_id, Content.type == 1).order_by(func.random()).limit(5).all()
     vocabulary_content_id_list = [content_id for (content_id,) in vocabulary_content_id_list]
     print(vocabulary_content_id_list)
     vocabulary_list =[]
