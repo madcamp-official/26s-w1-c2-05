@@ -7,7 +7,6 @@ const NAV_ITEMS = [
     { to: "/flashcard", label: "플래시카드 퀴즈" },
     { to: "/grammar", label: "문법" },
     { to: "/speaking", label: "말하기" },
-    { to: "/weakness", label: "취약점 분석" },
     { to: "/profile", label: "프로필" },
 ];
 

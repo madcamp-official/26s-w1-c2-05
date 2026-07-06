@@ -1,0 +1,470 @@
+.page {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #1a1a1a;
+}
+
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.statTile {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 18px 20px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.statLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #666;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.statValue {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.statUnit {
+  font-size: 12px;
+  color: #999;
+  margin: 4px 0 0;
+}
+
+.body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.card,
+.sideCard {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 24px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.card {
+  flex: 1 1 480px;
+  min-width: 0;
+}
+
+.sideCard {
+  flex: 1 1 240px;
+  max-width: 300px;
+  min-width: 220px;
+}
+
+.cardTitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #666;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+
+/* 오늘의 학습 계획 */
+
+.taskList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.taskItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.checkCircle {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #fff;
+}
+
+.checkCircleDone {
+  background: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.taskIcon {
+  font-size: 16px;
+}
+
+.taskLabel {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 0;
+}
+
+.taskLabelDone {
+  color: #999;
+  font-weight: 400;
+  text-decoration: line-through;
+}
+
+.taskTime {
+  font-size: 13px;
+  color: #999;
+}
+
+.startLink {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.startLink:hover {
+  text-decoration: underline;
+}
+
+.primaryButton {
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.primaryButton:hover {
+  background: #333;
+}
+
+/* 실력 수준 */
+
+.skillRow {
+  margin-bottom: 16px;
+}
+
+.skillRow:last-child {
+  margin-bottom: 0;
+}
+
+.skillLabelRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.skillLabel {
+  font-weight: 600;
+  flex: 1;
+}
+
+.skillValue {
+  font-weight: 700;
+}
+
+.trendUp {
+  color: #2e7d32;
+  font-size: 13px;
+}
+
+.trendDown {
+  color: #c62828;
+  font-size: 13px;
+}
+
+.trendFlat {
+  color: #999;
+  font-size: 13px;
+}
+
+.skillBar {
+  height: 6px;
+  background: #eee;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.skillBarFill {
+  height: 100%;
+  transition: width 0.2s ease;
+}
+
+/* 취약점 분석 섹션 */
+
+.sectionHeader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 32px 0 24px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.sectionSubtitle {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: 8px;
+}
+
+.secondaryButton {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  color: #1a1a1a;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.secondaryButton:hover:not(:disabled) {
+  border-color: #999;
+}
+
+.primaryInlineButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.primaryInlineButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.stackedCards {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Top Weakness Areas */
+
+.weaknessList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.weaknessItem {
+  display: flex;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+
+.weaknessRank {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  color: #1a1a1a;
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weaknessBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.weaknessHeadRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.weaknessTitle {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.categoryChip {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #f0f0f0;
+  color: #666;
+}
+
+.weaknessBar {
+  height: 6px;
+  background: #eee;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.weaknessBarFill {
+  height: 100%;
+}
+
+.weaknessMeta {
+  font-size: 12px;
+  color: #999;
+  margin: 0 0 8px;
+}
+
+.weaknessDescription {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
+.ctaButton {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  color: #1a1a1a;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ctaButton:hover {
+  border-color: #999;
+}
+
+/* Error trend chart */
+
+.chartWrap {
+  position: relative;
+}
+
+.chartSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.gridline {
+  stroke: #e5e5e5;
+  stroke-width: 1;
+}
+
+.axisLabel {
+  font-size: 10px;
+  fill: #999;
+}
+
+.crosshair {
+  stroke: #ccc;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.tooltipDate {
+  margin: 0 0 4px;
+  font-weight: 700;
+  color: #ccc;
+}
+
+.tooltipRow {
+  margin: 2px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tooltipDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #666;
+}
+
+.legendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}

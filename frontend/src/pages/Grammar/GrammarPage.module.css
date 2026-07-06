@@ -3,16 +3,32 @@
   color: #1a1a1a;
 }
 
-.title {
-  font-size: 22px;
-  font-weight: 700;
-  margin: 0 0 4px;
+.secondaryButton {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  color: #1a1a1a;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-.subtitle {
+.secondaryButton:hover {
+  border-color: #999;
+}
+
+.primaryInlineButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: #fff;
   font-size: 14px;
-  color: #888;
-  margin: 0 0 24px;
+  cursor: pointer;
+}
+
+.primaryInlineButton:hover {
+  background: #333;
 }
 
 .body {

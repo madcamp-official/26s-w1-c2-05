@@ -3,32 +3,6 @@
   color: #1a1a1a;
 }
 
-.header {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-}
-
-.title {
-  font-size: 22px;
-  font-weight: 700;
-  margin: 0 0 4px;
-}
-
-.subtitle {
-  font-size: 14px;
-  color: #888;
-  margin: 0;
-}
-
-.headerActions {
-  display: flex;
-  gap: 8px;
-}
-
 .body {
   display: flex;
   flex-wrap: wrap;
