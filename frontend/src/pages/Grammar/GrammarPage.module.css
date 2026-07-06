@@ -1,0 +1,359 @@
+.page {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #1a1a1a;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #888;
+  margin: 0 0 24px;
+}
+
+.body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.main {
+  flex: 1 1 480px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.lessonCard,
+.exerciseCard {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 24px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.lessonTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 8px 4px;
+  margin-right: 20px;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  color: #888;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transform: translateY(1px);
+}
+
+.tab:hover {
+  color: #333;
+}
+
+.tabActive {
+  color: #1a1a1a;
+  font-weight: 600;
+  border-bottom-color: #1a1a1a;
+}
+
+.summary {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  margin: 0 0 16px;
+}
+
+.usageList {
+  list-style: none;
+  margin: 0;
+  padding: 16px;
+  background: #fafafa;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.usageItem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.usageLabel {
+  flex: 0 0 auto;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.usageExample {
+  color: #333;
+}
+
+.usageTranslation {
+  color: #999;
+  font-size: 13px;
+}
+
+.exampleList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.exampleItem {
+  padding: 14px 16px;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+}
+
+.exampleEs {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.exampleKo {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+.conjugationLabel {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 12px;
+}
+
+.conjugationTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.conjugationTable td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.pronoun {
+  color: #888;
+}
+
+.form {
+  font-weight: 700;
+}
+
+.placeholder {
+  font-size: 14px;
+  color: #999;
+  padding: 24px 0;
+  text-align: center;
+}
+
+.exerciseTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.exerciseSubtitle {
+  font-size: 13px;
+  color: #888;
+  margin: 0 0 20px;
+}
+
+.exerciseList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.exerciseItem {
+  padding: 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.exercisePrompt {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.exerciseRow {
+  display: flex;
+  gap: 8px;
+}
+
+.exerciseInput {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 14px;
+  background: #fff;
+}
+
+.exerciseInput:focus {
+  outline: none;
+  border-color: #999;
+}
+
+.inputCorrect {
+  border-color: #2e7d32;
+  background: #f0f7f0;
+}
+
+.inputIncorrect {
+  border-color: #c62828;
+  background: #fdf0f0;
+}
+
+.checkButton {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.checkButton:hover {
+  background: #333;
+}
+
+.answerHint {
+  font-size: 13px;
+  color: #666;
+  margin: 8px 0 0;
+}
+
+.linkButton {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sidebar {
+  flex: 1 1 220px;
+  max-width: 280px;
+  min-width: 200px;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 20px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.sidebarTitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #666;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+
+.conceptList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.conceptItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 8px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  color: #666;
+  text-align: left;
+  cursor: pointer;
+}
+
+.conceptItem:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.conceptItem:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.conceptItemActive {
+  background: #f0f0f0;
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.conceptDot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 11px;
+  color: #fff;
+}
+
+.dot_done {
+  background: #2e7d32;
+}
+
+.dot_current {
+  background: #1a1a1a;
+}
+
+.dot_locked {
+  background: none;
+  border: 1px solid #ccc;
+}

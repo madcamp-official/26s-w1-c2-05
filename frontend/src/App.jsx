@@ -5,6 +5,7 @@ import OnboardingPage from "./pages/Onboarding/OnboardingPage";
 import AppLayout from "./pages/Layout/AppLayout";
 import VocabPage from "./pages/Vocab/VocabPage";
 import FlashcardPage from "./pages/Flashcard/FlashcardPage";
+import GrammarPage from "./pages/Grammar/GrammarPage";
 import RequireOnboarding from "./routes/RequireOnboarding";
 
 function App(){
@@ -19,6 +20,7 @@ function App(){
           <Route element={<AppLayout />}>
             <Route path="/vocab" element={<VocabPage />} />
             <Route path="/flashcard" element={<FlashcardPage />} />
+            <Route path="/grammar" element={<GrammarPage />} />
           </Route>
         </Route>
 
