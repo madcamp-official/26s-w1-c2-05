@@ -1,11 +1,21 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer
+from sqlalchemy.orm import relationship
 from app.database import Base
 
 
 class Content(Base):
     __tablename__ = "contents"
 
-    # 사용자가 모르는 정수 id
     content_id = Column(Integer, primary_key=True, index=True)
-    type = Column(int, nullable=False)
-    lang_id = Column(int, nullable=False)
+    type = Column(Integer, nullable=False)
+    lang_id = Column(Integer, nullable=False)
+
+    vocabulary = relationship(
+        "Vocabulary", back_populates="content", uselist=False, cascade="all, delete-orphan"
+    )
+    grammar = relationship(
+        "Grammar", back_populates="content", uselist=False, cascade="all, delete-orphan"
+    )
+    grammar_quiz = relationship(
+        "GrammarQuiz", back_populates="content", uselist=False, cascade="all, delete-orphan"
+    )
