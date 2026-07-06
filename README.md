@@ -71,13 +71,15 @@
 | Method | Endpoint | 설명 | 요청 | 응답 |
 |---|---|---|---|---|
 | POST | /auth/signup | 회원가입 | JSON {"id": "madcamp", "email": "madcamp@gmail.com", "password": "123456", "pw_repeat": "123456"} | 200 OK {"detail": "회원가입이 완료되었습니다."} 400 Bad Request {"detail": "이미 가입된 이메일입니다."} {"detail": "비밀번호와 비밀번호 확인 문자가 같은지 확인해주세요."} {"detail": "비밀번호는 숫자와 문자로 구성되고 8자리 이상이어야 합니다."} {"detail": "중복된 아이디입니다."}|
-|POST|/auth/login|로그인|JSON {"id": "madcamp", "password": "123456"}|200 OK {"accessToken": "...", "refreshToken": "...", "type": "bearer", "SurveyCompleted": false} 400 Bad Request {"detail: ID 또는 비밀번호가 일치하지 않습니다."}|
+|POST|/auth/login|로그인|JSON {"id": "madcamp", "password": "123456"}|200 OK {"accessToken": "...", "refreshToken": "...", "token_type": "bearer", "SurveyCompleted": false} 400 Bad Request {"detail: ID 또는 비밀번호가 일치하지 않습니다."}|
 |POST|/auth/logout|로그아웃|JSON {"refresh_token": "..."}|200 OK {"detail": "로그아웃 되었습니다."}|
+|POST|/refresh|엑세스토큰 재발급|JSON {"refresh_token": "..."}|200 OK {"access_token": "...", "type": "bearer"} 401 UNAUTHORIZED {"detail": "Refresh-token이 만료되었거나 유효하지 않습니다."} {"detail": "사용자를 찾을 수 없습니다."}|
 |POST|/onboarding|최초 설문조사|JSON {"language": 1, "level": "B1", "StudyGoal": 90}|200 OK {detail: "다 되었습니다! 이제 메인화면으로 이동합니다.", "userInfo": {"userID": "MADCAMP123", "DailyStreak": 0}} 400 Bad Request {detail: "올바르지 않은 응답입니다."}|
 |GET|/users/me|본인 프로필 조회||200 OK {"userID": "MADCAMP123", "email": "madcamp@example.com", "current_anguage": "English", "target_days": 180, "studied_days": 10, "daily_streak": 5}|
 |GET|/vocabulary|단어장으로 이동||200 OK {"vocabularies": [{"number": 1,  "word": "careless", "meaning": "경솔한", "example": "Careless people need to think twice before they move on."}]}|
-|GET|/flashcard|플래시카드로 이동|JSON {"user_id": "MADCAMP123", "category": "flash"}|200 OK {"vocabularies": [{"number": 1, "content_id": 4321, "language": "Spanish", "word": "careless", "meaning": "경솔한", "choices": ["choice1", "choice2", "choice3", "choice4"], answer: "choice3"}]}|
-|POST|/answerlog|응답 결과를 전송|JSON {"user_id": "MADCAMP123", "content_id": 4321, "type": "flash", "response_time": 5.2324242s, "is_correct": true, "time": 2023-07-04T14:30:00Z}|204 No Content|
+|GET|/flashcard|플래시카드로 이동||200 OK {"vocabularies": [{"number": 1, "content_id": 4321, "language": "Spanish", "word": "careless", "choices": ["choice1", "choice2", "choice3", "choice4"], "answer": 3}]}|
+|POST|/answerlog|응답 결과를 전송|JSON {"content_id": 4321, "type": "flash", "response_time": 5.2324242s, "is_correct": True, "time": 2023-07-04T14:30:00Z}||
+|GET|/grammar|문법학습으로 이동||200 OK {"grammars": [{"numbers": 1, "content_id": 4321, "subject": "...", "explanatation": "...", "quiz": [{"quiz": "...", "quiz_content_id": 54321, "answer": "..."}]}]}|
 ---
 
 ## 배포 결과물
