@@ -19,7 +19,11 @@ function ProfilePage(){
 
     useEffect(() => {
         getProfile()
-            .then((data) => setProfile(data))
+            .then((data) => {
+                if (typeof data?.userID === "string") {
+                    setProfile(data);
+                }
+            })
             .catch((err) => console.error("프로필 조회 실패:", err));
     }, []);
 

@@ -11,6 +11,7 @@ export default defineConfig({
       '/vocabulary': 'http://localhost:8000',
       '/flashcard': 'http://localhost:8000',
       '/answerlog': 'http://localhost:8000',
+      '/users': 'http://localhost:8000',
     },
   },
 })
