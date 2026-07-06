@@ -2,15 +2,20 @@ import client, { getAuthStorage } from "./client";
 
 const CURRENT_LEARNING_ID_KEY = "current_learning_id";
 
-// 로그인 응답에 current_learning_id가 없어서, 온보딩 완료 여부를 이 브라우저의
-// 로컬 캐시로만 판단한다. 다른 기기/캐시 삭제 시엔 다시 온보딩이 뜰 수 있음.
+// 로그인 응답의 SurveyCompleted로 매번 갱신되는 온보딩 완료 캐시.
 export async function getCurrentUser() {
     const current_learning_id = getAuthStorage().getItem(CURRENT_LEARNING_ID_KEY) ?? null;
     return { current_learning_id };
 }
 
-export function setCurrentLearningId(id) {
-    getAuthStorage().setItem(CURRENT_LEARNING_ID_KEY, id);
+// falsy를 넘기면 캐시를 지운다 (문자열 "false"로 저장하면 항상 truthy가 되는 버그 방지).
+export function setCurrentLearningId(completed) {
+    const storage = getAuthStorage();
+    if (completed) {
+        storage.setItem(CURRENT_LEARNING_ID_KEY, "true");
+    } else {
+        storage.removeItem(CURRENT_LEARNING_ID_KEY);
+    }
 }
 
 export async function getProfile() {

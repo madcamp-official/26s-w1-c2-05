@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import client from "../../api/client";
-import { getCurrentUser } from "../../api/user";
+import { setCurrentLearningId } from "../../api/user";
 import "./Auth.css";
 
 function Login(){
@@ -18,14 +18,14 @@ function Login(){
 
         try {
             const res = await client.post("/auth/login", { id, password });
-            const { access_token, refresh_token } = res.data;
+            const { access_token, refresh_token, SurveyCompleted } = res.data;
 
             const storage = rememberMe ? localStorage : sessionStorage;
             storage.setItem("accessToken", access_token);
             storage.setItem("refreshToken", refresh_token);
 
-            const { current_learning_id } = await getCurrentUser();
-            navigate(current_learning_id ? "/vocab" : "/onboarding");
+            setCurrentLearningId(SurveyCompleted);
+            navigate(SurveyCompleted ? "/vocab" : "/onboarding");
         } catch (err) {
             const detail = err.response?.data?.detail;
             alert(typeof detail === "string" ? detail : "로그인에 실패했습니다.");
