@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from fastapi import APIRouter, Depends, HTTPException, status
+from pydantic import BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
@@ -11,6 +14,7 @@ from app.models.grammar_quiz import GrammarQuiz
 from app.models.learning_progress import LearningProgresses
 from app.models.language import Language
 from app.models.user import User
+from app.models.eventlog import EventLog
 
 from app.utils.security import get_current_user
 
@@ -47,12 +51,14 @@ async def get_flashcard(current_user: User = Depends(get_current_user), db: Sess
         for choice in random_voca_list:
             choice_list.append(choice.meaning)
         random.shuffle(choice_list)
+        answer = choice_list.index(voca.meaning) + 1
         refined_voca = {
             "number": i,
             "content_id": voca.content_id,
-            "language": language,
+            "language": language.language,
             "word": voca.word,
             "choices": choice_list,
+            "answer": answer,
         }
         refined_flashcard_list.append(refined_voca)
         i += 1
@@ -85,3 +91,36 @@ async def get_grammar(current_user: User = Depends(get_current_user), db: Sessio
         refined_grammar_list.append(refined_grammar)
         i += 1
     return {"grammars": refined_grammar_list}
+
+
+class AnswerLogRequest(BaseModel):
+    content_id: int
+    type: str
+    response_time: float
+    is_correct: bool
+    time: datetime
+
+
+@router.post("/answerlog")
+async def post_answerlog(
+    body: AnswerLogRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    current_user_lang_id = db.query(LearningProgresses).filter(
+        current_user.current_learning_id == LearningProgresses.learning_id
+    ).first().lang_id
+
+    event_log = EventLog(
+        user_id=current_user.user_id,
+        content_id=body.content_id,
+        lang_id=current_user_lang_id,
+        type=body.type,
+        response_time=round(body.response_time),
+        is_correct=body.is_correct,
+        time_studied=body.time,
+    )
+    db.add(event_log)
+    db.commit()
+
+    return {"detail": "기록되었습니다"}

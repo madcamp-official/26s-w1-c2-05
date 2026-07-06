@@ -125,28 +125,6 @@
   color: #333;
 }
 
-.languageGridEmpty {
-  grid-column: 1 / -1;
-  color: #888;
-  font-size: 14px;
-}
-
-.searchLabel {
-  font-size: 14px;
-  margin: 0 0 8px;
-}
-
-.searchInput {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px 16px;
-  border: none;
-  border-radius: 6px;
-  background: #e0e0e0;
-  font-size: 14px;
-  margin-bottom: 32px;
-}
-
 .nextButton {
   padding: 12px 32px;
   border: none;

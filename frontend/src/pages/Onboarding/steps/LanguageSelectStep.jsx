@@ -1,21 +1,12 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { LANGUAGES, FEATURED_LANGUAGE_IDS } from "../data/languages";
 import styles from "../onboarding.module.css";
 
 function LanguageSelectStep({ selectedLanguageId, onSelect, onNext }) {
-  const [query, setQuery] = useState("");
-
-  const featuredLanguages = useMemo(
+  const gridLanguages = useMemo(
     () => FEATURED_LANGUAGE_IDS.map((id) => LANGUAGES.find((lang) => lang.id === id)),
     []
   );
-  const searchResults = useMemo(() => {
-    const trimmed = query.trim().toLowerCase();
-    if (!trimmed) return [];
-    return LANGUAGES.filter((lang) => lang.name.toLowerCase().includes(trimmed));
-  }, [query]);
-
-  const gridLanguages = query.trim() ? searchResults : featuredLanguages;
 
   return (
     <div>
@@ -36,9 +27,6 @@ function LanguageSelectStep({ selectedLanguageId, onSelect, onNext }) {
             <span className={styles.languageName}>{lang.name}</span>
           </button>
         ))}
-        {query.trim() && gridLanguages.length === 0 && (
-          <p className={styles.languageGridEmpty}>"{query}"와(과) 일치하는 언어가 없습니다</p>
-        )}
       </div>
 
       <button

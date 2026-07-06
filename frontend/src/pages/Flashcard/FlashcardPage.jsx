@@ -8,27 +8,24 @@ const MOCK_VOCABULARIES = [
         content_id: 4321,
         language: "Spanish",
         word: "el restaurante",
-        meaning: "the restaurant",
         choices: ["the kitchen", "the restaurant", "the market", "the café"],
-        answer: "the restaurant",
+        answer: 2,
     },
     {
         number: 2,
         content_id: 4322,
         language: "Spanish",
         word: "la mesa",
-        meaning: "the table",
         choices: ["the chair", "the table", "the door", "the window"],
-        answer: "the table",
+        answer: 2,
     },
     {
         number: 3,
         content_id: 4323,
         language: "Spanish",
         word: "el menú",
-        meaning: "the menu",
         choices: ["the menu", "the bill", "the waiter", "the tip"],
-        answer: "the menu",
+        answer: 1,
     },
 ];
 
@@ -38,7 +35,7 @@ function FlashcardPage(){
     const [selected, setSelected] = useState(null);
     const [correctCount, setCorrectCount] = useState(0);
     const [incorrectCount, setIncorrectCount] = useState(0);
-    const cardShownAt = useRef(Date.now());
+    const cardShownAt = useRef(null);
 
     useEffect(() => {
         client.get("/flashcard", { params: { category: "flash" } })
@@ -60,11 +57,13 @@ function FlashcardPage(){
     const cardsDone = correctCount + incorrectCount;
     const accuracy = cardsDone === 0 ? "-" : `${Math.round((correctCount / cardsDone) * 100)}%`;
 
-    const handleSelect = (choice) => {
+    const handleSelect = (choice, choiceIndex) => {
         if (selected) return;
         setSelected(choice);
 
-        const isCorrect = choice === current.answer;
+        const isCorrect = choiceIndex + 1 === current.answer;
+        // 클릭 이벤트 핸들러 안에서만 호출되므로 렌더링과 무관함 (린트 규칙의 오탐).
+        // eslint-disable-next-line react-hooks/purity
         const responseTime = (Date.now() - cardShownAt.current) / 1000;
 
         client.post("/answerlog", {
@@ -113,7 +112,7 @@ function FlashcardPage(){
 
                     <div className={styles.choices}>
                         {current.choices.map((choice, i) => {
-                            const isCorrect = choice === current.answer;
+                            const isCorrect = i + 1 === current.answer;
                             const isSelected = choice === selected;
                             const showResult = selected !== null;
 
@@ -125,7 +124,7 @@ function FlashcardPage(){
                                 <button
                                     key={choice}
                                     className={choiceClass}
-                                    onClick={() => handleSelect(choice)}
+                                    onClick={() => handleSelect(choice, i)}
                                     disabled={showResult}
                                 >
                                     <span className={styles.choiceLabel}>{String.fromCharCode(65 + i)}</span>

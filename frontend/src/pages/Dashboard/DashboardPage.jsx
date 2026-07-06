@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import client from "../../api/client";
+import { getProfile } from "../../api/user";
 import PageHeader from "../../components/PageHeader";
 import styles from "./DashboardPage.module.css";
 
-const STATS = [
-    { label: "연속 학습일", value: "24", unit: "일 🔥" },
-    { label: "학습한 단어", value: "312", unit: "누적" },
-    { label: "정답률", value: "78%", unit: "이번 주" },
+const INITIAL_STATS = [
+    { key: "streak", label: "연속 학습일", value: "24", unit: "일 🔥" },
+    { key: "words", label: "학습한 단어", value: "312", unit: "누적" },
+    { key: "accuracy", label: "정답률", value: "78%", unit: "이번 주" },
 ];
 
 // 카테고리 식별 색상은 검증된 3색 팔레트를 고정 순서로만 사용한다 (단어 -> 문법 -> 회화).
@@ -154,6 +155,7 @@ function TrendChart({ categories }){
 
 function DashboardPage(){
     const navigate = useNavigate();
+    const [stats, setStats] = useState(INITIAL_STATS);
     const [categories, setCategories] = useState(INITIAL_CATEGORIES);
     const [analyzedAt, setAnalyzedAt] = useState("오늘 오전 9:12");
     const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -165,6 +167,18 @@ function DashboardPage(){
             dateLabel: now.toLocaleDateString("ko-KR", { month: "long", day: "numeric", weekday: "long" }),
         };
     });
+
+    useEffect(() => {
+        getProfile()
+            .then((data) => {
+                if (typeof data?.daily_streak === "number") {
+                    setStats((prev) =>
+                        prev.map((s) => (s.key === "streak" ? { ...s, value: String(data.daily_streak) } : s))
+                    );
+                }
+            })
+            .catch((err) => console.error("프로필 조회 실패:", err));
+    }, []);
 
     const weakest = categories.reduce((a, b) => (a.score < b.score ? a : b));
     const mostImproved = categories.reduce((a, b) => (a.trend > b.trend ? a : b));
@@ -199,12 +213,12 @@ function DashboardPage(){
         <div className={styles.page}>
             <PageHeader
                 title={`${greeting} 👋`}
-                subtitle={`${dateLabel} · 스페인어 · ${STATS[0].value}일째`}
+                subtitle={`${dateLabel} · 스페인어 · ${stats[0].value}일째`}
             />
 
             <div className={styles.statGrid}>
-                {STATS.map((s) => (
-                    <div key={s.label} className={styles.statTile}>
+                {stats.map((s) => (
+                    <div key={s.key} className={styles.statTile}>
                         <p className={styles.statLabel}>{s.label}</p>
                         <p className={styles.statValue}>{s.value}</p>
                         <p className={styles.statUnit}>{s.unit}</p>
