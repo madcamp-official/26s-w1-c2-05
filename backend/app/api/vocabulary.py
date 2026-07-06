@@ -1,11 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import func
 from sqlalchemy.orm import Session
-from datetime import timedelta
 
 from app.database import get_db
 from app.schemas.vocabulary import VocabularyResponse
-from app.models.eventlog import EventLog
 from app.models.vocabulary import Vocabulary
 from app.models.user import User
 

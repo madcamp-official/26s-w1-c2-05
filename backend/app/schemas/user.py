@@ -29,3 +29,8 @@ class UserResponse(BaseModel):
     nickname: str | None = None
     profile_img: int | None = None
     current_learning_id: int | None = None
+
+class OnboardingResponse(BaseModel):
+    language: int
+    level: str
+    StudyGoal: int
