@@ -7,6 +7,7 @@ import VocabPage from "./pages/Vocab/VocabPage";
 import FlashcardPage from "./pages/Flashcard/FlashcardPage";
 import SpeakingPage from "./pages/Speaking/SpeakingPage";
 import GrammarPage from "./pages/Grammar/GrammarPage";
+import ProfilePage from "./pages/Profile/ProfilePage";
 import RequireOnboarding from "./routes/RequireOnboarding";
 
 function App(){
@@ -23,6 +24,7 @@ function App(){
             <Route path="/flashcard" element={<FlashcardPage />} />
             <Route path="/speaking" element={<SpeakingPage />} />
             <Route path="/grammar" element={<GrammarPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Route>
         </Route>
 
