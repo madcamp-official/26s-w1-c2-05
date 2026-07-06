@@ -5,7 +5,7 @@ from passlib.context import CryptContext
 import jwt, os
 from datetime import UTC, datetime, timedelta
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from sqlalchemy.orm import Session
 
@@ -52,10 +52,10 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = timedel
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
+bearer_Scheme = HTTPBearer()
 
 async def get_current_user(
-    token: str = Depends(oauth2_scheme),  # Header에 포함된 토큰
+    token: HTTPAuthorizationCredentials = Depends(bearer_Scheme),  # Header에 포함된 토큰
     db: Session = Depends(get_db),
 ) -> User:
     credentials_exception = HTTPException(
@@ -63,6 +63,9 @@ async def get_current_user(
         detail="인증 정보를 확인할 수 없습니다",
         headers={"WWW-Authenticate": "Bearer"},
     )
+
+    token = token.credentials  # HTTPAuthorizationCredentials 객체에서 토큰 문자열 추출
+
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         email: str = payload.get("sub")

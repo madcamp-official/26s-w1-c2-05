@@ -15,9 +15,17 @@ class UserLogin(BaseModel):
 class UserLogout(BaseModel):
     refresh_token: str
 
+class RefreshRequest(BaseModel):
+    refresh_token: str
+
 class Token(BaseModel):
     access_token: str
     refresh_token: str
+    token_type: str
+    SurveyCompleted: bool
+
+class AccessTokenResponse(BaseModel):
+    access_token: str
     token_type: str
 
 
@@ -29,3 +37,18 @@ class UserResponse(BaseModel):
     nickname: str | None = None
     profile_img: int | None = None
     current_learning_id: int | None = None
+
+class OnboardingResponse(BaseModel):
+    language: int
+    level: str
+    StudyGoal: int
+
+class UserProfileResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    userID: str
+    email: EmailStr
+    current_language: str
+    target_days: int
+    studied_days: int
+    daily_streak: int

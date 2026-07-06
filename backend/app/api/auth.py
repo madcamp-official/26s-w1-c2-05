@@ -1,17 +1,18 @@
-import uuid
-
+import jwt
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from datetime import timedelta
 
 from app.database import get_db
-from app.schemas.user import UserCreate, UserLogin, UserLogout, Token, UserResponse
+from app.schemas.user import UserCreate, UserLogin, UserLogout, RefreshRequest, Token, AccessTokenResponse, UserResponse
 from app.models.user import User
 from app.models.refresh_token import RefreshToken
 from app.utils.security import (
     get_password_hash,
     verify_password,
     create_access_token,
+    SECRET_KEY,
+    ALGORITHM,
 )
 
 router = APIRouter(
@@ -58,8 +59,8 @@ async def signup(user: UserCreate, db: Session = Depends(get_db)):
         user_id=user.username,
         hashed_password=hashed_password,
         nickname="The curiositarian",
-        profile_img=0,
-        current_learning_id=0,
+        profile_img= None,
+        current_learning_id= None,
     )
     # 데이터베이스에 저장
     db.add(db_user)
@@ -68,7 +69,7 @@ async def signup(user: UserCreate, db: Session = Depends(get_db)):
 
     return db_user
 
-ACCESS_TOKEN_EXPIRE_MINUTES = 60  # 토큰 유효 시간
+ACCESS_TOKEN_EXPIRE_MINUTES = 30  # 토큰 유효 시간
  
 @router.post("/login", response_model=Token)
 async def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
@@ -93,8 +94,30 @@ async def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
 
     db.add(RefreshToken(refresh_token=refresh_token, id=user.user_id))
     db.commit()
+    survey_completed = True if user.current_learning_id is not None else False
+    return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer", "SurveyCompleted": survey_completed}
 
-    return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer"}
+@router.post("/refresh", response_model=AccessTokenResponse)
+async def refresh_access_token(body: RefreshRequest, db: Session = Depends(get_db)):
+    # access token이 만료되었을 때, DB에 저장된 refresh token으로 새 access token을 재발급한다.
+    if not db.query(RefreshToken).filter(RefreshToken.refresh_token == body.refresh_token).first():
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh-token.")
+
+    try:
+        payload = jwt.decode(body.refresh_token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+    except jwt.PyJWTError:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Refresh-token이 만료되었거나 유효하지 않습니다.")
+
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="사용자를 찾을 수 없습니다.")
+
+    access_token = create_access_token(
+        data={"sub": user.email},
+        expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
 
 @router.post("/logout", response_model=dict)
 async def logout(user_logout: UserLogout, db: Session = Depends(get_db)):
