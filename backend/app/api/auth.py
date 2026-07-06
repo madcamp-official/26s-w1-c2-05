@@ -69,7 +69,7 @@ async def signup(user: UserCreate, db: Session = Depends(get_db)):
 
     return db_user
 
-ACCESS_TOKEN_EXPIRE_MINUTES = 3  # 토큰 유효 시간
+ACCESS_TOKEN_EXPIRE_MINUTES = 30  # 토큰 유효 시간
  
 @router.post("/login", response_model=Token)
 async def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
