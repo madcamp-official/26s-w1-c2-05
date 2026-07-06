@@ -49,7 +49,7 @@ async def post_survey(user_onboard: OnboardingResponse, current_user: User = Dep
     db.add(current_user)
     db.commit()
 
-    return {"details": "다 되었습니다! 이제 메인화면으로 이동합니다.", "userInfo": {
+    return {"detail": "다 되었습니다! 이제 메인화면으로 이동합니다.", "userInfo": {
         "userID": current_user.user_id,
         "DailyStreak": 0}}
 
