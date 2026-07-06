@@ -83,7 +83,7 @@ type_converter = {"flash": 1, "grammar_quiz": 2, "dialogue": 3}
 
 @router.post("/answerlog")
 async def post_answer(user_answer: AnswerResponse, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    type_int = type_converter[user_answer.type]
+    type_int = type_converter.get(user_answer.type)
     if type_int is None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
