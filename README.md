@@ -78,7 +78,7 @@
 |GET|/vocabulary|단어장으로 이동||200 OK {"vocabularies": [{"number": 1,  "word": "careless", "meaning": "경솔한", "example": "Careless people need to think twice before they move on."}]}|
 |GET|/flashcard|플래시카드로 이동|JSON {"category": "flash"}|200 OK {"vocabularies": [{"number": 1, "content_id": 4321, "language": "Spanish", "word": "careless", "choices": ["choice1", "choice2", "choice3", "choice4"]}]}|
 |POST|/answerlog|응답 결과를 전송|JSON {"user_id": "MADCAMP123", "content_id": 4321, "type": "flash", "response_time": 5.2324242s, "choice": 3, "time": 2023-07-04T14:30:00Z}|200 OK {"is_correct": true, "answer": 3}|
-|GET|||||
+|GET|/grammar|문법학습으로 이동|JSON {"category": "grammar"}|200 OK {"grammers": [{"numbers": 1, "content_id": 4321, "subject": "...", "explanatation": "...", "quiz": [{"quiz": "...", "quiz_content_id": 54321, "answer": "..."}]}]}|
 ---
 
 ## 배포 결과물
