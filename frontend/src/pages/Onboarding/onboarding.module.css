@@ -1,0 +1,267 @@
+.page {
+  width: 100%;
+  max-width: 960px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #1a1a1a;
+}
+
+.progressBar {
+  height: 4px;
+  background: #e5e5e5;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: #1a1a1a;
+  transition: width 0.2s ease;
+}
+
+.stepIndicator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.stepIndicatorItem {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.stepIndicatorItem:last-child {
+  flex: 0;
+}
+
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border-radius: 50%;
+  border: 1px solid #d9d9d9;
+  background: #fff;
+  color: #999;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.circleActive,
+.circleDone {
+  border-color: #1a1a1a;
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.stepLabel {
+  margin: 0 12px 0px 8px;
+  font-size: 13px;
+  color: #555;
+  white-space: nowrap;
+}
+
+.stepLine {
+  flex: 1;
+  height: 1px;
+  background: #d9d9d9;
+  margin-right: 8px;
+}
+
+.stepTitle {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.stepSubtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 24px;
+}
+
+.languageGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.languageCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 8px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: #e8e8e8;
+  cursor: pointer;
+  font: inherit;
+}
+
+.languageCard:hover {
+  background: #dedede;
+}
+
+.languageCardSelected {
+  border-color: #1a1a1a;
+  background: #dedede;
+}
+
+.languageFlag {
+  font-size: 28px;
+}
+
+.languageName {
+  font-size: 13px;
+  color: #333;
+}
+
+.languageGridEmpty {
+  grid-column: 1 / -1;
+  color: #888;
+  font-size: 14px;
+}
+
+.searchLabel {
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+
+.searchInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #e0e0e0;
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+.nextButton {
+  padding: 12px 32px;
+  border: none;
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.nextButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.levelList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.levelOption {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+.levelOption:hover {
+  background: #fafafa;
+}
+
+.levelOptionSelected {
+  border-color: #1a1a1a;
+  background: #f0f0f0;
+}
+
+.levelRadio {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  border-radius: 50%;
+  border: 1px solid #b3b3b3;
+  background: #fff;
+}
+
+.levelRadioChecked {
+  border: 5px solid #1a1a1a;
+}
+
+.levelText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.levelTitle {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.levelDescription {
+  font-size: 13px;
+  color: #666;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 40px 12px 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+.errorText {
+  color: #d33;
+  font-size: 13px;
+  margin: -16px 0 24px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.backButton {
+  padding: 12px 32px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  color: #1a1a1a;
+  font-size: 14px;
+  cursor: pointer;
+}
