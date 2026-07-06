@@ -1,5 +1,6 @@
 import { useState } from "react";
 import client from "../../api/client";
+import PageHeader from "../../components/PageHeader";
 import styles from "./SpeakingPage.module.css";
 
 const MOCK_TOPICS = [
@@ -165,22 +166,20 @@ function SpeakingPage(){
 
     return (
         <div className={styles.page}>
-            <div className={styles.header}>
-                <div>
-                    <h1 className={styles.title}>Speaking Practice</h1>
-                    <p className={styles.subtitle}>
-                        {sessionEnded ? "세션이 종료되었습니다" : `AI Conversation Partner · Topic: ${topic.title}`}
-                    </p>
-                </div>
-                <div className={styles.headerActions}>
-                    <button className={styles.secondaryButton} onClick={handleChangeTopic}>
-                        Change Topic
-                    </button>
-                    <button className={styles.secondaryButton} onClick={handleEndSession} disabled={sessionEnded}>
-                        End Session
-                    </button>
-                </div>
-            </div>
+            <PageHeader
+                title="Speaking Practice"
+                subtitle={sessionEnded ? "세션이 종료되었습니다" : `AI Conversation Partner · Topic: ${topic.title}`}
+                actions={
+                    <>
+                        <button className={styles.secondaryButton} onClick={handleChangeTopic}>
+                            Change Topic
+                        </button>
+                        <button className={styles.secondaryButton} onClick={handleEndSession} disabled={sessionEnded}>
+                            End Session
+                        </button>
+                    </>
+                }
+            />
 
             <div className={styles.body}>
                 <div className={styles.main}>

@@ -75,7 +75,7 @@ function Login(){
                 <button className="auth-submit" onClick={handleLogin}>로그인</button>
 
                 <p className="auth-switch">
-                    계정이 없으신가요? <a>회원가입</a>
+                    계정이 없으신가요? <a href="/signup">회원가입</a>
                 </p>
             </div>
         </div>

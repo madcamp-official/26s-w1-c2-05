@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import client from "../../api/client";
+import PageHeader from "../../components/PageHeader";
 import styles from "./GrammarPage.module.css";
 
 const MOCK_CONCEPTS = [
@@ -55,6 +57,8 @@ const TABS = [
 ];
 
 function GrammarPage(){
+    const navigate = useNavigate();
+    const exerciseCardRef = useRef(null);
     const [concepts, setConcepts] = useState(MOCK_CONCEPTS);
     const [selectedConceptId, setSelectedConceptId] = useState(MOCK_LESSON.conceptId);
     const [lesson, setLesson] = useState(MOCK_LESSON);
@@ -78,7 +82,12 @@ function GrammarPage(){
     }, []);
 
     const selectedConcept = concepts.find((c) => c.id === selectedConceptId);
+    const selectedConceptIndex = concepts.findIndex((c) => c.id === selectedConceptId);
     const hasLessonContent = selectedConceptId === lesson.conceptId;
+
+    const handleTakeQuiz = () => {
+        exerciseCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
 
     const handleSelectConcept = (concept) => {
         if (concept.status === "locked") return;
@@ -104,8 +113,24 @@ function GrammarPage(){
 
     return (
         <div className={styles.page}>
-            <h1 className={styles.title}>문법 학습</h1>
-            <p className={styles.subtitle}>{selectedConcept?.title ?? "단원을 선택하세요"}</p>
+            <PageHeader
+                title="문법 학습"
+                subtitle={
+                    selectedConcept
+                        ? `단원: ${selectedConcept.title} · ${selectedConceptIndex + 1}강`
+                        : "단원을 선택하세요"
+                }
+                actions={
+                    <>
+                        <button className={styles.secondaryButton} onClick={() => navigate("/dashboard")}>
+                            ← 전체 단원
+                        </button>
+                        <button className={styles.primaryInlineButton} onClick={handleTakeQuiz}>
+                            퀴즈 풀기
+                        </button>
+                    </>
+                }
+            />
 
             <div className={styles.body}>
                 <div className={styles.main}>
@@ -181,7 +206,7 @@ function GrammarPage(){
                         )}
                     </div>
 
-                    <div className={styles.exerciseCard}>
+                    <div className={styles.exerciseCard} ref={exerciseCardRef}>
                         <h2 className={styles.exerciseTitle}>연습 문제</h2>
                         <p className={styles.exerciseSubtitle}>빈칸에 알맞은 접속법 형태를 입력하세요.</p>
 
