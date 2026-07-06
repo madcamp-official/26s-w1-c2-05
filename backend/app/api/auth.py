@@ -93,9 +93,8 @@ async def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
 
     db.add(RefreshToken(refresh_token=refresh_token, id=user.user_id))
     db.commit()
-
-    return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer"}
-
+    survey_completed = True if user.current_learning_id is not None else False
+    return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer", "SurveyCompleted": survey_completed}
 @router.post("/logout", response_model=dict)
 async def logout(user_logout: UserLogout, db: Session = Depends(get_db)):
     # 로그아웃 처리: 서버에서 관리하는 refresh token을 삭제

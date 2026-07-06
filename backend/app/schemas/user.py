@@ -34,3 +34,13 @@ class OnboardingResponse(BaseModel):
     language: int
     level: str
     StudyGoal: int
+
+class UserProfileResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    userID: str
+    email: EmailStr
+    current_language: str
+    target_days: int
+    studied_days: int
+    daily_streak: int
