@@ -15,11 +15,18 @@ class UserLogin(BaseModel):
 class UserLogout(BaseModel):
     refresh_token: str
 
+class RefreshRequest(BaseModel):
+    refresh_token: str
+
 class Token(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str
     SurveyCompleted: bool
+
+class AccessTokenResponse(BaseModel):
+    access_token: str
+    token_type: str
 
 
 class UserResponse(BaseModel):
