@@ -3,7 +3,8 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.schemas.vocabulary import VocabularyResponse
+from app.schemas.answerlog import AnswerResponse
+
 from app.models.content import Content
 from app.models.vocabulary import Vocabulary
 from app.models.grammar import Grammar
@@ -11,6 +12,7 @@ from app.models.grammar_quiz import GrammarQuiz
 from app.models.learning_progress import LearningProgresses
 from app.models.language import Language
 from app.models.user import User
+from app.models.eventlog import EventLog
 
 from app.utils.security import get_current_user
 
@@ -85,3 +87,27 @@ async def get_grammar(current_user: User = Depends(get_current_user), db: Sessio
         refined_grammar_list.append(refined_grammar)
         i += 1
     return {"grammars": refined_grammar_list}
+
+type_converter = {"flash": 1, "grammar_quiz": 2, "dialogue": 3}
+
+@router.post("/answerlog")
+async def post_answer(user_answer: AnswerResponse, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    type_int = type_converter[user_answer.type]
+    if type_int is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="잘못된 접근: 학습 type이 맞지 않습니다."
+        )
+    new_event = EventLog(
+        user_id = current_user.user_id,
+        content_id = user_answer.content_id,
+        lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id,
+        type = type_int,
+        response_time = user_answer.response_time,
+        is_correct = user_answer.is_correct,
+        time_studied = user_answer.time,
+    )
+
+    db.add(new_event)
+    db.commit()
+    db.refresh(new_event)
