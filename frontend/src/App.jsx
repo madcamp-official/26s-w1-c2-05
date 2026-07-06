@@ -5,6 +5,7 @@ import OnboardingPage from "./pages/Onboarding/OnboardingPage";
 import AppLayout from "./pages/Layout/AppLayout";
 import VocabPage from "./pages/Vocab/VocabPage";
 import FlashcardPage from "./pages/Flashcard/FlashcardPage";
+import RequireOnboarding from "./routes/RequireOnboarding";
 
 function App(){
   return (
@@ -14,9 +15,11 @@ function App(){
         <Route path="/signup" element={<Signup />} />
         <Route path="/onboarding" element={<OnboardingPage />} />
 
-        <Route element={<AppLayout />}>
-          <Route path="/vocab" element={<VocabPage />} />
-          <Route path="/flashcard" element={<FlashcardPage />} />
+        <Route element={<RequireOnboarding />}>
+          <Route element={<AppLayout />}>
+            <Route path="/vocab" element={<VocabPage />} />
+            <Route path="/flashcard" element={<FlashcardPage />} />
+          </Route>
         </Route>
 
         <Route path="*" element={<Navigate to="/login" replace />} />

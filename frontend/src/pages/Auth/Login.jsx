@@ -1,11 +1,14 @@
 import { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import client from "../../api/client";
+import { getCurrentUser } from "../../api/user";
 import "./Auth.css";
 
 function Login(){
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
     const [rememberMe, setRememberMe] = useState(false);
+    const navigate = useNavigate();
 
     const handleLogin = async ()=>{
         if (!id || !password){
@@ -14,15 +17,18 @@ function Login(){
         }
 
         try {
-            const res = await axios.post("/auth/login", { id, password });
-            const { accessToken, refreshToken, userInfo } = res.data;
+            const res = await client.post("/auth/login", { id, password });
+            const { access_token, refresh_token } = res.data;
 
             const storage = rememberMe ? localStorage : sessionStorage;
-            storage.setItem("accessToken", accessToken);
-            storage.setItem("refreshToken", refreshToken);
-            storage.setItem("userInfo", JSON.stringify(userInfo));
+            storage.setItem("accessToken", access_token);
+            storage.setItem("refreshToken", refresh_token);
+
+            const { current_learning_id } = await getCurrentUser();
+            navigate(current_learning_id ? "/vocab" : "/onboarding");
         } catch (err) {
-            alert(err.response?.data?.message ?? "로그인에 실패했습니다.");
+            const detail = err.response?.data?.detail;
+            alert(typeof detail === "string" ? detail : "로그인에 실패했습니다.");
         }
     };
 

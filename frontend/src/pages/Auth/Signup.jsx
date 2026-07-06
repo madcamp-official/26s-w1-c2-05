@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import client from "../../api/client";
 import "./Auth.css";
 
 function Signup(){
@@ -27,7 +27,7 @@ function Signup(){
         }
 
         try {
-            await axios.post("/auth/signup", {
+            await client.post("/auth/signup", {
                 username: id,
                 email,
                 password,
@@ -97,7 +97,7 @@ function Signup(){
                 <button className="auth-submit" onClick={handleSignup}>회원가입</button>
 
                 <p className="auth-switch">
-                    이미 계정이 있으신가요? <a>로그인</a>
+                    이미 계정이 있으신가요? <a href="/login">로그인</a>
                 </p>
             </div>
         </div>
