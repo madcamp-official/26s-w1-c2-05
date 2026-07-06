@@ -1,0 +1,135 @@
+.page {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #1a1a1a;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #888;
+  margin: 0 0 24px;
+}
+
+.body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.card {
+  flex: 1 1 320px;
+  min-width: 280px;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 24px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.cardTitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #666;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+
+/* 계정 정보 */
+
+.accountRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userId {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.userEmail {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+.logoutButton {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  color: #c62828;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.logoutButton:hover:not(:disabled) {
+  border-color: #c62828;
+  background: #fdf0f0;
+}
+
+.logoutButton:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* 학습 현황 */
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #666;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.infoValue {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #666;
+  margin: 16px 0 8px;
+}
+
+.progressBar {
+  height: 6px;
+  background: #eee;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: #1a1a1a;
+  transition: width 0.2s ease;
+}
