@@ -30,14 +30,15 @@ function OnboardingPage() {
     setSubmitStatus("submitting");
     setSubmitError(null);
     try {
-      // TODO(backend): 실제 응답에 current_learning_id가 내려오면 그 값으로 교체
       await submitOnboarding(answers);
-      setCurrentLearningId("mock-learning-id");
+      // 온보딩 응답엔 실제 learning_id가 안 내려오므로, 완료 여부만 로컬에 표시해둔다.
+      setCurrentLearningId(true);
       setSubmitStatus("idle");
       navigate("/vocab");
     } catch (err) {
       setSubmitStatus("error");
-      setSubmitError(err.message);
+      const detail = err.response?.data?.detail;
+      setSubmitError(typeof detail === "string" ? detail : "온보딩 제출에 실패했습니다.");
     }
   };
 
