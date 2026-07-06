@@ -1,12 +1,10 @@
-from datetime import datetime
-
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.schemas.vocabulary import VocabularyResponse
+from app.schemas.answerlog import AnswerResponse
+
 from app.models.content import Content
 from app.models.vocabulary import Vocabulary
 from app.models.grammar import Grammar
@@ -92,35 +90,26 @@ async def get_grammar(current_user: User = Depends(get_current_user), db: Sessio
         i += 1
     return {"grammars": refined_grammar_list}
 
-
-class AnswerLogRequest(BaseModel):
-    content_id: int
-    type: str
-    response_time: float
-    is_correct: bool
-    time: datetime
-
+type_converter = {"flash": 1, "grammar": 2, "speaking": 3}
 
 @router.post("/answerlog")
-async def post_answerlog(
-    body: AnswerLogRequest,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
-):
-    current_user_lang_id = db.query(LearningProgresses).filter(
-        current_user.current_learning_id == LearningProgresses.learning_id
-    ).first().lang_id
-
-    event_log = EventLog(
-        user_id=current_user.user_id,
-        content_id=body.content_id,
-        lang_id=current_user_lang_id,
-        type=body.type,
-        response_time=round(body.response_time),
-        is_correct=body.is_correct,
-        time_studied=body.time,
+async def post_answer(user_answer: AnswerResponse, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    type_int = type_converter.get(user_answer.type)
+    if type_int is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="잘못된 접근: 학습 type이 맞지 않습니다."
+        )
+    new_event = EventLog(
+        user_id = current_user.user_id,
+        content_id = user_answer.content_id,
+        lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id,
+        type = type_int,
+        response_time = user_answer.response_time,
+        is_correct = user_answer.is_correct,
+        time_studied = user_answer.time,
     )
-    db.add(event_log)
-    db.commit()
 
-    return {"detail": "기록되었습니다"}
+    db.add(new_event)
+    db.commit()
+    db.refresh(new_event)
