@@ -76,9 +76,9 @@
 |POST|/onboarding|최초 설문조사|JSON {"language": 1, "level": "B1", "StudyGoal": 90}|200 OK {detail: "다 되었습니다! 이제 메인화면으로 이동합니다.", "userInfo": {"userID": "MADCAMP123", "DailyStreak": 0}} 400 Bad Request {detail: "올바르지 않은 응답입니다."}|
 |GET|/users/me|본인 프로필 조회||200 OK {"userID": "MADCAMP123", "email": "madcamp@example.com", "current_anguage": "English", "target_days": 180, "studied_days": 10, "daily_streak": 5}|
 |GET|/vocabulary|단어장으로 이동||200 OK {"vocabularies": [{"number": 1,  "word": "careless", "meaning": "경솔한", "example": "Careless people need to think twice before they move on."}]}|
-|GET|/flashcard|플래시카드로 이동|JSON {"category": "flash"}|200 OK {"vocabularies": [{"number": 1, "content_id": 4321, "language": "Spanish", "word": "careless", "choices": ["choice1", "choice2", "choice3", "choice4"]}]}|
+|GET|/flashcard|플래시카드로 이동||200 OK {"vocabularies": [{"number": 1, "content_id": 4321, "language": "Spanish", "word": "careless", "choices": ["choice1", "choice2", "choice3", "choice4"]}]}|
 |POST|/answerlog|응답 결과를 전송|JSON {"user_id": "MADCAMP123", "content_id": 4321, "type": "flash", "response_time": 5.2324242s, "choice": 3, "time": 2023-07-04T14:30:00Z}|200 OK {"is_correct": true, "answer": 3}|
-|GET|/grammar|문법학습으로 이동|JSON {"category": "grammar"}|200 OK {"grammers": [{"numbers": 1, "content_id": 4321, "subject": "...", "explanatation": "...", "quiz": [{"quiz": "...", "quiz_content_id": 54321, "answer": "..."}]}]}|
+|GET|/grammar|문법학습으로 이동||200 OK {"grammers": [{"numbers": 1, "content_id": 4321, "subject": "...", "explanatation": "...", "quiz": [{"quiz": "...", "quiz_content_id": 54321, "answer": "..."}]}]}|
 ---
 
 ## 배포 결과물
