@@ -10,13 +10,6 @@ const STATS = [
     { label: "정답률", value: "78%", unit: "이번 주" },
 ];
 
-const INITIAL_TASKS = [
-    { id: 1, icon: "📖", label: "단어: Food & Dining", time: "10분", done: true, to: "/vocab" },
-    { id: 2, icon: "🗂️", label: "플래시카드 복습 — 32장", time: "8분", done: true, to: "/flashcard" },
-    { id: 3, icon: "✏️", label: "문법: 접속법 (Subjunctive Mood)", time: "15분", done: false, to: "/grammar" },
-    { id: 4, icon: "🎙️", label: "회화 연습", time: "10분", done: false, to: "/speaking" },
-];
-
 // 카테고리 식별 색상은 검증된 3색 팔레트를 고정 순서로만 사용한다 (단어 -> 문법 -> 회화).
 const INITIAL_CATEGORIES = [
     { key: "vocabulary", label: "단어", color: "#2a78d6", score: 72, trend: 6, errorRate: 15 },
@@ -60,12 +53,6 @@ const TREND_SERIES = {
     grammar: [45, 44, 46, 43, 42, 44, 41, 41],
     speaking: [34, 36, 38, 40, 42, 44, 46, 47],
 };
-
-function trendLabel(trend){
-    if (trend > 0) return { text: `▲ +${trend}%p`, className: "trendUp" };
-    if (trend < 0) return { text: `▼ ${trend}%p`, className: "trendDown" };
-    return { text: "· 0%p", className: "trendFlat" };
-}
 
 function TrendChart({ categories }){
     const width = 600;
@@ -167,7 +154,6 @@ function TrendChart({ categories }){
 
 function DashboardPage(){
     const navigate = useNavigate();
-    const [tasks] = useState(INITIAL_TASKS);
     const [categories, setCategories] = useState(INITIAL_CATEGORIES);
     const [analyzedAt, setAnalyzedAt] = useState("오늘 오전 9:12");
     const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -179,8 +165,6 @@ function DashboardPage(){
             dateLabel: now.toLocaleDateString("ko-KR", { month: "long", day: "numeric", weekday: "long" }),
         };
     });
-
-    const nextTask = tasks.find((t) => !t.done);
 
     const weakest = categories.reduce((a, b) => (a.score < b.score ? a : b));
     const mostImproved = categories.reduce((a, b) => (a.trend > b.trend ? a : b));
@@ -226,61 +210,6 @@ function DashboardPage(){
                         <p className={styles.statUnit}>{s.unit}</p>
                     </div>
                 ))}
-            </div>
-
-            <div className={styles.body}>
-                <div className={styles.card}>
-                    <p className={styles.cardTitle}>오늘의 학습 계획</p>
-
-                    <ul className={styles.taskList}>
-                        {tasks.map((task) => (
-                            <li key={task.id} className={styles.taskItem}>
-                                <span className={task.done ? `${styles.checkCircle} ${styles.checkCircleDone}` : styles.checkCircle}>
-                                    {task.done ? "✓" : ""}
-                                </span>
-                                <span className={styles.taskIcon}>{task.icon}</span>
-                                <span className={task.done ? `${styles.taskLabel} ${styles.taskLabelDone}` : styles.taskLabel}>
-                                    {task.label}
-                                </span>
-                                <span className={styles.taskTime}>{task.time}</span>
-                                {!task.done && (
-                                    <button className={styles.startLink} onClick={() => navigate(task.to)}>
-                                        시작 →
-                                    </button>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
-
-                    <button
-                        className={styles.primaryButton}
-                        onClick={() => navigate(nextTask ? nextTask.to : "/vocab")}
-                    >
-                        학습 이어가기 →
-                    </button>
-                </div>
-
-                <div className={styles.sideCard}>
-                    <p className={styles.cardTitle}>실력 수준</p>
-                    {categories.map((cat) => {
-                        const trend = trendLabel(cat.trend);
-                        return (
-                            <div key={cat.key} className={styles.skillRow}>
-                                <div className={styles.skillLabelRow}>
-                                    <span className={styles.skillLabel}>{cat.label}</span>
-                                    <span className={styles[trend.className]}>{trend.text}</span>
-                                    <span className={styles.skillValue}>{cat.score}%</span>
-                                </div>
-                                <div className={styles.skillBar}>
-                                    <div
-                                        className={styles.skillBarFill}
-                                        style={{ width: `${cat.score}%`, background: cat.color }}
-                                    />
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
             </div>
 
             <div className={styles.sectionHeader}>
