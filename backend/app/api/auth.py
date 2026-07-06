@@ -58,8 +58,8 @@ async def signup(user: UserCreate, db: Session = Depends(get_db)):
         user_id=user.username,
         hashed_password=hashed_password,
         nickname="The curiositarian",
-        profile_img=0,
-        current_learning_id=0,
+        profile_img= None,
+        current_learning_id= None,
     )
     # 데이터베이스에 저장
     db.add(db_user)

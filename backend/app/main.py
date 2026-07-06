@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.api import auth
+from app.api import auth, vocabulary, onboarding
 from app.database import Base, engine
 
 app = FastAPI(
@@ -8,7 +8,8 @@ app = FastAPI(
     version="0.1.0",
 )
 app.include_router(auth.router)
-
+app.include_router(vocabulary.router)
+app.include_router(onboarding.router)
 
 @app.on_event("startup")
 def create_tables():
