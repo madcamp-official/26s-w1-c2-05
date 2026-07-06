@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import client from "../../api/client";
 import styles from "./VocabPage.module.css";
 
@@ -9,6 +10,7 @@ const MOCK_VOCABULARIES = [
 ];
 
 function VocabPage(){
+    const navigate = useNavigate();
     const [vocabularies, setVocabularies] = useState(MOCK_VOCABULARIES);
 
     useEffect(() => {
@@ -23,7 +25,12 @@ function VocabPage(){
 
     return (
         <div className={styles.page}>
-            <h1 className={styles.title}>단어 학습</h1>
+            <div className={styles.header}>
+                <h1 className={styles.title}>단어 학습</h1>
+                <button className={styles.flashcardButton} onClick={() => navigate("/flashcard")}>
+                    플래시카드로 학습하기
+                </button>
+            </div>
 
             <ul className={styles.wordList}>
                 {vocabularies.map((v) => (

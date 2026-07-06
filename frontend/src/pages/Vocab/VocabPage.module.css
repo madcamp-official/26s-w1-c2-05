@@ -3,10 +3,33 @@
   color: #1a1a1a;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
 .title {
   font-size: 22px;
   font-weight: 700;
-  margin: 0 0 24px;
+  margin: 0;
+}
+
+.flashcardButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.flashcardButton:hover {
+  background: #333;
 }
 
 .wordList {
