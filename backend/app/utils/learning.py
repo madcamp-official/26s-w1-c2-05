@@ -30,7 +30,7 @@
 '''
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Sequence
 
 from sqlalchemy import case, func
@@ -589,3 +589,155 @@ def analyze_category_performance(db: Session, user_id: str, lang_id: int) -> dic
         "most_improved": find_most_improved_category(db, user_id, lang_id),
     }
 
+
+# ---------------------------------------------------------------------------
+# 오답률 추이(error trend) — 대시보드의 "voca"/"grammar"/"dialogue" 배열 필드
+#
+# _CATEGORY_BY_TYPE의 한국어 라벨과 달리, UserDashboardResponse.error_trend는 기존
+# 스키마가 이미 "voca"/"grammar"/"dialogue"라는 영문 key를 쓰고 있으므로 이를 그대로 따른다.
+# ---------------------------------------------------------------------------
+
+_CATEGORY_KEY_BY_TYPE = {1: "voca", 2: "grammar", 3: "dialogue"}
+
+# 최근 28일을 4일 단위 7구간으로 나누어 오답률 추이를 계산한다.
+_ERROR_TREND_BUCKET_DAYS = 4
+_ERROR_TREND_BUCKET_COUNT = 7
+
+
+def get_error_trend(db: Session, user_id: str, lang_id: int) -> dict[str, list[float | None]]:
+    '''
+    최근 28일간의 오답률 추이를 "voca"/"grammar"/"dialogue" 각각 길이 7의 배열로 반환한다
+    (4일 단위 7구간, 배열의 앞쪽이 과거·뒤쪽이 최근). 특정 구간에 학습 기록이 전혀 없으면
+    "학습 안 함"과 "전부 정답(오답률 0)"을 구분하기 위해 해당 값을 None(=null)으로 둔다.
+    '''
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    window_start = now - timedelta(days=_ERROR_TREND_BUCKET_DAYS * _ERROR_TREND_BUCKET_COUNT)
+
+    rows = (
+        db.query(EventLog.type, EventLog.is_correct, EventLog.time_studied)
+        .filter(
+            EventLog.user_id == user_id,
+            EventLog.lang_id == lang_id,
+            EventLog.time_studied >= window_start,
+        )
+        .all()
+    )
+
+    # bucket_stats[category][bucket_index] = [n_total, n_incorrect]
+    bucket_stats: dict[str, list[list[int]]] = {
+        key: [[0, 0] for _ in range(_ERROR_TREND_BUCKET_COUNT)] for key in _CATEGORY_KEY_BY_TYPE.values()
+    }
+
+    for event_type, is_correct, time_studied in rows:
+        try:
+            category = _CATEGORY_KEY_BY_TYPE.get(int(event_type))
+        except (TypeError, ValueError):
+            category = None
+        if category is None or time_studied is None:
+            continue
+
+        elapsed_days = (now - time_studied).total_seconds() / 86400.0
+        offset_from_recent = int(elapsed_days // _ERROR_TREND_BUCKET_DAYS)
+        bucket_index = _ERROR_TREND_BUCKET_COUNT - 1 - offset_from_recent
+        if not (0 <= bucket_index < _ERROR_TREND_BUCKET_COUNT):
+            continue  # 창(window) 경계를 벗어난 이벤트(시계 오차 등)는 무시
+
+        totals = bucket_stats[category][bucket_index]
+        totals[0] += 1
+        if not is_correct:
+            totals[1] += 1
+
+    return {
+        category: [(n_incorrect / n_total) if n_total > 0 else None for n_total, n_incorrect in buckets]
+        for category, buckets in bucket_stats.items()
+    }
+
+
+# ---------------------------------------------------------------------------
+# 주간 학습 피드백 — Gemini 연동 (app/api/gemini.py의 generate_feedback)
+#
+# DB 조회(event_logs/vocabularies/grammars/grammar_quizzes)는 이 모듈이 맡고, 그 결과를
+# 순수 데이터로 gemini.py에 넘겨 LLM 호출만 위임한다 (회화 문장 생성과 동일한 역할 분담).
+# ---------------------------------------------------------------------------
+
+_FEEDBACK_WINDOW_DAYS = 7
+
+
+def _gather_recent_feedback_data(
+    db: Session, user_id: str, lang_id: int
+) -> tuple[list[tuple[str, bool]], list[tuple[str, str, bool]], list[bool]]:
+    '''
+    최근 1주일(_FEEDBACK_WINDOW_DAYS)간의 event_logs를 단어/문법/회화 세 분야의 LLM 피드백
+    입력 형식으로 가공한다.
+      - 단어: (단어, 정답 여부) 목록
+      - 문법: (퀴즈 문제, 문법 개념(subject), 정답 여부) 목록
+      - 회화: 정답 여부 목록
+    '''
+    since = datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(days=_FEEDBACK_WINDOW_DAYS)
+
+    rows = (
+        db.query(EventLog.content_id, EventLog.type, EventLog.is_correct)
+        .filter(
+            EventLog.user_id == user_id,
+            EventLog.lang_id == lang_id,
+            EventLog.time_studied >= since,
+        )
+        .all()
+    )
+
+    def _category(event_type) -> str | None:
+        try:
+            return _CATEGORY_BY_TYPE.get(int(event_type))
+        except (TypeError, ValueError):
+            return None
+
+    vocab_ids = {content_id for content_id, event_type, _ in rows if _category(event_type) == "단어"}
+    quiz_ids = {content_id for content_id, event_type, _ in rows if _category(event_type) == "문법"}
+
+    word_by_id: dict[int, str] = dict(
+        db.query(Vocabulary.content_id, Vocabulary.word).filter(Vocabulary.content_id.in_(vocab_ids)).all()
+    ) if vocab_ids else {}
+
+    quiz_info_by_id: dict[int, tuple[str, str]] = {
+        content_id: (problem, subject)
+        for content_id, problem, subject in (
+            db.query(GrammarQuiz.content_id, GrammarQuiz.problem, Grammar.subject)
+            .join(Grammar, Grammar.content_id == GrammarQuiz.grammar_content_id)
+            .filter(GrammarQuiz.content_id.in_(quiz_ids))
+            .all()
+        )
+    } if quiz_ids else {}
+
+    voca_results: list[tuple[str, bool]] = []
+    grammar_results: list[tuple[str, str, bool]] = []
+    dialogue_results: list[bool] = []
+
+    for content_id, event_type, is_correct in rows:
+        category = _category(event_type)
+        if category == "단어":
+            word = word_by_id.get(content_id)
+            if word is not None:
+                voca_results.append((word, bool(is_correct)))
+        elif category == "문법":
+            info = quiz_info_by_id.get(content_id)
+            if info is not None:
+                problem, subject = info
+                grammar_results.append((problem, subject, bool(is_correct)))
+        elif category == "회화":
+            dialogue_results.append(bool(is_correct))
+
+    return voca_results, grammar_results, dialogue_results
+
+
+def generate_weekly_feedback(db: Session, user_id: str, lang_id: int) -> dict[str, str]:
+    '''
+    최근 1주일간의 단어/문법/회화 학습 기록을 모아 LLM(app/api/gemini.py의 generate_feedback)에
+    한 번에 넘기고, {"voca": ..., "grammar": ..., "dialogue": ...} 형태의 피드백 텍스트를 반환한다.
+    '''
+    voca_results, grammar_results, dialogue_results = _gather_recent_feedback_data(db, user_id, lang_id)
+    result = gemini.generate_feedback(voca_results, grammar_results, dialogue_results)
+    return {
+        "voca": result.feedback_voca,
+        "grammar": result.feedback_grammar,
+        "dialogue": result.feedback_dialogue,
+    }

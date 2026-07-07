@@ -8,7 +8,7 @@ from app.models.user import User
 from app.models.language import Language
 
 from app.utils.security import get_current_user
-from app.utils.learning import analyze_category_performance
+from app.utils.learning import analyze_category_performance, get_error_trend, generate_weekly_feedback
 from math import floor
 
 router = APIRouter()
@@ -39,6 +39,11 @@ async def get_dashboard(user: User = Depends(get_current_user), db: Session = De
     lang_id = current_learning_progress.lang_id
     # 취약점/가장 개선된 범주 분석: app/utils/learning.py의 analyze_category_performance 참고.
     performance = analyze_category_performance(db, user.user_id, lang_id)
+    # 최근 1주일 학습 피드백(LLM): app/utils/learning.py의 generate_weekly_feedback 참고.
+    feedback = generate_weekly_feedback(db, user.user_id, lang_id)
+    # 최근 28일 오답률 추이: app/utils/learning.py의 get_error_trend 참고.
+    error_trend = get_error_trend(db, user.user_id, lang_id)
+
     response = UserDashboardResponse(
       language=db.query(Language.language).filter(Language.lang_id == lang_id).scalar(),
       daily_streak=current_learning_progress.daily_streak,
@@ -49,10 +54,10 @@ async def get_dashboard(user: User = Depends(get_current_user), db: Session = De
       ),
       most_weak=performance["weakness"],
       most_improved=performance["most_improved"],
-      feedback_voca="TODO: 구현예정",  # TODO
-      feedback_grammar="TODO: 구현예정",  # TODO
-      feedback_dialogue="TODO: 구현예정",  # TODO
-      error_trend={"voca": [], "grammar": [], "dialogue": []},  # TODO
+      feedback_voca=feedback["voca"],
+      feedback_grammar=feedback["grammar"],
+      feedback_dialogue=feedback["dialogue"],
+      error_trend=error_trend,
     )
     return response
 
