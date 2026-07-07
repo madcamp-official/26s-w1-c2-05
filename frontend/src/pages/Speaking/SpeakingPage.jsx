@@ -1,184 +1,168 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import client from "../../api/client";
+import { getProfile } from "../../api/user";
 import PageHeader from "../../components/PageHeader";
 import styles from "./SpeakingPage.module.css";
 
-const MOCK_TOPICS = [
-    {
-        id: "restaurant",
-        title: "Ordering at a Restaurant",
-        difficulty: "B1 Intermediate",
-        totalExchanges: 8,
-        usefulPhrases: ["Me gustaría...", "¿Podría traerme...?", "La cuenta, por favor."],
-        script: [
-            { sender: "ai", text: "¡Buenas tardes! Bienvenido al Restaurante El Sol. ¿Tiene reservación?" },
-            { sender: "user", text: "Sí, tengo una reservación para dos personas a las ocho." },
-            {
-                sender: "ai",
-                text: "¡Perfecto! Venga por aquí, por favor. ¿Le gustaría ver el menú?",
-                pronunciationNote: "Good job! \"reservación\" was correct but slightly mispronounced. Focus on the stress: re-ser-va-CIÓN.",
-            },
-            { sender: "user", text: "Sí, me gustaría ver el menú, por favor. ¿Cuáles son los platos especiales de hoy?" },
-            {
-                sender: "ai",
-                text: "Hoy tenemos paella de mariscos y tortilla española. ¿Qué le gustaría pedir?",
-                pronunciationNote: "Nice pace! Try linking words together: \"cuáles_son\" flows more naturally when spoken as one breath.",
-            },
-            { sender: "user", text: "Me gustaría pedir la paella de mariscos, por favor." },
-            { sender: "ai", text: "Excelente elección. ¿Algo para beber?" },
-            { sender: "user", text: "Un agua con gas, por favor." },
-        ],
-    },
-    {
-        id: "directions",
-        title: "Asking for Directions",
-        difficulty: "A2 Elementary",
-        totalExchanges: 6,
-        usefulPhrases: ["¿Dónde está...?", "¿Está lejos de aquí?", "Gracias por su ayuda."],
-        script: [
-            { sender: "ai", text: "Hola, ¿en qué puedo ayudarle?" },
-            { sender: "user", text: "Disculpe, ¿dónde está la estación de tren más cercana?" },
-            {
-                sender: "ai",
-                text: "Está a dos calles de aquí, gire a la derecha en la plaza.",
-                pronunciationNote: "Good! Remember \"estación\" has stress on the last syllable: es-ta-CIÓN.",
-            },
-            { sender: "user", text: "¿Está lejos de aquí caminando?" },
-        ],
-    },
+const LANGUAGE_TO_SPEECH_LOCALE = {
+    English: "en-US",
+    Japanese: "ja-JP",
+    Chinese: "zh-CN",
+    Spanish: "es-ES",
+    French: "fr-FR",
+    German: "de-DE",
+    Italian: "it-IT",
+    Vietnamese: "vi-VN",
+};
+
+const SpeechRecognitionClass =
+    typeof window !== "undefined" ? window.SpeechRecognition || window.webkitSpeechRecognition : null;
+
+// 백엔드 /dialogue, /dialoguelog가 아직 없을 때 화면 확인용으로 쓰는 목업 대화 흐름.
+const MOCK_TURNS = [
+    { content_id: 4321, subject: "Restaurant", flow: "greeting", content: "Welcome to our restaurant. Have you made a reservation?" },
+    { content_id: 4321, subject: "Restaurant", flow: "ordering", content: "Ok, I checked your name. Now, what can I get for you?", feedback: "의미는 통하지만 목적어가 빠졌습니다." },
+    { content_id: 4321, subject: "Restaurant", flow: "recommendation", content: "Great choice! Would you like a drink with that?", feedback: "좋아요, 자연스러운 문장이었어요." },
+    { content_id: 4321, subject: "Restaurant", flow: "closing", content: "Perfect. Your order will be ready shortly. Enjoy your meal!", feedback: "완벽한 문장이에요.", end: true },
 ];
 
-const START_EXCHANGE_COUNT = 2;
-
-function buildInitialState(topic){
-    const messages = topic.script.slice(0, START_EXCHANGE_COUNT + 1);
-    const nextEntry = topic.script[START_EXCHANGE_COUNT + 1];
-    return {
-        messages,
-        suggestedResponse: nextEntry?.sender === "user" ? nextEntry.text : null,
-        scriptIndex: START_EXCHANGE_COUNT + 1,
-    };
-}
-
-const INITIAL_SCORES = { fluency: 74, accuracy: 82, intonation: 61, rhythm: 68 };
-
-function randomScore(base){
-    const delta = Math.round((Math.random() - 0.5) * 16);
-    return Math.min(97, Math.max(45, base + delta));
-}
-
 function SpeakingPage(){
-    const [topicIndex, setTopicIndex] = useState(0);
-    const topic = MOCK_TOPICS[topicIndex];
-
-    const [{ messages, suggestedResponse }, setConversation] = useState(() => buildInitialState(topic));
-    const [exchangeCount, setExchangeCount] = useState(START_EXCHANGE_COUNT);
-    const [scores, setScores] = useState(INITIAL_SCORES);
+    const [dialogue, setDialogue] = useState(MOCK_TURNS[0]);
+    const [messages, setMessages] = useState([{ sender: "ai", text: MOCK_TURNS[0].content }]);
+    const [input, setInput] = useState("");
+    const [interimText, setInterimText] = useState("");
+    const [ended, setEnded] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [isRecording, setIsRecording] = useState(false);
-    const [lastPlayed, setLastPlayed] = useState(null);
-    const [sessionEnded, setSessionEnded] = useState(false);
+    const [speechLocale, setSpeechLocale] = useState("en-US");
+    const recognitionRef = useRef(null);
+    const mockStepRef = useRef(0);
 
-    const avgAccuracy = Math.round((scores.fluency + scores.accuracy + scores.intonation + scores.rhythm) / 4);
+    useEffect(() => {
+        client.get("/dialogue")
+            .then((res) => {
+                const data = res.data;
+                if (data?.content){
+                    setDialogue(data);
+                    setMessages([{ sender: "ai", text: data.content }]);
+                }
+            })
+            .catch((err) => console.error("회화 학습 조회 실패:", err));
 
-    const logAnswer = (isCorrect) => {
-        client.post("/answerlog", {
-            content_id: topic.id,
-            type: "speaking",
-            is_correct: isCorrect,
-            time: new Date().toISOString(),
-        }).catch((err) => console.error("답변 기록 전송 실패:", err));
-    };
+        getProfile()
+            .then((data) => {
+                const locale = LANGUAGE_TO_SPEECH_LOCALE[data?.current_language];
+                if (locale) setSpeechLocale(locale);
+            })
+            .catch((err) => console.error("프로필 조회 실패:", err));
 
-    const advanceScript = (pushUserBubble) => {
-        setConversation((prev) => {
-            const nextMessages = [...prev.messages];
-            let index = prev.scriptIndex;
-
-            const currentEntry = topic.script[index];
-            if (currentEntry?.sender === "user"){
-                if (pushUserBubble) nextMessages.push(currentEntry);
-                index += 1;
-            }
-
-            const aiEntry = topic.script[index];
-            if (aiEntry?.sender === "ai"){
-                nextMessages.push(aiEntry);
-                index += 1;
-            }
-
-            const nextEntry = topic.script[index];
-            return {
-                messages: nextMessages,
-                suggestedResponse: nextEntry?.sender === "user" ? nextEntry.text : null,
-                scriptIndex: index,
-            };
-        });
-    };
+        return () => {
+            recognitionRef.current?.stop();
+        };
+    }, []);
 
     const handleSubmit = () => {
-        if (!suggestedResponse || sessionEnded) return;
+        if (!input.trim() || ended || !dialogue || isSubmitting) return;
 
-        const nextScores = {
-            fluency: randomScore(INITIAL_SCORES.fluency),
-            accuracy: randomScore(INITIAL_SCORES.accuracy),
-            intonation: randomScore(INITIAL_SCORES.intonation),
-            rhythm: randomScore(INITIAL_SCORES.rhythm),
+        const responseText = input.trim();
+        setMessages((prev) => [...prev, { sender: "user", text: responseText }]);
+        setInput("");
+        setIsSubmitting(true);
+
+        client.post("/dialoguelog", {
+            content_id: dialogue.content_id,
+            flow: dialogue.flow,
+            response: responseText,
+        })
+            .then((res) => {
+                const data = res.data;
+                setMessages((prev) => {
+                    const next = [...prev];
+                    next[next.length - 1] = { ...next[next.length - 1], feedback: data.feedback };
+                    if (data.content){
+                        next.push({ sender: "ai", text: data.content });
+                    }
+                    return next;
+                });
+                setDialogue(data);
+                if (data.end) setEnded(true);
+            })
+            .catch((err) => {
+                console.error("회화 응답 전송 실패, 목업 대화로 대체:", err);
+                mockStepRef.current = Math.min(mockStepRef.current + 1, MOCK_TURNS.length - 1);
+                const nextTurn = MOCK_TURNS[mockStepRef.current];
+                setMessages((prev) => {
+                    const next = [...prev];
+                    next[next.length - 1] = { ...next[next.length - 1], feedback: nextTurn.feedback };
+                    next.push({ sender: "ai", text: nextTurn.content });
+                    return next;
+                });
+                setDialogue(nextTurn);
+                if (nextTurn.end) setEnded(true);
+            })
+            .finally(() => setIsSubmitting(false));
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter" && !e.shiftKey){
+            e.preventDefault();
+            handleSubmit();
+        }
+    };
+
+    const handleToggleRecording = () => {
+        if (!SpeechRecognitionClass || ended || isSubmitting) return;
+
+        if (isRecording){
+            recognitionRef.current?.stop();
+            return;
+        }
+
+        const recognition = new SpeechRecognitionClass();
+        recognition.lang = speechLocale;
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        recognition.onresult = (event) => {
+            let finalTranscript = "";
+            let interim = "";
+            for (let i = event.resultIndex; i < event.results.length; i++){
+                const transcript = event.results[i][0].transcript;
+                if (event.results[i].isFinal){
+                    finalTranscript += transcript;
+                } else {
+                    interim += transcript;
+                }
+            }
+            if (finalTranscript.trim()){
+                setInput((prev) => (prev ? `${prev} ${finalTranscript.trim()}` : finalTranscript.trim()));
+            }
+            setInterimText(interim);
         };
-        setScores(nextScores);
-        logAnswer(nextScores.accuracy >= 70);
-        setExchangeCount((c) => Math.min(topic.totalExchanges, c + 1));
-        setIsRecording(false);
-        advanceScript(true);
+
+        recognition.onerror = (event) => {
+            console.error("음성 인식 오류:", event.error);
+            setIsRecording(false);
+            setInterimText("");
+        };
+
+        recognition.onend = () => {
+            setIsRecording(false);
+            setInterimText("");
+        };
+
+        recognitionRef.current = recognition;
+        recognition.start();
+        setIsRecording(true);
     };
 
-    const handleSkip = () => {
-        if (!suggestedResponse || sessionEnded) return;
-        setIsRecording(false);
-        advanceScript(false);
-    };
-
-    const handleRecordToggle = () => {
-        if (sessionEnded) return;
-        setIsRecording((v) => !v);
-    };
-
-    const handlePlayback = () => {
-        const lastUserMessage = [...messages].reverse().find((m) => m.sender === "user");
-        setLastPlayed(lastUserMessage?.text ?? null);
-    };
-
-    const handleChangeTopic = () => {
-        const nextIndex = (topicIndex + 1) % MOCK_TOPICS.length;
-        const nextTopic = MOCK_TOPICS[nextIndex];
-        setTopicIndex(nextIndex);
-        setConversation(buildInitialState(nextTopic));
-        setExchangeCount(START_EXCHANGE_COUNT);
-        setScores(INITIAL_SCORES);
-        setIsRecording(false);
-        setLastPlayed(null);
-        setSessionEnded(false);
-    };
-
-    const handleEndSession = () => {
-        setSessionEnded(true);
-        setIsRecording(false);
-    };
+    const turnCount = messages.filter((m) => m.sender === "user").length;
 
     return (
         <div className={styles.page}>
             <PageHeader
                 title="Speaking Practice"
-                subtitle={sessionEnded ? "세션이 종료되었습니다" : `AI Conversation Partner · Topic: ${topic.title}`}
-                actions={
-                    <>
-                        <button className={styles.secondaryButton} onClick={handleChangeTopic}>
-                            Change Topic
-                        </button>
-                        <button className={styles.secondaryButton} onClick={handleEndSession} disabled={sessionEnded}>
-                            End Session
-                        </button>
-                    </>
-                }
+                subtitle={ended ? "대화가 종료되었습니다" : `Topic: ${dialogue.subject} · ${dialogue.flow}`}
             />
 
             <div className={styles.body}>
@@ -194,10 +178,10 @@ function SpeakingPage(){
                                 >
                                     <div className={m.sender === "user" ? `${styles.bubble} ${styles.bubbleUser}` : styles.bubble}>
                                         <p className={styles.bubbleText}>{m.text}</p>
-                                        {m.pronunciationNote && (
+                                        {m.feedback && (
                                             <div className={styles.pronunciationNote}>
-                                                <p className={styles.pronunciationLabel}>PRONUNCIATION NOTE</p>
-                                                <p className={styles.pronunciationText}>{m.pronunciationNote}</p>
+                                                <p className={styles.pronunciationLabel}>FEEDBACK</p>
+                                                <p className={styles.pronunciationText}>{m.feedback}</p>
                                             </div>
                                         )}
                                         <p className={styles.bubbleMeta}>{m.sender === "user" ? "You" : "AI Tutor"}</p>
@@ -208,47 +192,50 @@ function SpeakingPage(){
                     </div>
 
                     <div className={styles.responseCard}>
-                        {suggestedResponse && !sessionEnded ? (
-                            <>
-                                <p className={styles.cardTitle}>SUGGESTED RESPONSE</p>
-                                <p className={styles.suggestedText}>&ldquo;{suggestedResponse}&rdquo;</p>
-                            </>
+                        {ended ? (
+                            <p className={styles.placeholder}>대화를 모두 마쳤습니다. 수고하셨어요!</p>
                         ) : (
-                            <p className={styles.placeholder}>
-                                {sessionEnded ? "세션을 다시 시작하려면 Change Topic을 눌러주세요." : "대화를 모두 마쳤습니다. 수고하셨어요!"}
-                            </p>
+                            <>
+                                <p className={styles.cardTitle}>YOUR RESPONSE</p>
+                                <textarea
+                                    className={styles.responseInput}
+                                    value={input}
+                                    onChange={(e) => setInput(e.target.value)}
+                                    onKeyDown={handleKeyDown}
+                                    placeholder={SpeechRecognitionClass ? "마이크를 누르고 말해보세요, 또는 직접 입력하세요..." : "영어로 답해보세요..."}
+                                    rows={3}
+                                    disabled={isSubmitting}
+                                />
+                                {isRecording && (
+                                    <p className={styles.interimHint}>
+                                        듣고 있어요{interimText ? `: ${interimText}` : "..."}
+                                    </p>
+                                )}
+                                {!SpeechRecognitionClass && (
+                                    <p className={styles.interimHint}>
+                                        이 브라우저는 음성 인식을 지원하지 않아요. 텍스트로 입력해주세요.
+                                    </p>
+                                )}
+                                <div className={styles.actions}>
+                                    {SpeechRecognitionClass && (
+                                        <button
+                                            className={isRecording ? `${styles.recordButton} ${styles.recordButtonActive}` : styles.recordButton}
+                                            onClick={handleToggleRecording}
+                                            disabled={isSubmitting}
+                                        >
+                                            ● {isRecording ? "Stop" : "Record"}
+                                        </button>
+                                    )}
+                                    <button
+                                        className={styles.primaryButton}
+                                        onClick={handleSubmit}
+                                        disabled={!input.trim() || isSubmitting}
+                                    >
+                                        전송
+                                    </button>
+                                </div>
+                            </>
                         )}
-
-                        {lastPlayed && (
-                            <p className={styles.playbackHint}>▶ 재생: {lastPlayed}</p>
-                        )}
-
-                        <div className={styles.actions}>
-                            <button
-                                className={isRecording ? `${styles.recordButton} ${styles.recordButtonActive}` : styles.recordButton}
-                                onClick={handleRecordToggle}
-                                disabled={!suggestedResponse || sessionEnded}
-                            >
-                                ● {isRecording ? "Recording..." : "Record Answer"}
-                            </button>
-                            <button className={styles.secondaryButton} onClick={handlePlayback} disabled={sessionEnded}>
-                                Playback Last
-                            </button>
-                            <button
-                                className={styles.primaryButton}
-                                onClick={handleSubmit}
-                                disabled={!suggestedResponse || sessionEnded}
-                            >
-                                Submit &amp; Get Feedback
-                            </button>
-                            <button
-                                className={styles.secondaryButton}
-                                onClick={handleSkip}
-                                disabled={!suggestedResponse || sessionEnded}
-                            >
-                                Skip
-                            </button>
-                        </div>
                     </div>
                 </div>
 
@@ -256,45 +243,17 @@ function SpeakingPage(){
                     <div className={styles.sideCard}>
                         <p className={styles.sidebarTitle}>Session Info</p>
                         <div className={styles.infoRow}>
-                            <span>Topic</span>
-                            <span className={styles.infoValue}>{topic.title}</span>
+                            <span>Subject</span>
+                            <span className={styles.infoValue}>{dialogue.subject}</span>
                         </div>
                         <div className={styles.infoRow}>
-                            <span>Difficulty</span>
-                            <span className={styles.infoValue}>{topic.difficulty}</span>
+                            <span>Flow</span>
+                            <span className={styles.infoValue}>{dialogue.flow}</span>
                         </div>
                         <div className={styles.infoRow}>
-                            <span>Exchanges</span>
-                            <span className={styles.infoValue}>{exchangeCount} / {topic.totalExchanges}</span>
+                            <span>Turns</span>
+                            <span className={styles.infoValue}>{turnCount}</span>
                         </div>
-                        <div className={styles.infoRow}>
-                            <span>Avg. Accuracy</span>
-                            <span className={styles.infoValue}>{avgAccuracy}%</span>
-                        </div>
-                    </div>
-
-                    <div className={styles.sideCard}>
-                        <p className={styles.sidebarTitle}>Pronunciation Score</p>
-                        {Object.entries(scores).map(([key, value]) => (
-                            <div key={key} className={styles.scoreItem}>
-                                <div className={styles.scoreLabelRow}>
-                                    <span className={styles.scoreLabel}>{key[0].toUpperCase() + key.slice(1)}</span>
-                                    <span className={styles.scoreValue}>{value}%</span>
-                                </div>
-                                <div className={styles.scoreBar}>
-                                    <div className={styles.scoreBarFill} style={{ width: `${value}%` }} />
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className={styles.sideCard}>
-                        <p className={styles.sidebarTitle}>Useful Phrases</p>
-                        <ul className={styles.phraseList}>
-                            {topic.usefulPhrases.map((phrase) => (
-                                <li key={phrase} className={styles.phraseItem}>{phrase}</li>
-                            ))}
-                        </ul>
                     </div>
                 </div>
             </div>
