@@ -1,0 +1,61 @@
+lang_id,level,subject,grammar_expl
+5,1,être/avoir 현재형,"être(~이다)와 avoir(가지다)는 프랑스어에서 가장 기본적인 두 동사로, 불규칙 활용을 하며 다른 시제의 복합형을 만드는 데도 쓰입니다. 형태: je suis/j'ai, tu es/as, il est/a. 예문: Je suis étudiant et j'ai vingt ans. (나는 학생이고 스무 살이다.)"
+5,1,명사의 성과 수,"프랑스어 명사는 남성/여성으로 구분되며, 복수형은 대개 -s를 붙입니다(발음은 안 변함). 형용사도 명사의 성·수에 일치시킵니다. 형태: 명사(단/복수) + 형용사(일치). 예문: Les livres rouges sont ici. (빨간 책들이 여기 있다.)"
+5,1,관사(정/부정/부분),"정관사(le/la/les)는 특정 대상, 부정관사(un/une/des)는 불특정 대상, 부분관사(du/de la)는 셀 수 없는 명사의 일부를 나타냅니다. 예문: Je mange du pain. J'ai un chien. (나는 빵을 먹는다. 나는 개가 한 마리 있다.)"
+5,1,규칙동사 현재형(-er/-ir/-re),"규칙동사는 어미(-er/-ir/-re)에 따라 인칭별로 정해진 어미변화를 합니다. 형태: parler→parle/parles/parle, finir→finis/finis/finit. 예문: Je parle français et je finis mon travail. (나는 프랑스어를 하고 내 일을 끝낸다.)"
+5,1,주격·소유형용사,"주격대명사(je, tu, il...)는 주어를, 소유형용사(mon, ton, son...)는 명사의 성·수에 따라 형태가 바뀝니다. 예문: J'ai ma propre voiture. (나는 내 소유의 차가 있다.)"
+5,1,지시형용사(ce/cet/cette/ces),"ce는 남성단수, cet는 모음으로 시작하는 남성단수, cette는 여성단수, ces는 복수 명사 앞에 씁니다. 예문: Ce livre est intéressant. Cette femme est gentille. (이 책은 흥미롭다. 이 여자는 친절하다.)"
+5,1,il y a(존재표현),"il y a는 '~이 있다'는 존재를 나타내며, 단수/복수 명사 모두에 형태 변화 없이 씁니다. 형태: il y a + 명사. 예문: Il y a beaucoup de livres sur la table. (책상 위에 책이 많이 있다.)"
+5,1,기본 의문문·부정문(ne...pas),"부정문은 동사를 ne와 pas 사이에 넣어 만들며, 의문문은 est-ce que를 문두에 붙이거나 억양을 올려 만듭니다. 형태: 주어 + ne + 동사 + pas. 예문: Est-ce que tu parles anglais? Non, je ne parle pas anglais. (너 영어 할 줄 알아? 아니, 나 영어 못해.)"
+5,2,불규칙동사 현재형,"aller, faire, pouvoir 등 자주 쓰이는 동사는 불규칙 현재형 활용을 가지므로 따로 암기해야 합니다. 예문: Je vais à l'école. Je peux t'aider. (나는 학교에 간다. 나는 너를 도울 수 있다.)"
+5,2,대명동사(재귀),"대명동사는 주어가 자기 자신에게 하는 동작을 나타내며, 재귀대명사(me, te, se, nous, vous, se)와 함께 씁니다. 형태: 재귀대명사 + 동사. 예문: Je me lève à sept heures. (나는 7시에 일어난다.)"
+5,2,복합과거(avoir),"복합과거는 대부분의 동사에서 avoir(현재) + 과거분사로 만들며, 과거에 완료된 사건을 나타냅니다. 형태: avoir + 과거분사. 예문: J'ai mangé une pomme. (나는 사과를 하나 먹었다.)"
+5,2,복합과거(être),"이동/변화를 나타내는 특정 동사(aller, venir, naître, mourir 등)와 모든 대명동사는 être + 과거분사로 복합과거를 만들며, 과거분사는 주어의 성·수에 일치시킵니다. 예문: Elle est allée à Paris. (그녀는 파리에 갔다.)"
+5,2,근접미래(aller+동사원형),aller(현재형) + 동사원형은 가까운 미래에 할 일을 나타내는 표현입니다. 형태: aller(현재) + 동사원형. 예문: Je vais étudier ce soir. (나는 오늘 밤 공부할 것이다.)
+5,2,비교급·최상급,"비교급은 plus/moins...que로, 최상급은 le/la plus...de로 나타냅니다. 예문: Ce livre est plus intéressant que celui-là. C'est le plus grand de la classe. (이 책이 저것보다 더 재미있다. 그는 반에서 가장 크다.)"
+5,2,목적격대명사(직접/간접),"직접목적격대명사(le, la, les)는 동작의 대상을, 간접목적격대명사(me, te, lui, nous, vous, leur)는 동작의 수혜자를 나타내며 동사 앞에 위치합니다. 예문: Je lui donne le livre. Je le prends. (나는 그에게 책을 준다. 나는 그것을 가진다.)"
+5,2,전치사(à/de),"à는 방향/장소/시간을, de는 출발점/소유/재료를 나타내는 전치사입니다. 예문: Je vais à Paris. C'est le livre de Marie. (나는 파리에 간다. 이것은 마리의 책이다.)"
+5,2,부분관사·수량표현,"부분관사(du, de la, des)는 정해지지 않은 양을, 수량표현(beaucoup de, un peu de) 뒤에는 관사 없이 de만 씁니다. 예문: Je bois du café. J'ai beaucoup de travail. (나는 커피를 마신다. 나는 일이 많다.)"
+5,2,빈도부사,"빈도부사(toujours, souvent, parfois, jamais)는 얼마나 자주 일이 일어나는지 나타내며, 복합과거에서는 조동사와 과거분사 사이에 위치하기도 합니다. 예문: Je prends toujours le petit-déjeuner à huit heures. (나는 항상 8시에 아침을 먹는다.)"
+5,3,반과거(imparfait),"반과거는 과거의 습관이나 배경 묘사를 나타내며, 어간에 -ais/-ais/-ait 등의 어미를 붙여 만듭니다. 형태: 어간(nous형) + -ais/-ait. 예문: Quand j'étais enfant, je jouais beaucoup. (어렸을 때 나는 많이 놀았다.)"
+5,3,복합과거 vs 반과거,"복합과거는 완결된 사건, 반과거는 배경/습관을 나타내며, 한 문장 안에서 함께 쓰여 이야기의 틀을 만듭니다. 예문: Pendant que je lisais, le téléphone a sonné. (내가 책을 읽고 있는데 전화가 울렸다.)"
+5,3,단순미래(futur simple),"단순미래형은 동사원형(또는 특수 어간)에 직접 어미(-ai, -as, -a...)를 붙여 만들며, 미래의 일을 나타냅니다. 형태: parler→parlerai/parleras. 예문: Demain, je parlerai avec elle. (내일 나는 그녀와 이야기할 것이다.)"
+5,3,명령법,"명령법은 tu/nous/vous형 동사를 그대로 쓰되 주어를 생략하며, -er동사의 tu형은 어미 s를 뺍니다. 예문: Parle plus lentement! Finissons le travail! (더 천천히 말해! 일을 끝내자!)"
+5,3,접속법 현재 기초,"접속법은 바람, 의심, 감정, 필요를 나타내는 주절 뒤 종속절(que절)에서 쓰이며, 어간에 -e/-es/-e 등의 어미를 붙입니다. 예문: Il faut que tu viennes. (네가 와야 한다.)"
+5,3,조건법 현재,"조건법 현재는 미래형 어간에 -ais/-ais/-ait 등의 어미를 붙여 만들며, 정중한 요청이나 가정의 결과를 나타냅니다. 형태: 미래형 어간 + -ais. 예문: J'aimerais voyager en France. (나는 프랑스로 여행하고 싶다.)"
+5,3,관계대명사(qui/que),"qui는 관계절 안에서 주어 역할을, que는 목적어 역할을 하는 관계대명사입니다. 예문: L'homme qui habite là est mon oncle. Le livre que je lis est intéressant. (저기 사는 남자는 내 삼촌이다. 내가 읽는 책은 흥미롭다.)"
+5,3,강조대명사(moi/toi),"강조대명사(moi, toi, lui, elle, nous, vous, eux, elles)는 강조, 전치사 뒤, 비교 표현에서 쓰입니다. 예문: Moi, je préfère le café. C'est pour toi. (나는 커피를 더 좋아해. 이건 너를 위한 거야.)"
+5,3,대명사 en/y,"en은 de+명사를, y는 à+장소/명사를 대신하는 대명사로 동사 앞에 위치합니다. 예문: J'en veux deux. J'y vais demain. (나는 그것을 두 개 원한다. 나는 내일 거기에 간다.)"
+5,3,이중목적격대명사,직접목적격과 간접목적격대명사가 함께 쓰일 때는 정해진 순서(me/te/nous/vous + le/la/les + lui/leur)를 따릅니다. 예문: Je le lui donne. (나는 그것을 그에게 준다.)
+5,3,부정표현 심화(ne...jamais/rien/personne),"ne...jamais(결코~않다), ne...rien(아무것도~않다), ne...personne(아무도~않다)는 다양한 부정을 표현하는 짝을 이루는 부정어입니다. 예문: Je ne mange jamais de viande. Il n'y a personne ici. (나는 고기를 절대 안 먹는다. 여기 아무도 없다.)"
+5,3,비교구문 심화(le même que),le même que는 '~와 똑같은'이라는 동등 비교를 나타냅니다. 형태: le/la même + 명사 + que. 예문: J'ai le même sac que toi. (나는 너와 똑같은 가방을 가지고 있다.)
+5,4,접속법 현재 심화(감정/의심),"감정(être content, regretter)이나 의심(douter, ne pas croire)을 나타내는 표현 뒤 종속절에서도 접속법을 씁니다. 예문: Je suis content que tu sois là. Je ne crois pas qu'il soit vrai. (네가 있어서 기쁘다. 그게 사실이라고 생각하지 않는다.)"
+5,4,대과거(plus-que-parfait),"대과거는 avoir/être(반과거) + 과거분사로 만들며, 과거의 어떤 시점보다 더 이전에 일어난 일을 나타냅니다. 예문: Quand je suis arrivé, elle était déjà partie. (내가 도착했을 때 그녀는 이미 떠난 상태였다.)"
+5,4,조건법 과거,"조건법 과거는 avoir/être(조건법 현재) + 과거분사로 만들며, 과거 사실과 반대되는 가정의 결과(3형식)를 나타냅니다. 예문: J'aurais aimé venir. (나는 오고 싶었을 것이다 - 못 왔다.)"
+5,4,가정문(si+반과거),"si+반과거, 조건법 현재 구조는 현재나 미래 사실과 반대되는 가정을 나타냅니다. 형태: Si + 반과거, 조건법 현재. 예문: Si j'avais de l'argent, j'achèterais une maison. (돈이 있다면 집을 살 텐데.)"
+5,4,가정문 심화(si+대과거),"si+대과거, 조건법 과거 구조는 과거 사실과 반대되는 가정을 나타냅니다. 형태: Si + 대과거, 조건법 과거. 예문: Si j'avais étudié, j'aurais réussi. (공부했더라면 합격했을 텐데.)"
+5,4,수동태,"수동태는 être + 과거분사로 만들며, 과거분사는 주어의 성·수에 일치시킵니다. 형태: être + 과거분사(+ par + 행위자). 예문: La maison a été construite par mon grand-père. (그 집은 우리 할아버지가 지었다.)"
+5,4,관계대명사 심화(dont/lequel),"dont은 de+명사를 대신하는 관계대명사, lequel/laquelle은 전치사 뒤에서 사물을 가리킬 때 씁니다. 예문: Le livre dont je parle est intéressant. La chaise sur laquelle je suis assis est cassée. (내가 말하는 책은 흥미롭다. 내가 앉아 있는 의자는 부서졌다.)"
+5,4,간접화법,"간접화법은 남의 말을 인용부호 없이 전달하며, 전달동사가 과거이면 시제를 한 단계 뒤로 옮깁니다(현재→반과거 등). 예문: Elle a dit qu'elle était fatiguée. (그녀는 피곤하다고 말했다.)"
+5,4,강조구문(c'est...qui/que),c'est...qui/que 구문은 문장의 특정 요소를 앞으로 내세워 강조하는 분열문입니다. 예문: C'est Marie qui a fait ça. C'est ce livre que je veux. (그것을 한 사람은 바로 마리다. 내가 원하는 것은 바로 이 책이다.)
+5,4,양보(bien que/quoique),"bien que/quoique는 '비록 ~이지만'이라는 양보를 나타내며, 뒤에 항상 접속법이 옵니다. 예문: Bien qu'il pleuve, je sors. (비록 비가 오지만 나는 나간다.)"
+5,4,제롱디프(en+현재분사),제롱디프(en + 현재분사)는 동시동작이나 수단을 나타냅니다. 형태: en + 동사(nous형 어간)+ant. 예문: Elle chante en cuisinant. (그녀는 요리하면서 노래한다.)
+5,4,대명사 순서 심화,여러 목적격대명사가 함께 쓰일 때 순서는 me/te/se/nous/vous → le/la/les → lui/leur → y → en 순입니다. 예문: Il m'en a parlé. (그는 나에게 그것에 대해 말했다.)
+5,5,접속법 과거,"접속법 과거는 avoir/être(접속법 현재) + 과거분사로 만들며, 주절이 현재이고 종속절이 이미 완료된 일을 나타낼 때 씁니다. 예문: Je suis content que tu aies réussi. (네가 성공해서 기쁘다.)"
+5,5,문어체 접속법(imparfait/plus-que-parfait du subjonctif),"접속법 반과거/대과거는 문어체 격식 표현으로, 현대 구어에서는 거의 안 쓰이지만 고전 문학이나 격식체 글에 나타납니다. 예문: Il fallait qu'il vînt. (그가 와야만 했다 - 문어체.)"
+5,5,접속사 심화(à moins que),"à moins que는 '~하지 않는 한'이라는 조건을 나타내는 접속사로, 뒤에 접속법이 옵니다. 예문: Je viendrai à moins qu'il ne pleuve. (비가 오지 않는 한 나는 올 것이다.)"
+5,5,강조·도치구문,격식체에서는 부사나 형용사를 문두에 놓고 주어-동사를 도치시켜 강조 효과를 만듭니다. 예문: Peut-être viendra-t-il demain. (아마 그는 내일 올 것이다 - 도치.)
+5,5,관용 접속법 표현(pourvu que),pourvu que는 '~하기만 하면'이라는 조건이나 바람을 나타내며 항상 접속법과 함께 씁니다. 예문: Pourvu qu'il fasse beau demain! (내일 날씨가 좋기만을!)
+5,5,담화표지 심화(cependant/néanmoins),"cependant/néanmoins는 '그러나/그럼에도 불구하고'라는 격식체 담화표지로, 문장 간 대조 관계를 formal하게 연결합니다. 예문: Le plan était risqué; cependant, ils ont décidé de continuer. (그 계획은 위험했다; 그러나 그들은 계속하기로 했다.)"
+5,5,명사화 구문,"동사나 형용사를 명사형으로 바꿔(décider→décision, important→importance) 문장을 더 격식적이고 압축적으로 만듭니다. 예문: La décision de l'entreprise a surpris les investisseurs. (그 회사의 결정은 투자자들을 놀라게 했다.)"
+5,5,완곡화법(conditionnel de politesse),조건법은 직접적인 명령이나 단정을 피하고 정중하게 표현할 때도 씁니다. 예문: Pourriez-vous m'aider? J'aimerais savoir plus. (도와주실 수 있을까요? 더 알고 싶습니다.)
+5,5,병렬구조,"병렬구조는 문장에서 대등하게 나열되는 요소들의 문법적 형태를 통일시키는 것으로, 격식체 글에서 문장의 균형을 높입니다. 예문: Elle aime lire, écrire et peindre. (그녀는 읽기, 쓰기, 그림 그리기를 좋아한다.)"
+5,5,부정어 강조(ne...aucunement/même pas),ne...aucunement(전혀~않다)와 même pas(~조차도 않다)는 부정을 강하게 강조하는 표현입니다. 예문: Cela ne m'intéresse aucunement. Il n'a même pas appelé. (그것은 나에게 전혀 흥미 없다. 그는 전화조차 안 했다.)
+5,6,문어체 단순과거(passé simple),"단순과거는 문학 작품이나 격식체 서술문에서 쓰이는 과거시제로, 일상 대화에서는 거의 쓰이지 않습니다. 형태: parler→parla/parlèrent. 예문: Il parla longtemps avec elle. (그는 그녀와 오랫동안 이야기했다 - 문어체.)"
+5,6,고급 도치·강조,"문어체에서는 부사(à peine, aussi, peut-être)가 문두에 오면 주어-동사 도치가 일어나 강조 효과를 만듭니다. 예문: Aussi bien fit-il ce qu'on lui demandait. (그는 요청받은 것을 잘 해냈다 - 도치.)"
+5,6,관용구·숙어표현,프랑스어에는 coûter les yeux de la tête(매우 비싸다)처럼 문법 규칙만으로 해석되지 않는 관용구가 많아 형태 그대로 암기해야 합니다. 예문: Cette voiture m'a coûté les yeux de la tête. (이 차는 나에게 엄청 비쌌다.)
+5,6,학술적 글쓰기 문형,"학술적 글쓰기에서는 il est soutenu que, il convient de noter que, on pourrait affirmer que 같은 객관적이고 완곡한 문형을 자주 씁니다. 예문: Il est soutenu que le changement climatique s'accélère. (기후 변화가 가속화되고 있다는 주장이 제기된다.)"
+5,6,생략과 대용,"앞에 나온 표현의 반복을 피하기 위해 생략하거나 le, ainsi 같은 대용어를 사용합니다. 예문: Je ne fume pas, mais lui, si. (나는 담배를 안 피우지만 그는 피운다.)"
+5,6,뉘앙스 조동사 조합(devoir/pouvoir),"devoir + 동사원형은 추측(~임에 틀림없다)을, pouvoir + 동사원형은 가능성을 나타내며, 조합에 따라 확신 정도가 달라집니다. 예문: Il doit être tard. Il se peut qu'il pleuve. (늦었음에 틀림없다. 비가 올지도 모른다.)"
+5,6,문체적 격식 표현,격식체 글에서는 구어체 축약이나 캐주얼한 표현 대신 완전한 문장 구조와 존칭(vous)을 선호합니다. 예문: Je vous serais reconnaissant de bien vouloir répondre rapidement. (빨리 답변해주시면 감사하겠습니다.)
+5,6,화용론적 공손 표현,"Cela vous dérangerait-il...?, Si cela ne vous ennuie pas, pourriez-vous...? 같은 여러 완곡 표현의 조합은 공손함의 정도를 세밀하게 조절합니다. 예문: Si cela ne vous ennuie pas, pourriez-vous fermer la fenêtre? (혹시 괜찮으시다면, 창문 좀 닫아주시겠어요?)"

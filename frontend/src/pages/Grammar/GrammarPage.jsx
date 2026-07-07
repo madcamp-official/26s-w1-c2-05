@@ -4,6 +4,28 @@ import client from "../../api/client";
 import PageHeader from "../../components/PageHeader";
 import styles from "./GrammarPage.module.css";
 
+// grammar_expl은 "개념 설명. 형태: ~. 예문: ~ (번역)" 형식의 한 문단으로 오므로,
+// 색상 블록으로 나눠 보여주기 위해 형태/예문 구간을 분리한다.
+function parseExplanation(text){
+    if (!text) return { concept: "", form: "", exampleMain: "", exampleTranslation: "" };
+
+    const formIdx = text.indexOf("형태:");
+    const exampleIdx = text.indexOf("예문:");
+    if (formIdx === -1 || exampleIdx === -1){
+        return { concept: text, form: "", exampleMain: "", exampleTranslation: "" };
+    }
+
+    const concept = text.slice(0, formIdx).trim();
+    const form = text.slice(formIdx + "형태:".length, exampleIdx).trim();
+    const exampleRaw = text.slice(exampleIdx + "예문:".length).trim();
+
+    const match = exampleRaw.match(/^(.*?)(\([^)]*\))\s*$/);
+    const exampleMain = match ? match[1].trim() : exampleRaw;
+    const exampleTranslation = match ? match[2].trim() : "";
+
+    return { concept, form, exampleMain, exampleTranslation };
+}
+
 function GrammarPage(){
     const navigate = useNavigate();
     const exerciseCardRef = useRef(null);
@@ -26,6 +48,7 @@ function GrammarPage(){
     }, []);
 
     const selectedConcept = grammars[selectedIndex];
+    const { concept, form, exampleMain, exampleTranslation } = parseExplanation(selectedConcept?.explanation);
 
     const handleTakeQuiz = () => {
         exerciseCardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -90,7 +113,24 @@ function GrammarPage(){
                 <div className={styles.main}>
                     <div className={styles.lessonCard}>
                         <h2 className={styles.lessonTitle}>{selectedConcept.subject}</h2>
-                        <p className={styles.summary}>{selectedConcept.explanation}</p>
+                        <p className={styles.summary}>{concept}</p>
+                        {form && (
+                            <div className={styles.formBox}>
+                                <span className={styles.formLabel}>형태</span>
+                                <p className={styles.formText}>{form}</p>
+                            </div>
+                        )}
+                        {exampleMain && (
+                            <div className={styles.exampleBox}>
+                                <span className={styles.exampleLabel}>예문</span>
+                                <p className={styles.exampleText}>
+                                    {exampleMain}
+                                    {exampleTranslation && (
+                                        <span className={styles.exampleTranslation}> {exampleTranslation}</span>
+                                    )}
+                                </p>
+                            </div>
+                        )}
                     </div>
 
                     <div className={styles.exerciseCard} ref={exerciseCardRef}>

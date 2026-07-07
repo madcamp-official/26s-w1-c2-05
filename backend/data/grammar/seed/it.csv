@@ -1,0 +1,61 @@
+lang_id,level,subject,grammar_expl
+7,1,essere/avere 현재형,"essere(~이다)와 avere(가지다)는 이탈리아어의 가장 기본적인 두 동사로, 불규칙 활용을 하며 복합시제의 조동사로도 쓰입니다. 형태: io sono/ho, tu sei/hai, lui è/ha. 예문: Sono studente e ho vent'anni. (나는 학생이고 스무 살이다.)"
+7,1,명사의 성과 수,"이탈리아어 명사는 남성/여성으로 구분되며(대개 -o는 남성, -a는 여성), 복수형은 -o→-i, -a→-e로 바뀝니다. 형태: 명사(단/복수) + 형용사(성·수 일치). 예문: I libri rossi sono qui. (빨간 책들이 여기 있다.)"
+7,1,관사(정관사/부정관사),"정관사(il/lo/la/i/gli/le)는 특정 대상을, 부정관사(un/uno/una)는 불특정 대상을 가리키며, 명사의 성·수·첫글자에 따라 형태가 달라집니다. 예문: Ho un cane. Il cane è molto simpatico. (나는 개가 한 마리 있다. 그 개는 매우 사랑스럽다.)"
+7,1,규칙동사 현재형(-are/-ere/-ire),"규칙동사는 어미(-are/-ere/-ire)에 따라 인칭별로 정해진 어미변화를 합니다. 형태: parlare→parlo/parli/parla, credere→credo/credi/crede. 예문: Parlo italiano e credo in te. (나는 이탈리아어를 하고 너를 믿는다.)"
+7,1,주격·소유형용사,"주격대명사(io, tu, lui...)는 주어를, 소유형용사(mio, tuo, suo...)는 명사의 성·수에 따라 형태가 바뀌며 보통 정관사와 함께 씁니다. 예문: Ho la mia macchina. (나는 내 소유의 차가 있다.)"
+7,1,지시형용사(questo/quello),"questo는 화자와 가까운 것을, quello는 먼 것을 가리키며, quello는 명사 앞에서 정관사처럼 형태가 변합니다. 예문: Questo libro è mio, quello è tuo. (이 책은 내 것이고, 저것은 네 것이다.)"
+7,1,c'è/ci sono(존재표현),"c'è는 단수 명사의 존재를, ci sono는 복수 명사의 존재를 나타냅니다. 형태: c'è/ci sono + 명사. 예문: Ci sono molti libri sul tavolo. (책상 위에 책이 많이 있다.)"
+7,1,기본 의문문·부정문,"의문문은 평서문과 어순이 같고 억양만 올리며, 부정문은 동사 앞에 non을 넣습니다. 형태: 주어 + non + 동사. 예문: Parli inglese? No, non parlo inglese. (영어 할 줄 알아? 아니, 나 영어 못해.)"
+7,2,불규칙동사 현재형(andare/fare/potere),"andare, fare, potere 등 자주 쓰이는 동사는 불규칙 현재형 활용을 가지므로 따로 암기해야 합니다. 예문: Vado a scuola. Posso aiutarti. (나는 학교에 간다. 나는 너를 도울 수 있다.)"
+7,2,재귀동사,"재귀동사는 주어가 자기 자신에게 행하는 동작을 나타내며, 재귀대명사(mi, ti, si, ci, vi, si)와 함께 씁니다. 예문: Mi alzo alle sette. (나는 7시에 일어난다.)"
+7,2,근과거(avere),"근과거는 대부분의 동사에서 avere(현재) + 과거분사로 만들며, 과거에 완료된 사건을 나타냅니다. 형태: avere + 과거분사. 예문: Ho mangiato una mela. (나는 사과를 하나 먹었다.)"
+7,2,근과거(essere),"이동/변화를 나타내는 특정 동사(andare, venire, nascere, morire 등)와 모든 재귀동사는 essere + 과거분사로 근과거를 만들며, 과거분사는 주어의 성·수에 일치시킵니다. 예문: Lei è andata a Roma. (그녀는 로마에 갔다.)"
+7,2,근접미래(stare per/andare a),"stare per + 동사원형은 '막 ~하려고 하다', andare a + 동사원형은 '~하러 가다/~할 것이다'라는 가까운 미래를 나타냅니다. 예문: Sto per uscire. Vado a studiare stasera. (나는 막 나가려고 한다. 나는 오늘 밤 공부할 것이다.)"
+7,2,비교급·최상급,"비교급은 più/meno...di(che)로, 최상급은 il/la più...di로 나타냅니다. 예문: Questo libro è più interessante di quello. È il più alto della classe. (이 책이 저것보다 더 재미있다. 그는 반에서 가장 크다.)"
+7,2,목적격대명사(직접/간접),"직접목적격대명사(lo, la, li, le)는 동작의 대상을, 간접목적격대명사(mi, ti, gli, le, ci, vi, gli)는 동작의 수혜자를 나타내며 동사 앞에 위치합니다. 예문: Le do il libro. Lo compro. (나는 그녀에게 책을 준다. 나는 그것을 산다.)"
+7,2,전치사관사결합,"전치사(a, di, da, in, su)는 정관사와 결합해 한 단어(al, del, dal, nel, sul 등)가 됩니다. 형태: a+il=al, di+la=della. 예문: Vado al mercato. Il libro è sul tavolo. (나는 시장에 간다. 책은 책상 위에 있다.)"
+7,2,piacere류 동사,"piacere는 '~을 좋아하다'가 아니라 '~에게 마음에 들다'라는 구조로, 좋아하는 대상이 주어가 되고 사람은 간접목적격대명사로 씁니다. 형태: (간접목적격) + piace/piacciono + 대상. 예문: Mi piace il cioccolato. (나는 초콜릿을 좋아한다.)"
+7,2,부사·빈도표현,"빈도부사(sempre, spesso, a volte, mai)는 얼마나 자주 일이 일어나는지 나타내며, 보통 동사 뒤에 위치합니다. 예문: Faccio sempre colazione alle otto. (나는 항상 8시에 아침을 먹는다.)"
+7,3,반과거(imperfetto),"반과거는 과거의 습관이나 배경 묘사를 나타내며, 어간에 -avo/-evo/-ivo 계열 어미를 붙여 만듭니다. 예문: Quando ero bambino, giocavo molto. (어렸을 때 나는 많이 놀았다.)"
+7,3,근과거 vs 반과거,"근과거는 완결된 사건, 반과거는 배경/습관을 나타내며, 한 문장 안에서 함께 쓰여 이야기의 틀을 만듭니다. 예문: Mentre leggevo, il telefono ha suonato. (내가 책을 읽고 있는데 전화가 울렸다.)"
+7,3,단순미래(futuro semplice),"단순미래형은 동사원형(어미변화)에 -ò, -ai, -à 등의 어미를 붙여 만들며, 미래의 일이나 추측을 나타냅니다. 예문: Domani parlerò con lei. (내일 나는 그녀와 이야기할 것이다.)"
+7,3,명령법,"명령법 tu형은 대개 -are동사만 -a로 바뀌고 나머지는 현재형과 같으며, Lei형은 접속법 현재형을 씁니다. 예문: Parla più lentamente! Mangi la verdura! (더 천천히 말해! 채소를 드세요!)"
+7,3,접속법 현재 기초,"접속법은 바람, 의심, 감정, 필요를 나타내는 주절 뒤 종속절(che절)에서 쓰이며, 어미가 직설법과 다릅니다. 예문: Bisogna che tu venga. (네가 와야 한다.)"
+7,3,조건법 현재,"조건법 현재는 미래형 어간에 -ei, -esti, -ebbe 등의 어미를 붙여 만들며, 정중한 요청이나 가정의 결과를 나타냅니다. 예문: Mi piacerebbe viaggiare in Italia. (나는 이탈리아로 여행하고 싶다.)"
+7,3,관계대명사(che/cui),"che는 주어/목적어 역할을 하는 가장 일반적인 관계대명사이며, cui는 전치사 뒤에서 쓰입니다. 예문: L'uomo che vive lì è mio zio. Il libro di cui parlo è interessante. (저기 사는 남자는 내 삼촌이다. 내가 말하는 책은 흥미롭다.)"
+7,3,강조대명사(me/te),"강조대명사(me, te, lui, lei, noi, voi, loro)는 전치사 뒤나 비교, 강조 표현에서 쓰입니다. 예문: Io preferisco il caffè. Questo è per te. (나는 커피를 더 좋아해. 이건 너를 위한 거야.)"
+7,3,대명사 ne/ci,"ne는 di+명사(그것 중에서/그것에 대해)를, ci는 a/in+장소·명사(거기에)를 대신하는 대명사로 동사 앞에 위치합니다. 예문: Ne voglio due. Ci vado domani. (나는 그것을 두 개 원한다. 나는 내일 거기에 간다.)"
+7,3,이중목적격대명사,"직접목적격과 간접목적격대명사가 함께 쓰일 때는 간접목적격이 먼저 오며, 형태가 일부 변합니다(mi+lo→me lo). 예문: Me lo dai? (그것을 나에게 줄래?)"
+7,3,부정표현 심화(non...mai/niente/nessuno),"non...mai(결코~않다), non...niente(아무것도~않다), non...nessuno(아무도~않다)는 짝을 이루는 부정 표현입니다. 예문: Non mangio mai carne. Non c'è nessuno qui. (나는 고기를 절대 안 먹는다. 여기 아무도 없다.)"
+7,3,비교구문 심화(lo stesso di),lo stesso...di는 '~와 똑같은'이라는 동등 비교를 나타냅니다. 형태: lo/la stesso/a + 명사 + di. 예문: Ho la stessa borsa di te. (나는 너와 똑같은 가방을 가지고 있다.)
+7,4,접속법 현재 심화(감정/의심),"감정(essere contento, dispiacere)이나 의심(dubitare, non credere)을 나타내는 표현 뒤 종속절에서도 접속법을 씁니다. 예문: Sono contento che tu sia qui. Non credo che sia vero. (네가 있어서 기쁘다. 그게 사실이라고 생각하지 않는다.)"
+7,4,대과거,"대과거는 avere/essere(반과거) + 과거분사로 만들며, 과거의 어떤 시점보다 더 이전에 일어난 일을 나타냅니다. 예문: Quando sono arrivato, lei era già partita. (내가 도착했을 때 그녀는 이미 떠난 상태였다.)"
+7,4,조건법 과거,"조건법 과거는 avere/essere(조건법 현재) + 과거분사로 만들며, 과거 사실과 반대되는 가정의 결과를 나타냅니다. 예문: Sarei venuto se avessi potuto. (할 수 있었다면 왔을 것이다.)"
+7,4,가정문(se+접속법 반과거),"se+접속법 반과거, 조건법 현재 구조는 현재나 미래 사실과 반대되는 가정을 나타냅니다. 예문: Se avessi soldi, comprerei una casa. (돈이 있다면 집을 살 텐데.)"
+7,4,가정문 심화(se+접속법 대과거),"se+접속법 대과거, 조건법 과거 구조는 과거 사실과 반대되는 가정을 나타냅니다. 예문: Se avessi studiato, avrei superato l'esame. (공부했더라면 합격했을 텐데.)"
+7,4,수동태,"수동태는 essere + 과거분사로 만들며, 과거분사는 주어의 성·수에 일치시킵니다. 형태: essere + 과거분사(+ da + 행위자). 예문: La casa è stata costruita da mio nonno. (그 집은 우리 할아버지가 지었다.)"
+7,4,관계대명사 심화(il quale/cui+전치사),il quale/la quale은 che보다 격식체이며 전치사와 결합할 때 성·수를 명확히 표시합니다. cui는 명사 앞에서 소유를 나타내기도 합니다. 예문: La sedia sulla quale sono seduto è rotta. Il libro il cui autore è famoso. (내가 앉아 있는 의자는 부서졌다. 그 작가가 유명한 책.)
+7,4,간접화법,"간접화법은 남의 말을 인용부호 없이 전달하며, 전달동사가 과거이면 시제를 한 단계 뒤로 옮깁니다(현재→반과거 등). 예문: Ha detto che era stanca. (그녀는 피곤하다고 말했다.)"
+7,4,강조구문(è...che),è...che 구문은 문장의 특정 요소를 앞으로 내세워 강조하는 분열문입니다. 예문: È Maria che ha fatto questo. È questo libro che voglio. (그것을 한 사람은 바로 마리아다. 내가 원하는 것은 바로 이 책이다.)
+7,4,양보(benché/sebbene),"benché/sebbene는 '비록 ~이지만'이라는 양보를 나타내며, 뒤에 항상 접속법이 옵니다. 예문: Benché piova, esco. (비록 비가 오지만 나는 나간다.)"
+7,4,제룬디오(gerundio),"제룬디오(-ando/-endo)는 동시동작이나 수단을 나타내며, stare + 제룬디오로 진행형을 만들기도 합니다. 예문: Canta cucinando. Sta studiando ora. (그녀는 요리하면서 노래한다. 그는 지금 공부하고 있다.)"
+7,4,대명사 결합(ce lo/te lo),"간접목적격+ci/ne가 결합할 때 형태가 변합니다(mi+ci→ce lo, ti+ci→te lo). 예문: Ce lo dai? (그것을 우리에게 줄래?)"
+7,5,접속법 과거,"접속법 과거는 avere/essere(접속법 현재) + 과거분사로 만들며, 주절이 현재이고 종속절이 이미 완료된 일을 나타낼 때 씁니다. 예문: Sono contento che tu abbia superato l'esame. (네가 합격해서 기쁘다.)"
+7,5,문어체 접속법 심화,접속법 대과거(trapassato)는 과거보다 더 이전의 완료된 사건에 대한 가정이나 소망을 나타냅니다. 예문: Se avessi saputo la verità... (진실을 알았더라면...)
+7,5,접속사 심화(affinché/purché),"affinché는 '~하도록'이라는 목적을, purché는 '~하기만 하면'이라는 조건을 나타내며 뒤에 접속법이 옵니다. 예문: Te lo spiego affinché tu capisca. Vengo purché tu venga anche tu. (네가 이해하도록 설명할게. 너도 온다면 나도 갈게.)"
+7,5,강조·도치구문,격식체에서는 부사나 목적어를 문두에 놓아 강조하고 어순을 도치시킵니다. 예문: Grande fu la sua sorpresa. (그의 놀라움은 컸다 - 도치.)
+7,5,관용 접속법 표현(magari/come se),"magari(제발 ~하기를/차라리)는 접속법과 함께, come se(마치 ~인 것처럼)는 항상 접속법 반과거/대과거와 함께 씁니다. 예문: Magari vincessi alla lotteria! Parla come se sapesse tutto. (제발 복권에 당첨되었으면! 그는 마치 모든 것을 아는 것처럼 말한다.)"
+7,5,담화표지 심화(tuttavia/nondimeno),"tuttavia/nondimeno는 '그러나/그럼에도 불구하고'라는 격식체 담화표지로, 문장 간 대조 관계를 formal하게 연결합니다. 예문: Il piano era rischioso; tuttavia, hanno deciso di continuare. (그 계획은 위험했다; 그러나 그들은 계속하기로 했다.)"
+7,5,명사화 구문,"동사나 형용사를 명사형으로 바꿔(decidere→decisione, importante→importanza) 문장을 더 격식적이고 압축적으로 만듭니다. 예문: La decisione dell'azienda ha sorpreso gli investitori. (그 회사의 결정은 투자자들을 놀라게 했다.)"
+7,5,완곡화법(condizionale di cortesia),조건법은 직접적인 명령이나 단정을 피하고 정중하게 표현할 때도 씁니다. 예문: Potrebbe aiutarmi? Vorrei sapere di più. (도와주실 수 있을까요? 더 알고 싶습니다.)
+7,5,병렬구조,"병렬구조는 문장에서 대등하게 나열되는 요소들의 문법적 형태를 통일시키는 것으로, 격식체 글에서 문장의 균형을 높입니다. 예문: Le piace leggere, scrivere e dipingere. (그녀는 읽기, 쓰기, 그림 그리기를 좋아한다.)"
+7,5,부정어 강조(affatto/nemmeno),non...affatto(전혀~않다)와 nemmeno(~조차도 않다)는 부정을 강하게 강조하는 표현입니다. 예문: Non mi interessa affatto. Non ha nemmeno chiamato. (그것은 나에게 전혀 흥미 없다. 그는 전화조차 안 했다.)
+7,6,문어체 단순과거(passato remoto),단순과거는 문학 작품이나 격식체 서술문(특히 남부 이탈리아 구어)에서 쓰이는 과거시제입니다. 형태: parlare→parlai/parlò. 예문: Parlò a lungo con lei. (그는 그녀와 오랫동안 이야기했다 - 문어체.)
+7,6,고급 도치·강조,"문어체에서는 부사(appena, forse)가 문두에 오면 도치가 일어나 강조 효과를 만듭니다. 예문: Appena arrivato, chiamò subito. (도착하자마자 그는 즉시 전화했다.)"
+7,6,관용구·숙어표현,이탈리아어에는 costare un occhio della testa(매우 비싸다)처럼 문법 규칙만으로 해석되지 않는 관용구가 많아 형태 그대로 암기해야 합니다. 예문: Questa macchina mi è costata un occhio della testa. (이 차는 나에게 엄청 비쌌다.)
+7,6,학술적 글쓰기 문형,"학술적 글쓰기에서는 si sostiene che, è opportuno notare che, si potrebbe affermare che 같은 객관적이고 완곡한 문형을 자주 씁니다. 예문: Si sostiene che il cambiamento climatico stia accelerando. (기후 변화가 가속화되고 있다는 주장이 제기된다.)"
+7,6,생략과 대용,"앞에 나온 표현의 반복을 피하기 위해 생략하거나 lo, così 같은 대용어를 사용합니다. 예문: Io non fumo, ma lui sì. (나는 담배를 안 피우지만 그는 피운다.)"
+7,6,뉘앙스 조동사 조합(dovere/potere),"dovere + 동사원형은 추측(~임에 틀림없다)을, potere + 동사원형은 가능성을 나타내며, 조합에 따라 확신 정도가 달라집니다. 예문: Deve essere tardi. Può darsi che piova. (늦었음에 틀림없다. 비가 올지도 모른다.)"
+7,6,문체적 격식 표현,격식체 편지나 이메일에서는 구어체 축약 대신 완전한 문장 구조와 존칭(Lei)을 선호합니다. 예문: Le sarei grato se potesse rispondermi al più presto. (가능한 한 빨리 답변해주시면 감사하겠습니다.)
+7,6,화용론적 공손 표현,"Le dispiacerebbe...?, Se non è troppo disturbo, potrebbe...? 같은 여러 완곡 표현의 조합은 공손함의 정도를 세밀하게 조절합니다. 예문: Se non è troppo disturbo, potrebbe chiudere la finestra? (혹시 괜찮으시다면, 창문 좀 닫아주시겠어요?)"

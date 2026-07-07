@@ -1,0 +1,181 @@
+level,subject,problem,answer
+1,ser/estar 현재형 구분,Ella ___ médica.,es
+1,ser/estar 현재형 구분,Yo ___ cansado hoy.,estoy
+1,ser/estar 현재형 구분,Nosotros ___ de España.,somos
+1,명사의 성과 수,Los libro___ rojos están aquí.,s
+1,명사의 성과 수,La casa blanc___.,a
+1,명사의 성과 수,Las flor___ son bonitas.,es
+1,관사(정관사/부정관사),Tengo ___ perro.,un
+1,관사(정관사/부정관사),___ perro es muy simpático.,El
+1,관사(정관사/부정관사),Necesito ___ libro nuevo.,un
+1,규칙동사 현재형(-ar/-er/-ir),Yo ___(말하다:hablar) español.,hablo
+1,규칙동사 현재형(-ar/-er/-ir),Tú ___(먹다:comer) mucho.,comes
+1,규칙동사 현재형(-ar/-er/-ir),Nosotros ___(살다:vivir) en Madrid.,vivimos
+1,주격·소유격 대명사,___ tengo mi propio coche.,Yo
+1,주격·소유격 대명사,Ella ama a ___ familia.,su
+1,주격·소유격 대명사,___ perro es muy grande. (우리의),Nuestro
+1,지시대명사(este/ese/aquel),___ libro es mío. (이것),Este
+1,지시대명사(este/ese/aquel),___ coche es tuyo. (그것),Ese
+1,지시대명사(este/ese/aquel),___ montaña está muy lejos. (저것),Aquella
+1,hay(존재표현),___ muchos libros en la mesa.,Hay
+1,hay(존재표현),___ un gato en el jardín.,Hay
+1,hay(존재표현),No ___ tiempo.,hay
+1,기본 의문문·부정문,¿___ inglés? (말하다:hablar),Hablas
+1,기본 의문문·부정문,___ hablo inglés.,No
+1,기본 의문문·부정문,Ella ___ come carne.,no
+2,불규칙동사 현재형,Yo ___(가지다:tener) veinte años.,tengo
+2,불규칙동사 현재형,Ella ___(가다:ir) a la escuela.,va
+2,불규칙동사 현재형,Nosotros ___(하다:hacer) la tarea.,hacemos
+2,재귀동사,___ levanto a las siete.,Me
+2,재귀동사,Ella ___ lava las manos.,se
+2,재귀동사,Nosotros ___ despertamos temprano.,nos
+2,단순과거(pretérito indefinido),Ayer yo ___(말하다:hablar) con mi amigo.,hablé
+2,단순과거(pretérito indefinido),Ella ___(먹다:comer) pizza anoche.,comió
+2,단순과거(pretérito indefinido),Ellos ___(살다:vivir) en Madrid por dos años.,vivieron
+2,불완료과거(imperfecto),"Cuando ___(이다:ser) niño, jugaba mucho.",era
+2,불완료과거(imperfecto),Ella ___(살다:vivir) en Madrid antes.,vivía
+2,불완료과거(imperfecto),Nosotros ___(가다:ir) a la playa todos los veranos.,íbamos
+2,근접미래(ir a+동사원형),Voy ___ estudiar esta noche.,a
+2,근접미래(ir a+동사원형),___ a llover mañana. (가다:ir),Va
+2,근접미래(ir a+동사원형),Vamos a ___(여행하다:viajar) el próximo mes.,viajar
+2,비교급·최상급,Este libro es ___ interesante que ese.,más
+2,비교급·최상급,Es el ___ alto de la clase.,más
+2,비교급·최상급,Ella es ___ inteligente que su hermano.,más
+2,목적격대명사(직접/간접),___ doy el libro a ella. (그녀에게),Le
+2,목적격대명사(직접/간접),___ compro. (그것을:책),Lo
+2,목적격대명사(직접/간접),Ella ___ llama todos los días. (나에게),me
+2,gustar류 동사,Me ___ el chocolate.,gusta
+2,gustar류 동사,Nos ___ los libros. (복수 동사),gustan
+2,gustar류 동사,¿Te ___ la música?,gusta
+2,전치사(por/para),Este regalo es ___ ti.,para
+2,전치사(por/para),Viajo ___ Europa.,por
+2,전치사(por/para),Estudio ___ aprender más.,para
+2,부사·빈도표현,___ desayuno a las ocho. (항상),Siempre
+2,부사·빈도표현,___ voy al cine. (가끔),A veces
+2,부사·빈도표현,Ella ___ llega tarde. (절대~않다),nunca
+3,현재완료(pretérito perfecto),___ terminado mi tarea. (haber 현재:he),He
+3,현재완료(pretérito perfecto),Ella ha ___(먹다:comer) ya.,comido
+3,현재완료(pretérito perfecto),¿___ visto esta película? (haber 2인칭),Has
+3,과거완료(pluscuamperfecto),"Cuando llegué, ella ya ___ salido. (haber:había)",había
+3,과거완료(pluscuamperfecto),Nosotros ___(먹다:comer) antes de las siete.,habíamos comido
+3,과거완료(pluscuamperfecto),Ellos ya se ___(가다:ir) cuando llamé.,habían ido
+3,단순과거 vs 불완료과거,"Mientras yo ___(읽다:leer), sonó el teléfono.",leía
+3,단순과거 vs 불완료과거,Ayer ___(비오다:llover) todo el día.,llovió
+3,단순과거 vs 불완료과거,"Cuando era joven, ___(살다:vivir) en Madrid.",vivía
+3,미래형(futuro simple),Mañana ___(말하다:hablar) con ella.,hablaré
+3,미래형(futuro simple),Ellos ___(오다:venir) la próxima semana.,vendrán
+3,미래형(futuro simple),¿Qué hora ___(이다:ser)? (추측),será
+3,명령법(긍정),¡___(말하다:hablar) más despacio!,Habla
+3,명령법(긍정),¡___(먹다:comer) la verdura!,Come
+3,명령법(긍정),¡___(오다:venir) aquí!,Ven
+3,명령법(부정),¡No ___(말하다:hablar) tan alto!,hables
+3,명령법(부정),¡No ___(오다:venir) tarde!,vengas
+3,명령법(부정),¡No ___(하다:hacer) eso!,hagas
+3,접속법 현재 기초,Espero que ___(오다:venir).,vengas
+3,접속법 현재 기초,Quiero que ella ___(연구하다:estudiar) más.,estudie
+3,접속법 현재 기초,Dudo que él ___(알다:saber) la respuesta.,sepa
+3,조건법(condicional simple),Me ___(좋아하다:gustar) viajar a España.,gustaría
+3,조건법(condicional simple),¿___(하다:poder) ayudarme? (정중한 요청),Podrías
+3,조건법(condicional simple),Yo ___(먹다:comer) más si tuviera hambre.,comería
+3,관계대명사(que/quien),El hombre ___ vive allí es mi tío.,que
+3,관계대명사(que/quien),La persona con ___ hablé es amable.,quien
+3,관계대명사(que/quien),El libro ___ leo es interesante.,que
+3,재귀동사 심화,___ rompió el vaso. (자발적),Se
+3,재귀동사 심화,Ellos ___ aman. (서로),se
+3,재귀동사 심화,___ me olvidó las llaves. (무의도적),Se
+3,이중목적격대명사,___ lo doy a ella. (le->se),Se
+3,이중목적격대명사,Te ___ regalo. (그것을:lo),lo
+3,이중목적격대명사,Me ___ dijeron ayer. (그것을:las 복수),las
+3,부정어(nada/nadie/nunca),No veo a ___. (아무도),nadie
+3,부정어(nada/nadie/nunca),___ como carne. (절대~않다),Nunca
+3,부정어(nada/nadie/nunca),No tengo ___ que decir. (아무것도),nada
+4,접속법 현재 심화(감정/의심),Me alegro de que ___(있다:estar) bien.,estés
+4,접속법 현재 심화(감정/의심),No creo que ___(이다:ser) verdad.,sea
+4,접속법 현재 심화(감정/의심),Es una lástima que no ___(오다:venir).,vengas
+4,접속법 과거(imperfecto de subjuntivo),Quería que ___(오다:venir).,vinieras
+4,접속법 과거(imperfecto de subjuntivo),Ojalá ___(가지다:tener) más tiempo.,tuviera
+4,접속법 과거(imperfecto de subjuntivo),"Si yo ___(있다:ser) rico, viajaría mucho.",fuera
+4,가정문(si+접속법과거),"Si yo ___(가지다:tener) dinero, compraría una casa.",tuviera
+4,가정문(si+접속법과거),"Si ella estudiara más, ___(합격하다:aprobar) el examen.",aprobaría
+4,가정문(si+접속법과거),"Si hiciera sol, ___(가다:ir) a la playa.",iría
+4,완료접속법(perfecto de subjuntivo),Espero que ___ terminado. (haber 접속법:hayas),hayas
+4,완료접속법(perfecto de subjuntivo),Dudo que ella ___(오다:venir) haya.,haya venido
+4,완료접속법(perfecto de subjuntivo),Me alegro de que lo ___(하다:hacer) bien.,hayas hecho
+4,por/para 심화,Gracias ___ tu ayuda.,por
+4,por/para 심화,"___ mí, esto es importante.",Para
+4,por/para 심화,"Lo hice ___ ti, no por dinero.",por
+4,수동태(ser+과거분사),La casa ___ construida por mi abuelo. (ser 과거:fue),fue
+4,수동태(ser+과거분사),Los libros ___(쓰여지다:escribir) por un autor famoso.,fueron escritos
+4,수동태(ser+과거분사),El puente ___(짓다:construir) en 1990.,fue construido
+4,재귀수동문(se pasiva),___ habla español aquí.,Se
+4,재귀수동문(se pasiva),___ venden libros en esa tienda.,Se
+4,재귀수동문(se pasiva),___ necesita experiencia para este trabajo.,Se
+4,간접화법,Ella dijo que ___(있다:estar) cansada.,estaba
+4,간접화법,Él me dijo que ___(오다:venir) mañana.,vendría
+4,간접화법,Me preguntó si yo ___(알다:saber) la respuesta.,sabía
+4,관계절 심화(el que/lo que),___ dijiste es verdad. (네가 말한 것),Lo que
+4,관계절 심화(el que/lo que),El libro es ___ compré ayer. (el que),el que
+4,관계절 심화(el que/lo que),No entiendo ___ quieres decir.,lo que
+4,양보(aunque),"Aunque ___(비오다:llover), salgo. (사실)",llueve
+4,양보(aunque),"Aunque ___(비오다:llover) mañana, saldré. (가정)",llueva
+4,양보(aunque),"Aunque es difícil, lo ___(하다:hacer).",hago
+4,강조구문(lo que...es),Lo que necesito ___ más tiempo.,es
+4,강조구문(lo que...es),___ que quiero decir es que te quiero. (Lo),Lo
+4,강조구문(lo que...es),Lo que más me gusta ___ el chocolate.,es
+4,완료조건법(condicional compuesto),___ venido si hubiera podido. (habría),Habría
+4,완료조건법(condicional compuesto),"Si hubiera estudiado más, ___(합격하다:aprobar) el examen.",habría aprobado
+4,완료조건법(condicional compuesto),Ella ___(하다:hacer) lo mismo en tu lugar.,habría hecho
+5,접속법 대과거,Ojalá ___ sabido la verdad. (hubiera),hubiera
+5,접속법 대과거,"Si ella ___(오다:venir) hubiera, todo habría sido diferente.",hubiera venido
+5,접속법 대과거,Dudaba que él lo ___(하다:hacer) hubiera.,hubiera hecho
+5,가정법 3형식,"Si ___(연구하다:estudiar) hubiera, habría aprobado.",hubiera estudiado
+5,가정법 3형식,"Si hubiera llovido, no ___(가다:ir) habríamos ido.",habríamos ido
+5,가정법 3형식,"Si me lo hubieras dicho, te ___(돕다:ayudar) habría ayudado.",habría ayudado
+5,접속사 심화(a pesar de que/siempre que),"___ llovía, salimos. (~에도 불구하고)",A pesar de que
+5,접속사 심화(a pesar de que/siempre que),"___ puedo, la ayudo. (~할 때마다)",Siempre que
+5,접속사 심화(a pesar de que/siempre que),"Lo haré, ___ tenga tiempo. (~하는 한)",siempre que
+5,강조·도치구문,Grande ___ su sorpresa. (fue),fue
+5,강조·도치구문,Tanto es así ___ nadie lo cree. (que),que
+5,강조·도치구문,Poco ___ yo entonces. (알았다:sabía),sabía
+5,관용 접속법 표현(ojalá/quizás),Ojalá ___(이기다:ganar) la lotería.,gane
+5,관용 접속법 표현(ojalá/quizás),Quizás ___(오다:venir) mañana.,venga
+5,관용 접속법 표현(ojalá/quizás),Ojalá ___(있다:estar) aquí ahora.,estuviera
+5,담화표지 심화(sin embargo/no obstante),"El plan era arriesgado; ___, decidieron continuar.",sin embargo
+5,담화표지 심화(sin embargo/no obstante),"___, el resultado fue positivo. (그럼에도 불구하고)",No obstante
+5,담화표지 심화(sin embargo/no obstante),"Estaba cansado; ___, terminó el trabajo.",sin embargo
+5,명사화 구문,La ___ de la empresa sorprendió a todos. (decidir),decisión
+5,명사화 구문,La ___ de este tema es innegable. (importante),importancia
+5,명사화 구문,Su ___ fue inesperada. (llegar),llegada
+5,완곡화법(condicional de cortesía),¿___ ayudarme? (poder),Podría
+5,완곡화법(condicional de cortesía),Me ___ saber más. (gustar),gustaría
+5,완곡화법(condicional de cortesía),___ mejor que lo hicieras ahora. (ser),Sería
+5,병렬구조,"Le gusta leer, escribir y ___(그리다:pintar).",pintar
+5,병렬구조,"No solo es inteligente, sino también ___(친절한:amable).",amable
+5,병렬구조,"La tarea requiere paciencia, enfoque y ___(헌신:dedicación).",dedicación
+5,부정어 강조(en absoluto/ni siquiera),No me importa ___. (전혀),en absoluto
+5,부정어 강조(en absoluto/ni siquiera),___ me llamó. (~조차도 않다),Ni siquiera
+5,부정어 강조(en absoluto/ni siquiera),No lo sabía ___. (전혀),en absoluto
+6,문어체 접속법 활용,"Si ___(알다:saber) hubiese, no habría venido.",hubiese sabido
+6,문어체 접속법 활용,"Fuese lo que ___(이다:ser), lo aceptaría.",fuese
+6,문어체 접속법 활용,"Quienquiera que ___(오다:venir), será bienvenido.",venga
+6,고급 도치·강조,Solo así se ___ entender la situación. (poder),puede
+6,고급 도치·강조,Jamás ___ visto algo así. (haber),había
+6,고급 도치·강조,Ni por un momento ___ dudado de ti. (haber),he
+6,관용구·숙어표현,Este coche me costó un ___ de la cara. (눈:ojo),ojo
+6,관용구·숙어표현,Está lloviendo a ___ y jarros. (동이째:cántaros),cántaros
+6,관용구·숙어표현,Ella tiene la ___ en la manga. (숨겨진 카드:carta),carta
+6,학술적 글쓰기 문형,Se ___ que el cambio climático se acelera. (주장하다:argumentar),argumenta
+6,학술적 글쓰기 문형,___ destacar que los resultados son preliminares. (cabe),Cabe
+6,학술적 글쓰기 문형,Se podría ___ que la teoría es incompleta. (주장하다:afirmar),afirmar
+6,생략과 대용,"Yo no fumo, pero él ___. (그렇다:sí)",sí
+6,생략과 대용,"Ella lo cree, y yo también lo ___. (creo)",creo
+6,생략과 대용,"No he terminado, pero él ___. (그렇다:sí)",sí
+6,뉘앙스 조동사 조합(deber de/poder),___ de ser tarde. (deber),Debe
+6,뉘앙스 조동사 조합(deber de/poder),___ que llueva mañana. (poder),Puede
+6,뉘앙스 조동사 조합(deber de/poder),Debe de ___(알다:saber) la respuesta.,saber
+6,문체적 격식 표현,Le ___(감사하다:agradecer) que me respondiera pronto.,agradecería
+6,문체적 격식 표현,¿___(가지다:tener) usted la amabilidad de esperar?,Tendría
+6,문체적 격식 표현,Quedo a la ___ de cualquier consulta. (espera),espera
+6,화용론적 공손 표현,¿Le ___ cerrar la ventana? (importar),importaría
+6,화용론적 공손 표현,"Si no es ___, ¿podría ayudarme? (molestia)",molestia
+6,화용론적 공손 표현,¿___ posible que me ayudara? (ser),Sería

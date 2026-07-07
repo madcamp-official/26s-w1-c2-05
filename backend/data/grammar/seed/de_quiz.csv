@@ -1,0 +1,181 @@
+level,subject,problem,answer
+1,sein/haben 현재형,Ich ___ Student.,bin
+1,sein/haben 현재형,Ich ___ zwanzig Jahre.,habe
+1,sein/haben 현재형,Sie ___ Lehrerin.,ist
+1,명사의 성과 관사(der/die/das),___ Mann ist mein Vater. (남성),Der
+1,명사의 성과 관사(der/die/das),___ Frau ist meine Mutter. (여성),Die
+1,명사의 성과 관사(der/die/das),___ Kind spielt im Garten. (중성),Das
+1,명사의 복수형,"ein Buch, zwei ___. (복수:Bücher)",Bücher
+1,명사의 복수형,"eine Frau, drei ___. (복수:Frauen)",Frauen
+1,명사의 복수형,"ein Kind, vier ___. (복수:Kinder)",Kinder
+1,규칙동사 현재형 어미변화,Ich ___(하다:machen) meine Hausaufgaben.,mache
+1,규칙동사 현재형 어미변화,Du ___(살다:wohnen) in Berlin.,wohnst
+1,규칙동사 현재형 어미변화,Er ___(배우다:lernen) Deutsch.,lernt
+1,인칭대명사·소유관사,Ich habe ___ eigenes Auto. (나의),mein
+1,인칭대명사·소유관사,Sie liebt ___ Familie. (그녀의),ihre
+1,인칭대명사·소유관사,___ Hund ist sehr groß. (우리의),Unser
+1,지시대명사(dieser/jener),___ Buch ist interessant. (이:중성),Dieses
+1,지시대명사(dieser/jener),___ Auto ist teuer. (저:중성),Jenes
+1,지시대명사(dieser/jener),___ Mann ist mein Lehrer. (이:남성),Dieser
+1,es gibt(존재표현),___ viele Bücher auf dem Tisch.,Es gibt
+1,es gibt(존재표현),___ einen Park in der Nähe.,Es gibt
+1,es gibt(존재표현),___ keine Zeit mehr. (없다),Es gibt
+1,기본 의문문·부정문(nicht/kein),___ du Englisch? (말하다:sprechen),Sprichst
+1,기본 의문문·부정문(nicht/kein),Ich spreche ___ Englisch. (명사부정),kein
+1,기본 의문문·부정문(nicht/kein),Das ist ___ richtig. (동사/형용사 부정),nicht
+2,격변화 기초(Akkusativ),Ich sehe ___ Mann. (der→4격),den
+2,격변화 기초(Akkusativ),Sie kauft ___ Buch. (das),das
+2,격변화 기초(Akkusativ),Wir haben ___ Hund. (ein→4격),einen
+2,격변화 기초(Dativ),Ich gebe ___ Mann das Buch. (der→3격),dem
+2,격변화 기초(Dativ),Sie hilft ___ Frau. (die→3격),der
+2,격변화 기초(Dativ),Wir danken ___ Kindern. (die 복수→3격),den
+2,분리동사,Ich stehe um sieben Uhr ___. (aufstehen),auf
+2,분리동사,Er macht die Tür ___. (zumachen),zu
+2,분리동사,Wir kommen morgen ___. (ankommen),an
+2,화법조동사(können/müssen/wollen),Ich ___ Deutsch sprechen. (können),kann
+2,화법조동사(können/müssen/wollen),Du ___ die Hausaufgaben machen. (müssen),musst
+2,화법조동사(können/müssen/wollen),Sie ___ nach Berlin fahren. (wollen),will
+2,과거형(Präteritum: sein/haben),Ich ___ gestern zu Hause. (sein 과거:war),war
+2,과거형(Präteritum: sein/haben),Ich ___ keine Zeit. (haben 과거:hatte),hatte
+2,과거형(Präteritum: sein/haben),Wir ___ sehr müde. (sein 과거:waren),waren
+2,현재완료(Perfekt),Ich habe das Buch ___(읽다:lesen).,gelesen
+2,현재완료(Perfekt),Sie ist nach Berlin ___(가다:fahren).,gefahren
+2,현재완료(Perfekt),Wir haben Pizza ___(먹다:essen).,gegessen
+2,전치사(in/an/auf),Das Buch liegt auf ___ Tisch. (위치:3격),dem
+2,전치사(in/an/auf),Ich lege das Buch auf ___ Tisch. (방향:4격),den
+2,전치사(in/an/auf),Das Bild hängt an ___ Wand. (위치:die→3격),der
+2,비교급·최상급,Dieses Buch ist ___ als jenes. (interessant),interessanter
+2,비교급·최상급,Es ist ___ interessantesten. (am),am
+2,비교급·최상급,Sie ist ___ als ihr Bruder. (klug),klüger
+2,재귀동사,Ich freue ___ auf die Reise. (mich),mich
+2,재귀동사,Er interessiert ___ für Musik. (sich),sich
+2,재귀동사,Wir setzen ___ auf die Bank. (uns),uns
+2,부사·빈도표현,Ich trinke ___ Kaffee am Morgen. (항상),immer
+2,부사·빈도표현,Er geht ___ ins Kino. (가끔),manchmal
+2,부사·빈도표현,Sie kommt ___ zu spät. (절대~않다),nie
+3,형용사 어미변화(정관사류),der groß___ Mann. (약변화),e
+3,형용사 어미변화(정관사류),die schön___ Frau.,e
+3,형용사 어미변화(정관사류),das klein___ Kind.,e
+3,형용사 어미변화(부정관사류),ein groß___ Mann. (혼합변화 남성1격),er
+3,형용사 어미변화(부정관사류),ein klein___ Kind. (혼합변화 중성1격),es
+3,형용사 어미변화(부정관사류),eine schön___ Frau. (혼합변화 여성1격),e
+3,종속접속사·어순(weil/dass/wenn),"Ich bleibe zu Hause, weil es ___. (regnen)",regnet
+3,종속접속사·어순(weil/dass/wenn),"Ich weiß, dass er ___ kommt. (morgen)",morgen
+3,종속접속사·어순(weil/dass/wenn),"Wenn du Zeit ___, ruf mich an. (haben)",hast
+3,관계대명사(격변화),"Der Mann, ___ dort wohnt, ist mein Onkel. (주격 남성)",der
+3,관계대명사(격변화),"Das Buch, ___ ich lese, ist interessant. (목적격 중성)",das
+3,관계대명사(격변화),"Die Frau, ___ ich helfe, ist meine Nachbarin. (3격 여성)",der
+3,2격(Genitiv),das Auto ___ Mannes. (der→2격),des
+3,2격(Genitiv),die Tasche ___ Frau. (die→2격),der
+3,2격(Genitiv),der Name des Kind___. (2격 명사어미),es
+3,수동태(현재),Das Haus ___ von meinem Großvater gebaut. (werden),wird
+3,수동태(현재),Die Bücher ___(쓰여지다:schreiben) von einem berühmten Autor geschrieben.,werden
+3,수동태(현재),Die Brücke ___(짓다:bauen) 1990 gebaut.,wurde
+3,접속법 2식 기초(würde),Ich ___ gerne nach Spanien reisen. (würde),würde
+3,접속법 2식 기초(würde),___(하다:würde) du mir helfen? (정중한 요청),Würdest
+3,접속법 2식 기초(würde),"Wenn ich Zeit hätte, ___ ich kommen. (würde)",würde
+3,명령법,___(말하다:sprechen) langsamer!,Sprich
+3,명령법,___(오다:kommen) Sie bitte herein!,Kommen
+3,명령법,___(먹다:essen) dein Gemüse!,Iss
+3,da-/wo-복합어,Ich denke ___. (그것에 대해:daran),daran
+3,da-/wo-복합어,___ denkst du? (무엇에 대해:woran),Woran
+3,da-/wo-복합어,Ich interessiere mich ___. (그것을 위해:dafür),dafür
+3,zu부정사구문,"Ich lerne Deutsch, um in Deutschland zu ___(공부하다:studieren).",studieren
+3,zu부정사구문,"Er ging weg, ohne etwas zu ___(말하다:sagen).",sagen
+3,zu부정사구문,"Sie las ein Buch, statt fernzu___(보다:sehen).",sehen
+3,부문장 어순 심화,"Weil es regnet, ___ ich zu Hause. (bleiben, 도치)",bleibe
+3,부문장 어순 심화,"Wenn du kommst, ___ ich mich. (freuen, 도치)",freue
+3,부문장 어순 심화,"Obwohl er müde war, ___ er weiter. (arbeiten, 도치)",arbeitete
+3,전치사+격 심화(mit/nach/bei),Ich fahre mit ___ Bus. (der→3격),dem
+3,전치사+격 심화(mit/nach/bei),Ich wohne bei ___ Tante. (die→3격),meiner
+3,전치사+격 심화(mit/nach/bei),Nach ___ Essen gehen wir spazieren. (das→3격),dem
+4,수동태 심화(과거/화법조동사),Das Haus ___(짓다:bauen) letztes Jahr gebaut. (werden 과거:wurde),wurde
+4,수동태 심화(과거/화법조동사),Die Arbeit muss heute ___(끝내다:beenden) werden.,beendet
+4,수동태 심화(과거/화법조동사),Das Problem kann gelöst ___. (werden),werden
+4,접속법 2식 심화(가정법),"Wenn ich Zeit ___(가지다:haben), würde ich kommen.",hätte
+4,접속법 2식 심화(가정법),"Wenn ich reich ___(이다:sein), würde ich reisen.",wäre
+4,접속법 2식 심화(가정법),"Wenn er das gewusst ___, hätte er anders gehandelt. (haben)",hätte
+4,접속법 1식(간접화법),"Er sagte, er ___ müde. (sein 접속법1식:sei)",sei
+4,접속법 1식(간접화법),"Sie behauptete, sie ___ die Wahrheit. (wissen:wisse)",wisse
+4,접속법 1식(간접화법),"Er sagte, er ___ morgen kommen. (werden:werde)",werde
+4,관계대명사 심화(전치사+관계대명사),"Das ist der Mann, mit ___ ich gesprochen habe. (dem)",dem
+4,관계대명사 심화(전치사+관계대명사),"Das Haus, in ___ ich wohne, ist alt. (dem)",dem
+4,관계대명사 심화(전치사+관계대명사),"Die Firma, für ___ ich arbeite, ist groß. (die)",die
+4,분사구문,das schlaf___(자다:schlafen) Kind.,ende
+4,분사구문,das geschrieb___(쓰다:schreiben) Buch.,ene
+4,분사구문,der lächel___(웃다:lächeln) Mann.,nde
+4,확장관형구,der von mir ___(읽다:lesen) Roman.,gelesene
+4,확장관형구,die gestern ___(도착하다:ankommen) Gäste.,angekommenen
+4,확장관형구,das lange ___(기다리다:warten) Kind.,wartende
+4,이중접속사(entweder...oder),"___ kommst du, oder ich gehe allein.",Entweder
+4,이중접속사(entweder...oder),"Sie ist nicht nur klug, ___ auch freundlich.",sondern
+4,이중접속사(entweder...oder),"Er spricht nicht nur Deutsch, sondern ___ Französisch.",auch
+4,양보접속사(obwohl/trotzdem),"Obwohl es ___(비오다:regnen), gehe ich raus.",regnet
+4,양보접속사(obwohl/trotzdem),"Es regnet, ___ gehe ich raus. (trotzdem)",trotzdem
+4,양보접속사(obwohl/trotzdem),"Obwohl er müde ___, arbeitet er weiter. (sein)",ist
+4,목적문(damit/um...zu),"Ich lerne Deutsch, um in Deutschland zu ___(공부하다:studieren).",studieren
+4,목적문(damit/um...zu),"Ich gebe ihm das Buch, ___ er es liest. (damit)",damit
+4,목적문(damit/um...zu),"Sie spricht langsam, ___ ich sie verstehe. (damit)",damit
+4,명사화(동사→명사),Die ___ der Firma überraschte alle. (entscheiden),Entscheidung
+4,명사화(동사→명사),Die ___ dieses Themas ist unbestreitbar. (wichtig),Wichtigkeit
+4,명사화(동사→명사),Seine ___ war unerwartet. (ankommen),Ankunft
+4,화법조동사 심화(주관적 추측),Er ___ krank sein. (확신의 추측:müssen),muss
+4,화법조동사 심화(주관적 추측),Sie ___ sehr reich sein. (들은 정보:sollen),soll
+4,화법조동사 심화(주관적 추측),Das ___ ein Fehler sein. (~일지도 모른다:können),kann
+4,문장부사와 어순 뉘앙스,"Leider ___ ich keine Zeit. (haben, 도치)",habe
+4,문장부사와 어순 뉘앙스,"Zum Glück ___ es nicht. (regnen, 도치)",regnet
+4,문장부사와 어순 뉘앙스,"Vielleicht ___ er morgen. (kommen, 도치)",kommt
+5,접속법 1식 심화(보도체),"Der Minister erklärte, die Lage ___ ernst. (sein 접속법1식:sei)",sei
+5,접속법 1식 심화(보도체),"Er sagte, er habe die Unterlagen bereits ___(보내다:schicken) geschickt.",geschickt
+5,접속법 1식 심화(보도체),"Sie betonte, man müsse schnell ___(행동하다:handeln).",handeln
+5,수동태 대용구문(sein+zu/lassen+sich),Das Problem ist zu ___(해결하다:lösen).,lösen
+5,수동태 대용구문(sein+zu/lassen+sich),Das ___ sich leicht erklären. (lassen),lässt
+5,수동태 대용구문(sein+zu/lassen+sich),Die Aufgabe ist noch zu ___(끝내다:erledigen).,erledigen
+5,격식체 접속사(zumal/sofern),"Er kam nicht, ___ er krank war. (특히~이므로)",zumal
+5,격식체 접속사(zumal/sofern),"___ es möglich ist, helfe ich dir. (~하는 한)",Sofern
+5,격식체 접속사(zumal/sofern),"Ich komme, ___ ich Zeit habe. (~하는 한)",sofern
+5,강조·도치구문,"Kaum ___ er das gesagt, als sie wegging. (haben)",hatte
+5,강조·도치구문,So schnell ___ ich noch nie gelaufen. (sein),bin
+5,강조·도치구문,Nie ___ ich so etwas gesehen. (haben),habe
+5,관용 접속법 표현(sollte/als ob),"___ es regnen, bleiben wir zu Hause. (sollte)",Sollte
+5,관용 접속법 표현(sollte/als ob),"Er tut, als ___ er alles wüsste. (ob)",ob
+5,관용 접속법 표현(sollte/als ob),"Sie tat, als ___ nichts passiert. (sein)",wäre
+5,담화표지 심화(jedoch/dennoch),Der Plan war riskant; ___ entschieden sie sich weiterzumachen.,dennoch
+5,담화표지 심화(jedoch/dennoch),"Er war müde, ___ arbeitete er weiter. (jedoch)",jedoch
+5,담화표지 심화(jedoch/dennoch),Das Ergebnis war ___ positiv. (그럼에도 불구하고:dennoch),dennoch
+5,명사화 구문 심화,Nach der ___ des Zuges stiegen alle aus. (ankommen),Ankunft
+5,명사화 구문 심화,Trotz der ___ blieb er ruhig. (schwierig:Schwierigkeiten),Schwierigkeiten
+5,명사화 구문 심화,Wegen der ___ musste die Reise verschoben werden. (verspäten:Verspätung),Verspätung
+5,완곡화법(Konjunktiv 공손),___ Sie mir helfen? (können),Könnten
+5,완곡화법(Konjunktiv 공손),Ich ___ gern einen Kaffee. (haben),hätte
+5,완곡화법(Konjunktiv 공손),"Das ___ schön. (sein, 공손한 제안)",wäre
+5,병렬구조,"Sie liest gern, schreibt gern und ___(그리다:malen) gern.",malt
+5,병렬구조,"Er ist nicht nur klug, sondern auch ___(친절한:freundlich).",freundlich
+5,병렬구조,"Die Aufgabe erfordert Geduld, Konzentration und ___(헌신:Hingabe).",Hingabe
+5,부정어 강조(keineswegs/nicht einmal),Das interessiert mich ___. (전혀),keineswegs
+5,부정어 강조(keineswegs/nicht einmal),Er hat ___ angerufen. (~조차도 않다),nicht einmal
+5,부정어 강조(keineswegs/nicht einmal),Ich wusste das ___. (전혀),keineswegs
+6,문어체 격변화 잔재표현,Während ___ Krieges war das Leben schwer. (des),des
+6,문어체 격변화 잔재표현,Trotz ___ Regens gingen sie spazieren. (des),des
+6,문어체 격변화 잔재표현,Er handelte guten ___. (마음:Mutes),Mutes
+6,고급 도치·강조,Selten ___ ich so etwas Schönes gesehen. (haben),habe
+6,고급 도치·강조,"Kaum ___ er angekommen, als das Telefon klingelte. (sein)",war
+6,고급 도치·강조,Nie zuvor ___ so viele Menschen teilgenommen. (haben),hatten
+6,관용구·숙어표현,Ich drücke dir die ___. (엄지손가락:Daumen),Daumen
+6,관용구·숙어표현,Das ist nicht mein ___. (맥주:Bier - 내 알 바 아니다),Bier
+6,관용구·숙어표현,Ich verstehe nur ___. (역:Bahnhof - 전혀 이해 못하다),Bahnhof
+6,학술적 글쓰기 문형,"Es wird ___, dass sich der Klimawandel beschleunigt. (주장하다:argumentieren)",argumentiert
+6,학술적 글쓰기 문형,"Es ist zu ___, dass die Ergebnisse vorläufig sind. (강조하다:betonen)",betonen
+6,학술적 글쓰기 문형,"Es lässt sich ___, dass die Theorie unvollständig ist. (확인하다:feststellen)",feststellen
+6,생략과 대용,"Ich rauche nicht, er aber ___. (그렇다:schon)",schon
+6,생략과 대용,"Sie glaubt es, und ich glaube es ___. (마찬가지로:auch)",auch
+6,생략과 대용,"Ich bin noch nicht fertig, er aber ___. (그렇다:schon)",schon
+6,뉘앙스 조동사 조합(dürfte/müsste),Er ___ schon zu Hause sein. (조심스러운 추측:dürfte),dürfte
+6,뉘앙스 조동사 조합(dürfte/müsste),Das ___ richtig sein. (강한 추론:müsste),müsste
+6,뉘앙스 조동사 조합(dürfte/müsste),Sie ___ es schon wissen. (조심스러운 추측:dürfte),dürfte
+6,문체적 격식 표현,"Ich wäre Ihnen ___, wenn Sie mir antworten könnten. (감사한:dankbar)",dankbar
+6,문체적 격식 표현,"___ Sie so freundlich, kurz zu warten? (sein)",Wären
+6,문체적 격식 표현,Ich stehe für weitere Fragen zur ___. (verfügung:Verfügung),Verfügung
+6,화용론적 공손 표현,"___ es Ihnen etwas ausmachen, das Fenster zu schließen? (werden)",Würde
+6,화용론적 공손 표현,"Wenn es nicht zu viel ___ ist, könnten Sie mir helfen? (요구되다:verlangt)",verlangt
+6,화용론적 공손 표현,"___ es möglich, dass Sie mir helfen? (sein)",Wäre

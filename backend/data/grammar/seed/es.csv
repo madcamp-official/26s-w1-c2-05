@@ -1,0 +1,61 @@
+lang_id,level,subject,grammar_expl
+4,1,ser/estar 현재형 구분,"ser는 본질적 특성(직업, 성격, 출신)을, estar는 일시적 상태나 위치를 나타냅니다. 형태: (yo)soy/estoy, (tú)eres/estás, (él)es/está. 예문: Ella es médica y está cansada hoy. (그녀는 의사이고 오늘은 피곤하다.)"
+4,1,명사의 성과 수,"스페인어 명사는 남성/여성으로 구분되며(대개 -o는 남성, -a는 여성), 복수형은 모음으로 끝나면 -s, 자음으로 끝나면 -es를 붙입니다. 형태: 명사(단수/복수) + 형용사(성·수 일치). 예문: Los libros rojos están aquí. (빨간 책들이 여기 있다.)"
+4,1,관사(정관사/부정관사),"정관사(el/la/los/las)는 이미 알고 있는 특정 대상을, 부정관사(un/una/unos/unas)는 처음 언급되는 대상을 가리킵니다. 예문: Tengo un perro. El perro es muy simpático. (나는 개가 한 마리 있다. 그 개는 매우 사랑스럽다.)"
+4,1,규칙동사 현재형(-ar/-er/-ir),"규칙동사는 어미(-ar/-er/-ir)에 따라 인칭별로 정해진 어미변화를 합니다. 형태: hablar→hablo/hablas/habla, comer→como/comes/come. 예문: Yo hablo español y como pan. (나는 스페인어를 하고 빵을 먹는다.)"
+4,1,주격·소유격 대명사,"주격대명사(yo, tú, él...)는 주어를, 소유형용사(mi, tu, su...)는 명사 앞에서 소유를 나타냅니다. 예문: Yo tengo mi propio coche. (나는 내 소유의 차가 있다.)"
+4,1,지시대명사(este/ese/aquel),"este는 화자와 가까운 것, ese는 청자와 가까운 것, aquel은 둘 다에서 먼 것을 가리킵니다. 예문: Este libro es mío, ese es tuyo. (이 책은 내 것이고, 그 책은 네 것이다.)"
+4,1,hay(존재표현),"hay는 haber동사의 3인칭 단수 특수형으로, '~이 있다'는 존재를 나타내며 단수/복수 명사 모두에 변화 없이 씁니다. 형태: hay + 명사. 예문: Hay muchos libros en la mesa. (책상 위에 책이 많이 있다.)"
+4,1,기본 의문문·부정문,"의문문은 문장을 뒤집힌 물음표(¿)로 시작하고 끝에 ?를 붙이며, 부정문은 동사 앞에 no를 넣습니다. 형태: ¿동사+주어...? / 주어 + no + 동사. 예문: ¿Hablas inglés? No, no hablo inglés. (영어 할 줄 알아? 아니, 영어 못해.)"
+4,2,불규칙동사 현재형,"많이 쓰이는 동사(ser, tener, ir, hacer 등)는 불규칙 현재형 활용을 가지므로 따로 암기해야 합니다. 예문: Yo tengo veinte años. Voy a la escuela. (나는 스무 살이다. 나는 학교에 간다.)"
+4,2,재귀동사,"재귀동사는 주어가 자기 자신에게 행하는 동작을 나타내며, 재귀대명사(me, te, se, nos, os, se)와 함께 씁니다. 형태: 재귀대명사 + 동사. 예문: Me levanto a las siete. (나는 7시에 일어난다.)"
+4,2,단순과거(pretérito indefinido),단순과거는 과거에 완료된 구체적 사건을 나타냅니다. 형태: hablar→hablé/hablaste/habló. 예문: Ayer hablé con mi amigo. (어제 나는 친구와 이야기했다.)
+4,2,불완료과거(imperfecto),"불완료과거는 과거의 습관이나 배경 묘사를 나타냅니다. 형태: hablar→hablaba/hablabas/hablaba. 예문: Cuando era niño, jugaba mucho. (어렸을 때 나는 많이 놀았다.)"
+4,2,근접미래(ir a+동사원형),ir a + 동사원형은 가까운 미래에 할 일을 나타내는 표현입니다. 형태: ir(현재형) + a + 동사원형. 예문: Voy a estudiar esta noche. (나는 오늘 밤 공부할 것이다.)
+4,2,비교급·최상급,"비교급은 más/menos...que로, 최상급은 el/la más...de로 나타냅니다. 예문: Este libro es más interesante que ese. Es el más alto de la clase. (이 책이 저 책보다 더 재미있다. 그는 반에서 가장 키가 크다.)"
+4,2,목적격대명사(직접/간접),"직접목적격대명사(lo, la, los, las)는 동작의 대상을, 간접목적격대명사(me, te, le, nos, os, les)는 동작의 수혜자를 나타냅니다. 예문: Le doy el libro a ella. Lo compro. (나는 그녀에게 책을 준다. 나는 그것을 산다.)"
+4,2,gustar류 동사,"gustar는 '~을 좋아하다'가 아니라 '~에게 마음에 들다'라는 구조로, 좋아하는 대상이 주어가 되고 사람은 간접목적격대명사로 씁니다. 형태: (간접목적격) + gusta/gustan + 대상. 예문: Me gusta el chocolate. (나는 초콜릿을 좋아한다.)"
+4,2,전치사(por/para),"por는 이유/경로/기간을, para는 목적/수신자/기한을 나타냅니다. 예문: Este regalo es para ti. Viajo por Europa. (이 선물은 너를 위한 것이다. 나는 유럽을 여행한다.)"
+4,2,부사·빈도표현,"빈도부사(siempre, a menudo, a veces, nunca)는 얼마나 자주 일이 일어나는지 나타내며, 보통 동사 앞이나 문장 앞뒤에 위치합니다. 예문: Siempre desayuno a las ocho. (나는 항상 8시에 아침을 먹는다.)"
+4,3,현재완료(pretérito perfecto),"현재완료는 haber(현재) + 과거분사로 만들며, 과거에 일어난 일이 현재와 연관되어 있음을 나타냅니다. 형태: he/has/ha + 과거분사. 예문: He terminado mi tarea. (나는 숙제를 끝냈다.)"
+4,3,과거완료(pluscuamperfecto),"과거완료는 haber(불완료과거) + 과거분사로 만들며, 과거의 어떤 시점보다 더 이전에 일어난 일을 나타냅니다. 형태: había/habías + 과거분사. 예문: Cuando llegué, ella ya había salido. (내가 도착했을 때, 그녀는 이미 나간 상태였다.)"
+4,3,단순과거 vs 불완료과거,"단순과거는 완결된 사건, 불완료과거는 배경/습관을 나타내며, 한 문장 안에서 함께 쓰여 이야기의 틀을 만듭니다. 예문: Mientras yo leía, sonó el teléfono. (내가 책을 읽고 있는데 전화가 울렸다.)"
+4,3,미래형(futuro simple),"단순미래형은 동사원형에 직접 어미(-é, -ás, -á...)를 붙여 만들며, 미래의 일이나 추측을 나타냅니다. 형태: hablar→hablaré/hablarás. 예문: Mañana hablaré con ella. (내일 나는 그녀와 이야기할 것이다.)"
+4,3,명령법(긍정),"긍정명령법은 상대에게 어떤 행동을 하라고 지시할 때 쓰며, tú형은 대개 현재형 3인칭 단수와 같은 형태입니다. 예문: ¡Habla más despacio! (더 천천히 말해!)"
+4,3,명령법(부정),부정명령법(tú)은 접속법 현재형을 그대로 씁니다. 예문: ¡No hables tan alto! (그렇게 크게 말하지 마!)
+4,3,접속법 현재 기초,"접속법은 바람, 의심, 감정, 요청을 나타내는 주절 뒤 종속절에서 쓰이며, 어미가 직설법과 반대로 바뀝니다(-ar동사는 -e, -er/-ir동사는 -a). 예문: Espero que vengas. (네가 오기를 바란다.)"
+4,3,조건법(condicional simple),"조건법은 동사원형에 -ía 계열 어미를 붙여 만들며, 정중한 요청이나 가정의 결과를 나타냅니다. 형태: hablar→hablaría. 예문: Me gustaría viajar a España. (나는 스페인으로 여행하고 싶다.)"
+4,3,관계대명사(que/quien),"que는 사람/사물 모두에 쓸 수 있는 가장 일반적인 관계대명사이며, quien은 전치사 뒤에서 사람을 가리킬 때 씁니다. 예문: El hombre que vive allí es mi tío. La persona con quien hablé es amable. (저기 사는 남자는 내 삼촌이다. 내가 이야기한 사람은 친절하다.)"
+4,3,재귀동사 심화,재귀동사는 상호적 의미(서로 ~하다)나 수동적/자발적 의미(무의도적 사건)로도 확장되어 쓰입니다. 예문: Se rompió el vaso. Ellos se aman. (컵이 깨졌다. 그들은 서로 사랑한다.)
+4,3,이중목적격대명사,"직접목적격과 간접목적격대명사가 함께 쓰일 때는 간접목적격이 먼저 오며, le/les가 lo/la/los/las 앞에 오면 se로 바뀝니다. 예문: Se lo doy a ella. (나는 그것을 그녀에게 준다.)"
+4,3,부정어(nada/nadie/nunca),"nada(아무것도), nadie(아무도), nunca(결코~않다)는 부정문에서 no와 함께 이중부정으로 쓰이거나 문두에 단독으로 씁니다. 예문: No veo a nadie. Nunca como carne. (아무도 안 보인다. 나는 고기를 절대 안 먹는다.)"
+4,4,접속법 현재 심화(감정/의심),"감정(alegrarse, sorprender)이나 의심(dudar, no creer)을 나타내는 동사 뒤 종속절에서도 접속법을 씁니다. 예문: Me alegro de que estés bien. No creo que sea verdad. (네가 잘 지내서 기쁘다. 그게 사실이라고 생각하지 않는다.)"
+4,4,접속법 과거(imperfecto de subjuntivo),"접속법 과거는 -ra/-se 형태로 만들며, 과거 시제 주절 뒤 종속절이나 정중한 가정법 표현에 씁니다. 형태: hablar→hablara/hablase. 예문: Quería que vinieras. (네가 오기를 원했다.)"
+4,4,가정문(si+접속법과거),"si+접속법 과거, 조건법 구조는 현재나 미래 사실과 반대되는 가정을 나타냅니다. 형태: Si + 접속법 과거, 조건법. 예문: Si tuviera dinero, compraría una casa. (돈이 있다면 집을 살 텐데.)"
+4,4,완료접속법(perfecto de subjuntivo),"완료접속법은 haya + 과거분사로 만들며, 주절이 현재이고 종속절이 이미 완료된 일을 나타낼 때 씁니다. 예문: Espero que hayas terminado. (네가 끝냈기를 바란다.)"
+4,4,por/para 심화,"por는 감사/교환/대리를, para는 의견/기한/용도를 나타내는 등 por/para의 세부 용법이 확장됩니다. 예문: Gracias por tu ayuda. Para mí, esto es importante. (도와줘서 고마워. 나에게 이것은 중요하다.)"
+4,4,수동태(ser+과거분사),"수동태는 ser + 과거분사로 만들며, 과거분사는 주어의 성·수에 일치시킵니다. 형태: ser + 과거분사(+ por + 행위자). 예문: La casa fue construida por mi abuelo. (그 집은 우리 할아버지가 지었다.)"
+4,4,재귀수동문(se pasiva),"se pasiva는 se + 동사(3인칭)로 만들며, 행위자를 밝히지 않고 일반적인 사실을 서술할 때 씁니다. 형태: se + 동사(3인칭). 예문: Se habla español aquí. (여기서 스페인어가 쓰인다.)"
+4,4,간접화법,"간접화법은 남의 말을 인용부호 없이 전달하며, 전달동사가 과거이면 시제를 한 단계 뒤로 옮깁니다(현재→불완료과거 등). 예문: Ella dijo que estaba cansada. (그녀는 피곤하다고 말했다.)"
+4,4,관계절 심화(el que/lo que),"el que/la que는 명사를 대신하는 관계대명사, lo que는 앞 문장 전체나 추상적인 것을 가리킬 때 씁니다. 예문: Lo que dijiste es verdad. (네가 말한 것은 사실이다.)"
+4,4,양보(aunque),"aunque는 뒤에 직설법이 오면 사실을 인정하는 양보(비록 ~이지만), 접속법이 오면 아직 확실하지 않은 가정적 양보를 나타냅니다. 예문: Aunque llueve, salgo. Aunque llueva, saldré. (비가 오지만 나간다. 비가 오더라도 나갈 것이다.)"
+4,4,강조구문(lo que...es),lo que...es 구문은 문장의 특정 요소를 앞으로 내세워 강조하는 분열문입니다. 예문: Lo que necesito es más tiempo. (내가 필요한 것은 더 많은 시간이다.)
+4,4,완료조건법(condicional compuesto),"완료조건법은 habría + 과거분사로 만들며, 과거 사실과 반대되는 가정의 결과(3형식 가정문)를 나타냅니다. 예문: Habría venido si hubiera podido. (할 수 있었다면 왔을 것이다.)"
+4,5,접속법 대과거,"접속법 대과거는 hubiera/hubiese + 과거분사로 만들며, 과거의 완료된 사건에 대한 가정이나 소망을 나타냅니다. 예문: Ojalá hubiera sabido la verdad. (진실을 알았더라면 좋았을 텐데.)"
+4,5,가정법 3형식,"가정법 3형식(si+대과거접속법, 완료조건법)은 과거 사실과 반대되는 가정을 나타냅니다. 형태: Si + hubiera+과거분사, habría+과거분사. 예문: Si hubiera estudiado, habría aprobado. (공부했더라면 합격했을 텐데.)"
+4,5,접속사 심화(a pesar de que/siempre que),"a pesar de que는 '~에도 불구하고', siempre que는 '~하는 한/~할 때마다'라는 조건이나 양보를 나타내는 격식체 접속사입니다. 예문: A pesar de que llovía, salimos. Siempre que puedo, la ayudo. (비가 왔음에도 불구하고 우리는 나갔다. 할 수 있을 때마다 나는 그녀를 돕는다.)"
+4,5,강조·도치구문,격식체에서는 강조하고 싶은 요소를 문두로 옮기고 주어-동사 어순을 도치시켜 강조를 만들 수 있습니다. 예문: Grande fue su sorpresa. (그의 놀라움은 컸다 - 형용사 강조 도치.)
+4,5,관용 접속법 표현(ojalá/quizás),"ojalá(부디 ~하기를)는 항상 접속법과, quizás/tal vez(아마도)는 확신 정도에 따라 접속법이나 직설법과 함께 씁니다. 예문: Ojalá gane la lotería. Quizás venga mañana. (제발 복권에 당첨되길. 아마 내일 올지도 모른다.)"
+4,5,담화표지 심화(sin embargo/no obstante),"sin embargo/no obstante는 '그러나/그럼에도 불구하고'라는 격식체 담화표지로, 문장 간 대조 관계를 formal하게 연결합니다. 예문: El plan era arriesgado; sin embargo, decidieron continuar. (그 계획은 위험했다; 그럼에도 그들은 계속하기로 했다.)"
+4,5,명사화 구문,"동사나 형용사를 명사형으로 바꿔(decidir→decisión, importante→importancia) 문장을 더 격식적이고 압축적으로 만듭니다. 예문: La decisión de la empresa sorprendió a los inversores. (그 회사의 결정은 투자자들을 놀라게 했다.)"
+4,5,완곡화법(condicional de cortesía),조건법은 직접적인 명령이나 단정을 피하고 정중하게 표현할 때도 씁니다. 예문: ¿Podría ayudarme? Me gustaría saber más. (도와주실 수 있을까요? 더 알고 싶습니다.)
+4,5,병렬구조,"병렬구조는 문장에서 대등하게 나열되는 요소들의 문법적 형태를 통일시키는 것으로, 격식체 글에서 문장의 균형을 높입니다. 예문: Le gusta leer, escribir y pintar. (그는 읽기, 쓰기, 그림 그리기를 좋아한다.)"
+4,5,부정어 강조(en absoluto/ni siquiera),en absoluto(전혀 ~않다)와 ni siquiera(~조차도 않다)는 부정을 강하게 강조하는 표현입니다. 예문: No me importa en absoluto. Ni siquiera me llamó. (전혀 신경 안 쓴다. 전화조차 안 했다.)
+4,6,문어체 접속법 활용,"격식체·문어체에서는 -se형 접속법 과거를 선호하며, 법률/문학 텍스트에서 자주 나타납니다. 예문: Si hubiese sabido, no habría venido. (알았더라면 오지 않았을 것이다.)"
+4,6,고급 도치·강조,문어체에서는 부사나 형용사를 문두에 놓고 도치를 일으켜 강조 효과를 만듭니다. 예문: Solo así se puede entender la situación. (오직 이렇게 해야만 상황을 이해할 수 있다.)
+4,6,관용구·숙어표현,스페인어에는 costar un ojo de la cara(매우 비싸다)처럼 문법 규칙만으로 해석되지 않는 관용구가 많아 형태 그대로 암기해야 합니다. 예문: Este coche me costó un ojo de la cara. (이 차는 나에게 엄청 비쌌다.)
+4,6,학술적 글쓰기 문형,"학술적 글쓰기에서는 se argumenta que, cabe destacar que, se podría afirmar que 같은 객관적이고 완곡한 문형을 자주 씁니다. 예문: Se argumenta que el cambio climático se está acelerando. (기후 변화가 가속화되고 있다는 주장이 제기된다.)"
+4,6,생략과 대용,"앞에 나온 표현의 반복을 피하기 위해 생략하거나 lo, así 같은 대용어를 사용합니다. 예문: Yo no fumo, pero él sí. (나는 담배를 안 피우지만 그는 피운다.)"
+4,6,뉘앙스 조동사 조합(deber de/poder),"deber de + 동사원형은 추측(~임에 틀림없다)을, poder + 동사원형은 가능성을 나타내며, 조합에 따라 확신 정도가 달라집니다. 예문: Debe de ser tarde. Puede que llueva. (늦었음에 틀림없다. 비가 올지도 모른다.)"
+4,6,문체적 격식 표현,격식체 글에서는 구어체 축약이나 캐주얼한 표현 대신 완전한 문장 구조와 존칭(usted)을 선호합니다. 예문: Le agradecería que me respondiera lo antes posible. (가능한 한 빨리 답변해주시면 감사하겠습니다.)
+4,6,화용론적 공손 표현,"¿Le importaría...?, Si no es molestia, ¿podría...? 같은 여러 완곡 표현의 조합은 공손함의 정도를 세밀하게 조절합니다. 예문: Si no es molestia, ¿podría cerrar la ventana? (혹시 괜찮으시다면, 창문 좀 닫아주시겠어요?)"
