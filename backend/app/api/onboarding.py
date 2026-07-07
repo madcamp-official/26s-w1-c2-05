@@ -40,12 +40,17 @@ async def post_survey(user_onboard: OnboardingResponse, current_user: User = Dep
         target_days=study_goal,
         study_days=0,
         last_studied=None,
-        daily_streak=0
+        daily_streak=0,
+        language_total=0,
+        current_level=level_id,
+        total_answers=0,
+        correct_answers=0
     )
 
     db.add(learning_progress)
     db.commit()
     current_user.current_learning_id = learning_progress.learning_id  # 사용자 모델에 학습 진도 ID 매핑
+    current_user.current_level = level_id
     db.add(current_user)
     db.commit()
 

@@ -127,3 +127,80 @@ def generate_dialogue_turn(
         ),
     )
     return response.parsed
+
+class CategoryFeedbackResult(BaseModel):
+    feedback_voca: str = Field(
+        description="최근 1주일간의 단어 학습 기록을 바탕으로, 가장 눈에 띄는 피드백 사항을 "
+                    "두 줄 이내의 한국어로 작성한다. 학습 기록이 없으면 그 사실을 언급한다."
+    )
+    feedback_grammar: str = Field(
+        description="최근 1주일간의 문법 학습 기록을 바탕으로, 가장 눈에 띄는 피드백 사항을 "
+                    "두 줄 이내의 한국어로 작성한다. 학습 기록이 없으면 그 사실을 언급한다."
+    )
+    feedback_dialogue: str = Field(
+        description="최근 1주일간의 회화 학습 기록을 바탕으로, 가장 눈에 띄는 피드백 사항을 "
+                    "두 줄 이내의 한국어로 작성한다. 학습 기록이 없으면 그 사실을 언급한다."
+    )
+
+
+def _format_voca_results(results: list[tuple[str, bool]]) -> str:
+    if not results:
+        return "(최근 1주일간 학습 기록 없음)"
+    return "\n".join(f"- {word}: {'정답' if is_correct else '오답'}" for word, is_correct in results)
+
+
+def _format_grammar_results(results: list[tuple[str, str, bool]]) -> str:
+    if not results:
+        return "(최근 1주일간 학습 기록 없음)"
+    return "\n".join(
+        f"- [{subject}] {problem}: {'정답' if is_correct else '오답'}"
+        for problem, subject, is_correct in results
+    )
+
+
+def _format_dialogue_results(results: list[bool]) -> str:
+    if not results:
+        return "(최근 1주일간 학습 기록 없음)"
+    n_total = len(results)
+    n_correct = sum(results)
+    return f"총 {n_total}회 대화 중 {n_correct}회 통과, {n_total - n_correct}회 미통과."
+
+
+def generate_feedback(
+    voca_results: list[tuple[str, bool]],
+    grammar_results: list[tuple[str, str, bool]],
+    dialogue_results: list[bool],
+) -> CategoryFeedbackResult:
+    '''
+    요청 시간 기준 최근 1주일간의 단어/문법/회화 학습 기록(app/utils/learning.py의
+    _gather_recent_feedback_data가 수집)을 한 번에 LLM에 투입해, 세 분야 각각에서 가장
+    눈에 띄는 피드백 사항을 두 줄 이내의 한국어로 생성한다 (API 호출 1회로 세 필드를 함께 반환).
+
+    - voca_results: (단어, 정답 여부) 목록
+    - grammar_results: (퀴즈 문제, 문법 개념, 정답 여부) 목록
+    - dialogue_results: 정답 여부 목록 (회화는 아직 문항 단위 정답 여부만 기록됨)
+    '''
+    contents = (
+        "다음은 한 사용자의 최근 1주일 외국어 학습 기록이다.\n\n"
+        f"[단어]\n{_format_voca_results(voca_results)}\n\n"
+        f"[문법]\n{_format_grammar_results(grammar_results)}\n\n"
+        f"[회화]\n{_format_dialogue_results(dialogue_results)}\n\n"
+        "위 기록을 단어/문법/회화 세 분야 각각에 대해 분석해서, 분야마다 가장 눈에 띄는 "
+        "피드백 사항을 두 줄 이내의 한국어로 작성해라."
+    )
+
+    response = client.models.generate_content(
+        model=GEMINI_MODEL,
+        contents=contents,
+        config=types.GenerateContentConfig(
+            system_instruction=(
+                "당신은 외국어 학습 앱의 학습 코치이다. 사용자의 최근 학습 기록을 분석해 "
+                "단어/문법/회화 세 분야 각각에 대해 간결하고 구체적인 한국어 피드백을 제공한다. "
+                "칭찬만 하거나 뭉뚱그리지 말고, 데이터에서 드러나는 구체적인 패턴(자주 틀리는 "
+                "부분, 최근 나아진 부분 등)을 짚어라."
+            ),
+            response_mime_type="application/json",
+            response_schema=CategoryFeedbackResult,
+        ),
+    )
+    return response.parsed

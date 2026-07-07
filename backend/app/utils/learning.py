@@ -19,10 +19,18 @@
   비율을 세션마다 일정하게 섞는 아이디어의 근거.
 - Roediger, H. L., & Karpicke, J. D. (2006). "The Power of Testing Memory" (testing
   effect) — 아직 정답률이 낮거나 시도하지 않은 문제를 우선 노출하는 퀴즈 선정 로직의 근거.
+- Canale, M., & Swain, M. (1980). "Theoretical Bases of Communicative Approaches to
+  Second Language Teaching and Testing." 언어 능력을 어휘(단어)/문법/의사소통(회화) 등으로
+  구분하는 근거 — 취약점/개선점 분석을 "단어·문법·회화" 세 범주로 나누는 데 사용.
+- Bloom, B. S. (1984). "The 2 Sigma Problem." Mastery learning — 목표 숙달 수준에 가장
+  못 미치는 범주를 취약점으로 우선 노출해야 한다는 근거.
+- Newell, A., & Rosenbloom, P. S. (1981). "Mechanisms of Skill Acquisition and the Law
+  of Practice." 연습에 따라 오류율이 감소하는 학습 곡선 — 이력을 전반부/후반부로 나누어
+  비교함으로써 "가장 개선된 범주"를 근사적으로 측정하는 데 사용.
 '''
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Sequence
 
 from sqlalchemy import case, func
@@ -451,3 +459,285 @@ def generate_dialogue_step(
         flow=next_flow if next_flow is not None else current_flow,
         is_end=is_end,
     )
+
+
+# ---------------------------------------------------------------------------
+# 카테고리별(단어/문법/회화) 취약점 및 개선점 분석
+#
+# EventLog.type은 app/api/learning.py의 type_converter와 동일한 값을 쓴다:
+#   1 = 단어(flash), 2 = 문법(grammar_quiz), 3 = 회화(dialogue)
+# (Canale & Swain, 1980의 어휘/문법/의사소통 능력 구분에 대응)
+# ---------------------------------------------------------------------------
+
+_CATEGORY_BY_TYPE = {1: "단어", 2: "문법", 3: "회화"}
+
+# 이력을 전반부/후반부로 나눠 "개선도"를 근사하기 위한 분할 비율
+# (Newell & Rosenbloom, 1981의 연습 학습곡선을 단순화한 근사).
+_TREND_SPLIT_RATIO = 0.5
+# 개선도 비교에 필요한 카테고리별 최소 누적 시도 수.
+_MIN_ATTEMPTS_FOR_TREND = 2
+
+# event_log가 전혀 없는 신규 사용자에게 반환할 기본값.
+# (언어 학습은 통상 단어 학습에서 시작하므로 "단어"를 기본 취약점/개선점으로 둔다.)
+_DEFAULT_CATEGORY = "단어"
+
+
+@dataclass
+class CategoryTrend:
+    category: str
+    n_total: int
+    accuracy: float
+    early_accuracy: float
+    recent_accuracy: float
+
+    @property
+    def improvement(self) -> float:
+        return self.recent_accuracy - self.early_accuracy
+
+
+def _category_event_history(db: Session, user_id: str, lang_id: int) -> dict[str, list[bool]]:
+    '''사용자의 event_logs를 시간순으로 정렬해 카테고리(단어/문법/회화)별 정오답 리스트로 묶는다.'''
+    rows = (
+        db.query(EventLog.type, EventLog.is_correct)
+        .filter(EventLog.user_id == user_id, EventLog.lang_id == lang_id)
+        .order_by(EventLog.time_studied.asc())
+        .all()
+    )
+
+    history: dict[str, list[bool]] = {label: [] for label in _CATEGORY_BY_TYPE.values()}
+    for event_type, is_correct in rows:
+        try:
+            category = _CATEGORY_BY_TYPE.get(int(event_type))
+        except (TypeError, ValueError):
+            category = None
+        if category is not None:
+            history[category].append(bool(is_correct))
+    return history
+
+
+def _build_category_trends(history: dict[str, list[bool]]) -> list[CategoryTrend]:
+    '''각 카테고리 이력을 전반부/후반부로 나누어 정답률과 개선도(improvement)를 계산한다.'''
+    trends = []
+    for category, results in history.items():
+        n_total = len(results)
+        if n_total == 0:
+            continue
+        split = max(1, round(n_total * _TREND_SPLIT_RATIO))
+        early = results[:split]
+        recent = results[split:] or early  # 데이터가 적어 후반부가 비면 초반부로 대체(개선도 0)
+        trends.append(
+            CategoryTrend(
+                category=category,
+                n_total=n_total,
+                accuracy=sum(results) / n_total,
+                early_accuracy=sum(early) / len(early),
+                recent_accuracy=sum(recent) / len(recent),
+            )
+        )
+    return trends
+
+
+def find_weakest_category(db: Session, user_id: str, lang_id: int) -> str:
+    '''
+    "단어", "문법", "회화" 중 사용자가 가장 취약한 범주를 하나 반환한다.
+
+    - 한 번도 시도하지 않은 범주가 있으면(단, 셋 다 미시도는 제외) 가장 우선적으로 취약점으로
+      간주한다 — 전혀 연습하지 않은 영역이 가장 뒤처져 있다고 보는 것이 합리적이다.
+    - 그렇지 않으면 최근 정답률(recent_accuracy)이 가장 낮은 범주를 반환한다
+      (Bloom, 1984의 mastery learning — 목표 숙달에 못 미치는 영역을 우선 노출).
+    - event_log가 전혀 없으면 기본값(_DEFAULT_CATEGORY)을 반환한다.
+    '''
+    history = _category_event_history(db, user_id, lang_id)
+
+    untried = [category for category, results in history.items() if not results]
+    if untried and len(untried) < len(history):
+        return untried[0]
+
+    trends = _build_category_trends(history)
+    if not trends:
+        return _DEFAULT_CATEGORY
+
+    return min(trends, key=lambda t: t.recent_accuracy).category
+
+
+def find_most_improved_category(db: Session, user_id: str, lang_id: int) -> str:
+    '''
+    "단어", "문법", "회화" 중 학습 초반 대비 최근 정답률이 가장 크게 오른 범주를 반환한다
+    (Newell & Rosenbloom, 1981의 연습 학습곡선을 전반부/후반부 비교로 근사).
+
+    - 추세 비교에 필요한 최소 시도 수(_MIN_ATTEMPTS_FOR_TREND)를 채운 범주 중에서 고른다.
+    - 그런 범주가 없으면(데이터가 너무 적으면) 정답률이 가장 높은 범주로 대체한다.
+    - event_log가 전혀 없으면 기본값(_DEFAULT_CATEGORY)을 반환한다.
+    '''
+    history = _category_event_history(db, user_id, lang_id)
+    all_trends = _build_category_trends(history)
+
+    eligible = [t for t in all_trends if t.n_total >= _MIN_ATTEMPTS_FOR_TREND]
+    if eligible:
+        return max(eligible, key=lambda t: t.improvement).category
+
+    if all_trends:
+        return max(all_trends, key=lambda t: t.accuracy).category
+
+    return _DEFAULT_CATEGORY
+
+
+def analyze_category_performance(db: Session, user_id: str, lang_id: int) -> dict[str, str]:
+    '''대시보드에 노출할 취약점(weakness)과 가장 개선된 범주(most_improved)를 함께 반환한다.'''
+    return {
+        "weakness": find_weakest_category(db, user_id, lang_id),
+        "most_improved": find_most_improved_category(db, user_id, lang_id),
+    }
+
+
+# ---------------------------------------------------------------------------
+# 오답률 추이(error trend) — 대시보드의 "voca"/"grammar"/"dialogue" 배열 필드
+#
+# _CATEGORY_BY_TYPE의 한국어 라벨과 달리, UserDashboardResponse.error_trend는 기존
+# 스키마가 이미 "voca"/"grammar"/"dialogue"라는 영문 key를 쓰고 있으므로 이를 그대로 따른다.
+# ---------------------------------------------------------------------------
+
+_CATEGORY_KEY_BY_TYPE = {1: "voca", 2: "grammar", 3: "dialogue"}
+
+# 최근 28일을 4일 단위 7구간으로 나누어 오답률 추이를 계산한다.
+_ERROR_TREND_BUCKET_DAYS = 4
+_ERROR_TREND_BUCKET_COUNT = 7
+
+
+def get_error_trend(db: Session, user_id: str, lang_id: int) -> dict[str, list[float | None]]:
+    '''
+    최근 28일간의 오답률 추이를 "voca"/"grammar"/"dialogue" 각각 길이 7의 배열로 반환한다
+    (4일 단위 7구간, 배열의 앞쪽이 과거·뒤쪽이 최근). 특정 구간에 학습 기록이 전혀 없으면
+    "학습 안 함"과 "전부 정답(오답률 0)"을 구분하기 위해 해당 값을 None(=null)으로 둔다.
+    '''
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    window_start = now - timedelta(days=_ERROR_TREND_BUCKET_DAYS * _ERROR_TREND_BUCKET_COUNT)
+
+    rows = (
+        db.query(EventLog.type, EventLog.is_correct, EventLog.time_studied)
+        .filter(
+            EventLog.user_id == user_id,
+            EventLog.lang_id == lang_id,
+            EventLog.time_studied >= window_start,
+        )
+        .all()
+    )
+
+    # bucket_stats[category][bucket_index] = [n_total, n_incorrect]
+    bucket_stats: dict[str, list[list[int]]] = {
+        key: [[0, 0] for _ in range(_ERROR_TREND_BUCKET_COUNT)] for key in _CATEGORY_KEY_BY_TYPE.values()
+    }
+
+    for event_type, is_correct, time_studied in rows:
+        try:
+            category = _CATEGORY_KEY_BY_TYPE.get(int(event_type))
+        except (TypeError, ValueError):
+            category = None
+        if category is None or time_studied is None:
+            continue
+
+        elapsed_days = (now - time_studied).total_seconds() / 86400.0
+        offset_from_recent = int(elapsed_days // _ERROR_TREND_BUCKET_DAYS)
+        bucket_index = _ERROR_TREND_BUCKET_COUNT - 1 - offset_from_recent
+        if not (0 <= bucket_index < _ERROR_TREND_BUCKET_COUNT):
+            continue  # 창(window) 경계를 벗어난 이벤트(시계 오차 등)는 무시
+
+        totals = bucket_stats[category][bucket_index]
+        totals[0] += 1
+        if not is_correct:
+            totals[1] += 1
+
+    return {
+        category: [(n_incorrect / n_total) if n_total > 0 else None for n_total, n_incorrect in buckets]
+        for category, buckets in bucket_stats.items()
+    }
+
+
+# ---------------------------------------------------------------------------
+# 주간 학습 피드백 — Gemini 연동 (app/api/gemini.py의 generate_feedback)
+#
+# DB 조회(event_logs/vocabularies/grammars/grammar_quizzes)는 이 모듈이 맡고, 그 결과를
+# 순수 데이터로 gemini.py에 넘겨 LLM 호출만 위임한다 (회화 문장 생성과 동일한 역할 분담).
+# ---------------------------------------------------------------------------
+
+_FEEDBACK_WINDOW_DAYS = 7
+
+
+def _gather_recent_feedback_data(
+    db: Session, user_id: str, lang_id: int
+) -> tuple[list[tuple[str, bool]], list[tuple[str, str, bool]], list[bool]]:
+    '''
+    최근 1주일(_FEEDBACK_WINDOW_DAYS)간의 event_logs를 단어/문법/회화 세 분야의 LLM 피드백
+    입력 형식으로 가공한다.
+      - 단어: (단어, 정답 여부) 목록
+      - 문법: (퀴즈 문제, 문법 개념(subject), 정답 여부) 목록
+      - 회화: 정답 여부 목록
+    '''
+    since = datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(days=_FEEDBACK_WINDOW_DAYS)
+
+    rows = (
+        db.query(EventLog.content_id, EventLog.type, EventLog.is_correct)
+        .filter(
+            EventLog.user_id == user_id,
+            EventLog.lang_id == lang_id,
+            EventLog.time_studied >= since,
+        )
+        .all()
+    )
+
+    def _category(event_type) -> str | None:
+        try:
+            return _CATEGORY_BY_TYPE.get(int(event_type))
+        except (TypeError, ValueError):
+            return None
+
+    vocab_ids = {content_id for content_id, event_type, _ in rows if _category(event_type) == "단어"}
+    quiz_ids = {content_id for content_id, event_type, _ in rows if _category(event_type) == "문법"}
+
+    word_by_id: dict[int, str] = dict(
+        db.query(Vocabulary.content_id, Vocabulary.word).filter(Vocabulary.content_id.in_(vocab_ids)).all()
+    ) if vocab_ids else {}
+
+    quiz_info_by_id: dict[int, tuple[str, str]] = {
+        content_id: (problem, subject)
+        for content_id, problem, subject in (
+            db.query(GrammarQuiz.content_id, GrammarQuiz.problem, Grammar.subject)
+            .join(Grammar, Grammar.content_id == GrammarQuiz.grammar_content_id)
+            .filter(GrammarQuiz.content_id.in_(quiz_ids))
+            .all()
+        )
+    } if quiz_ids else {}
+
+    voca_results: list[tuple[str, bool]] = []
+    grammar_results: list[tuple[str, str, bool]] = []
+    dialogue_results: list[bool] = []
+
+    for content_id, event_type, is_correct in rows:
+        category = _category(event_type)
+        if category == "단어":
+            word = word_by_id.get(content_id)
+            if word is not None:
+                voca_results.append((word, bool(is_correct)))
+        elif category == "문법":
+            info = quiz_info_by_id.get(content_id)
+            if info is not None:
+                problem, subject = info
+                grammar_results.append((problem, subject, bool(is_correct)))
+        elif category == "회화":
+            dialogue_results.append(bool(is_correct))
+
+    return voca_results, grammar_results, dialogue_results
+
+
+def generate_weekly_feedback(db: Session, user_id: str, lang_id: int) -> dict[str, str]:
+    '''
+    최근 1주일간의 단어/문법/회화 학습 기록을 모아 LLM(app/api/gemini.py의 generate_feedback)에
+    한 번에 넘기고, {"voca": ..., "grammar": ..., "dialogue": ...} 형태의 피드백 텍스트를 반환한다.
+    '''
+    voca_results, grammar_results, dialogue_results = _gather_recent_feedback_data(db, user_id, lang_id)
+    result = gemini.generate_feedback(voca_results, grammar_results, dialogue_results)
+    return {
+        "voca": result.feedback_voca,
+        "grammar": result.feedback_grammar,
+        "dialogue": result.feedback_dialogue,
+    }
