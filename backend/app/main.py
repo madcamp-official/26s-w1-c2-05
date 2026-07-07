@@ -11,7 +11,7 @@ from app.models.refresh_token import RefreshToken
 from app.models.eventlog import EventLog
 from app.models.dialogue import Dialogue
 
-from app.api import auth, vocabulary, onboarding, me, learning
+from app.api import auth, vocabulary, onboarding, me, learning, dashboard
 from app.database import Base, engine, SessionLocal
 
 app = FastAPI(
@@ -23,6 +23,7 @@ app.include_router(vocabulary.router)
 app.include_router(onboarding.router)
 app.include_router(me.router)
 app.include_router(learning.router)
+app.include_router(dashboard.router)
 
 # 온보딩(language: 1~8)과 프론트 언어 선택지(frontend/src/pages/Onboarding/data/languages.js)의
 # id 순서와 반드시 일치해야 한다.

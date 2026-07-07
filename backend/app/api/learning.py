@@ -32,7 +32,7 @@ async def get_flashcard(current_user: User = Depends(get_current_user), db: Sess
     # 이벤트 기록(event_logs)을 기반으로 사용자의 학습 수준을 추정하고, spaced-repetition +
     # 레벨 적응 알고리즘(app/utils/learning.py)으로 오늘 학습할 단어를 선정한다.
     current_user_lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id
-    vocabulary_list = select_vocabulary_for_today(db, current_user.user_id, current_user_lang_id, limit=5)
+    vocabulary_list = select_vocabulary_for_today(db, current_user.user_id, current_user_lang_id, limit=10)
     language = db.query(Language).filter(Language.lang_id == current_user_lang_id).first()
 
     #key 중 level을 제거하고 선택지 추가.
@@ -63,13 +63,13 @@ async def get_flashcard(current_user: User = Depends(get_current_user), db: Sess
 async def get_grammar(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     # event_logs 기반 spaced-repetition + 레벨 적응 알고리즘으로 오늘 학습할 문법을 선정한다.
     current_user_lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id
-    grammar_list = select_grammar_for_today(db, current_user.user_id, current_user_lang_id, limit=5)
+    grammar_list = select_grammar_for_today(db, current_user.user_id, current_user_lang_id, limit=10)
 
     #key 중 level을 제거하고 선택지 추가.
     refined_grammar_list = []
     i = 1
     for grammar in grammar_list:
-        random_quiz_list = select_grammar_quizzes(db, current_user.user_id, current_user_lang_id, grammar.content_id, limit=5)
+        random_quiz_list = select_grammar_quizzes(db, current_user.user_id, current_user_lang_id, grammar.content_id, limit=10)
         quiz_list = []
         for quiz in random_quiz_list:
             quiz_list.append({"quiz": quiz.problem,
@@ -86,7 +86,7 @@ async def get_grammar(current_user: User = Depends(get_current_user), db: Sessio
         i += 1
     return {"grammars": refined_grammar_list}
 
-type_converter = {"flash": 1, "grammar": 2, "speaking": 3}
+type_converter = {"flash": 1, "grammar": 2, "dialogue": 3}
 
 @router.get("/dialogue")
 async def get_dialogue(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -162,7 +162,7 @@ async def get_more_dialogue(user_answer: DialogueResponse, current_user: User = 
             user_id = current_user.user_id,
             content_id = dialogue.content_id,
             lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id,
-            type = type_converter["speaking"],
+            type = type_converter["dialogue"],
             response_time = user_answer.response_time,
             is_correct = True,  # TODO(LLM 연동 고도화): 전체 대화 맥락을 바탕으로 한 정답 여부 평가로 교체.
             time_studied = user_answer.time,
