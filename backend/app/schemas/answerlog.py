@@ -7,3 +7,10 @@ class AnswerResponse(BaseModel):
   response_time: float
   is_correct: bool
   time: datetime
+
+class DialogueResponse(BaseModel):
+  content_id: int
+  flow: str
+  response: str
+  response_time: float
+  time: datetime

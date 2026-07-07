@@ -28,11 +28,14 @@ from typing import Sequence
 from sqlalchemy import case, func
 from sqlalchemy.orm import Session
 
+from app.api import gemini
 from app.models.content import Content
+from app.models.dialogue import Dialogue
 from app.models.eventlog import EventLog
 from app.models.grammar import Grammar
 from app.models.grammar_quiz import GrammarQuiz
 from app.models.vocabulary import Vocabulary
+
 
 import random
 
@@ -310,3 +313,141 @@ def select_grammar_quizzes(
 
     quizzes.sort(key=priority)
     return quizzes[:limit]
+
+
+# ---------------------------------------------------------------------------
+# 회화(Dialogue) 주제 선정
+# ---------------------------------------------------------------------------
+
+def select_dialogue_for_today(db: Session, user_id: str, lang_id: int, limit: int = 1) -> list[Dialogue]:
+    '''
+    오늘 학습할 회화(Dialogue) 주제를 선정한다. Vocabulary/Grammar와 달리 CEFR 레벨 컬럼이
+    없으므로 레벨 적응(i+1) 로직은 적용하지 않는다. 대신,
+      1) 아직 한 번도 시도하지 않은 주제를 최우선으로 하고(testing effect, Roediger & Karpicke, 2006),
+      2) 이미 시도한 주제 중에서는 예측 회상 확률(half-life regression)이 낮은,
+         즉 망각 위험이 큰 주제를 우선 복습으로 배정한다.
+    '''
+    dialogues = db.query(Dialogue).filter(Dialogue.lang_id == lang_id).all()
+    if not dialogues:
+        return []
+
+    content_ids = [dialogue.content_id for dialogue in dialogues]
+    stats_map = _aggregate_event_stats(db, user_id, lang_id, content_ids)
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+
+    def priority(dialogue: Dialogue) -> tuple[int, float, float]:
+        stats = stats_map.get(dialogue.content_id)
+        if stats is None or stats.is_new:
+            return (0, 0.0, random.random())  # 미시도 주제 최우선
+
+        last_studied = stats.last_studied
+        if last_studied is not None and last_studied.tzinfo is not None:
+            last_studied = last_studied.replace(tzinfo=None)
+        days_since = max((now - last_studied).total_seconds() / 86400.0, 0.0) if last_studied else 0.0
+        p_recall = estimate_recall_probability(stats.n_correct, stats.n_incorrect, days_since)
+        return (1, p_recall, random.random())  # 회상 확률이 낮을수록(망각 위험이 클수록) 먼저
+
+    dialogues.sort(key=priority)
+    return dialogues[:limit]
+
+
+# ---------------------------------------------------------------------------
+# 회화 흐름(flow) 파싱/진행
+#
+# Dialogue.flow는 하나의 문자열에 대화 흐름 단계를 comma로 구분해 저장한다
+# (예: "greeting,ordering,payment,farewell", 왼쪽부터 시작).
+# ---------------------------------------------------------------------------
+
+def parse_flow_stages(flow: str) -> list[str]:
+    '''Dialogue.flow 문자열을 흐름 단계 리스트로 변환한다.'''
+    return [stage.strip() for stage in flow.split(",") if stage.strip()]
+
+
+def get_next_flow_stage(flow: str, current_flow: str) -> str | None:
+    '''
+    현재 흐름 단계(current_flow) 다음에 올 단계를 반환한다.
+    current_flow가 마지막 단계이거나 flow 목록에 없으면 None을 반환한다
+    (대화가 끝났다는 의미로 사용, get_more_dialogue 참고).
+    '''
+    stages = parse_flow_stages(flow)
+    try:
+        index = stages.index(current_flow)
+    except ValueError:
+        return None
+    if index + 1 < len(stages):
+        return stages[index + 1]
+    return None
+
+
+# ---------------------------------------------------------------------------
+# 회화(Dialogue) 문장/피드백 생성 — Gemini 연동 (app/api/gemini.py)
+#
+# 실제 문장 생성/평가는 app/api/gemini.py의 LLM 호출 함수가 담당한다. 다만 flow가 다음
+# 단계로 넘어갈지, 대화가 끝났는지(is_end)는 LLM의 advance_flow 판단을 받아 서버가
+# Dialogue.flow 목록 위치를 기준으로 구조적으로 계산한다 (LLM이 flow 위치를 직접 세다가
+# 착각해 대화가 조기 종료되거나 무한 반복되는 것을 방지하기 위함).
+# ---------------------------------------------------------------------------
+
+# 대화에 자연스럽게 녹여낼 추천 단어 개수.
+_DIALOGUE_TARGET_WORD_COUNT = 5
+
+
+def _recommended_words_for_dialogue(db: Session, user_id: str, lang_id: int) -> list[str]:
+    '''오늘의 단어 학습 알고리즘(select_vocabulary_for_today)에서 대화에 사용할 추천 단어를 가져온다.'''
+    vocabularies = select_vocabulary_for_today(db, user_id, lang_id, limit=_DIALOGUE_TARGET_WORD_COUNT)
+    return [vocabulary.word for vocabulary in vocabularies]
+
+
+def generate_dialogue_opening_line(db: Session, dialogue: Dialogue, language: str, user_id: str) -> str:
+    '''대화 주제(subject)와 flow의 첫 단계에 맞는 대화 시작 문장을 LLM으로 생성한다.'''
+    flow_stages = parse_flow_stages(dialogue.flow)
+    target_words = _recommended_words_for_dialogue(db, user_id, dialogue.lang_id)
+    return gemini.generate_dialogue_opening(
+        subject=dialogue.subject,
+        language=language,
+        flow_stages=flow_stages,
+        target_words=target_words,
+    )
+
+
+@dataclass
+class DialogueStepResult:
+    content: str
+    feedback: str
+    flow: str
+    is_end: bool
+
+
+def generate_dialogue_step(
+    db: Session, dialogue: Dialogue, language: str, current_flow: str, user_response: str, user_id: str
+) -> DialogueStepResult:
+    '''
+    사용자의 응답을 LLM으로 평가해 다음 대화 문장(content)과 한국어 피드백(feedback)을 생성하고,
+    LLM의 advance_flow 판단(현재 flow 단계를 통과했는지)을 바탕으로 다음 flow 단계와 대화
+    종료 여부(is_end)를 서버가 구조적으로 결정한다.
+
+    - advance_flow=True 이고 다음 flow 단계가 있으면: 다음 단계로 진행 (is_end=False)
+    - advance_flow=True 이고 다음 flow 단계가 없으면(마지막 단계 통과): 대화 종료 (is_end=True)
+    - advance_flow=False 이면: 같은 flow 단계에 머무르며 재시도 (is_end=False)
+    '''
+    flow_stages = parse_flow_stages(dialogue.flow)
+    target_words = _recommended_words_for_dialogue(db, user_id, dialogue.lang_id)
+
+    turn = gemini.generate_dialogue_turn(
+        subject=dialogue.subject,
+        language=language,
+        flow_stages=flow_stages,
+        current_flow=current_flow,
+        user_response=user_response,
+        target_words=target_words,
+    )
+
+    next_flow = get_next_flow_stage(dialogue.flow, current_flow) if turn.advance_flow else current_flow
+    is_end = turn.advance_flow and next_flow is None
+
+    return DialogueStepResult(
+        content=turn.content,
+        feedback=turn.feedback,
+        flow=next_flow if next_flow is not None else current_flow,
+        is_end=is_end,
+    )

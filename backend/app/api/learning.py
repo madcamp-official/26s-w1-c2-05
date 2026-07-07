@@ -3,19 +3,24 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.schemas.answerlog import AnswerResponse
+from app.schemas.answerlog import AnswerResponse, DialogueResponse
 
 from app.models.vocabulary import Vocabulary
 from app.models.learning_progress import LearningProgresses
 from app.models.language import Language
 from app.models.user import User
 from app.models.eventlog import EventLog
+from app.models.dialogue import Dialogue
 
 from app.utils.security import get_current_user
 from app.utils.learning import (
     select_vocabulary_for_today,
     select_grammar_for_today,
     select_grammar_quizzes,
+    select_dialogue_for_today,
+    parse_flow_stages,
+    generate_dialogue_opening_line,
+    generate_dialogue_step,
 )
 
 import random
@@ -83,6 +88,27 @@ async def get_grammar(current_user: User = Depends(get_current_user), db: Sessio
 
 type_converter = {"flash": 1, "grammar": 2, "speaking": 3}
 
+@router.get("/dialogue")
+async def get_dialogue(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    #content_id, subject, flow, content는 current_user의 이벤트로그를 참조해서 고름.
+    #회화 주제 선정 알고리즘은 app/utils/learning.py의 select_dialogue_for_today 참고.
+    #content는 LLM(app/api/gemini.py)에 subject/flow/추천 단어를 넣어 생성한 대화 시작 문장이다.
+    current_user_lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id
+    dialogue_list = select_dialogue_for_today(db, current_user.user_id, current_user_lang_id, limit=1)
+    if not dialogue_list:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="학습할 수 있는 회화 콘텐츠가 없습니다."
+        )
+    dialogue = dialogue_list[0]
+    language = db.query(Language).filter(Language.lang_id == dialogue.lang_id).first()
+
+    first_flow = parse_flow_stages(dialogue.flow)[0]
+    content = generate_dialogue_opening_line(db, dialogue, language.language, current_user.user_id)
+
+    return {"content_id": dialogue.content_id, "subject": dialogue.subject, "flow": first_flow, "content": content}
+
 @router.post("/answerlog")
 async def post_answer(user_answer: AnswerResponse, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     type_int = type_converter.get(user_answer.type)
@@ -104,3 +130,52 @@ async def post_answer(user_answer: AnswerResponse, current_user: User = Depends(
     db.add(new_event)
     db.commit()
     db.refresh(new_event)
+
+@router.post("/dialoguelog")
+async def get_more_dialogue(user_answer: DialogueResponse, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    #user_answer를 기반으로 LLM(app/api/gemini.py)에 답변 제공 -> LLM이 constraint에 따라 답변을 평가하고
+    #피드백 작성, flow 등을 참고해서 다음 대화 흐름에 맞는 문장 생성. (app/utils/learning.py의 generate_dialogue_step)
+    #is_end 변수는 LLM의 advance_flow 판단(현재 flow를 통과했는지)을 받아, Dialogue.flow 목록에서
+    #현재 flow가 마지막 단계인지로 서버가 구조적으로 판단한다 (LLM이 flow 위치를 직접 세다가
+    #착각해 대화가 조기 종료/무한 반복되는 것을 방지하기 위함).
+    #is_end가 true면 get_more_dialogue를 return하기 전에 eventlog에 날짜, 정답 여부(전체 대화 맥락
+    #기반 정답 여부 평가는 추후 고도화 대상이며, 지금은 True로 고정한다) 등을 포함하여 db에 추가한다.
+    dialogue = db.query(Dialogue).filter(Dialogue.content_id == user_answer.content_id).first()
+    if dialogue is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="회화 콘텐츠를 찾을 수 없습니다."
+        )
+    if user_answer.flow not in parse_flow_stages(dialogue.flow):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="잘못된 접근: flow가 해당 회화 콘텐츠의 흐름에 속하지 않습니다."
+        )
+
+    language = db.query(Language).filter(Language.lang_id == dialogue.lang_id).first()
+    step = generate_dialogue_step(
+        db, dialogue, language.language, user_answer.flow, user_answer.response, current_user.user_id
+    )
+
+    if step.is_end:
+        new_event = EventLog(
+            user_id = current_user.user_id,
+            content_id = dialogue.content_id,
+            lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id,
+            type = type_converter["speaking"],
+            response_time = user_answer.response_time,
+            is_correct = True,  # TODO(LLM 연동 고도화): 전체 대화 맥락을 바탕으로 한 정답 여부 평가로 교체.
+            time_studied = user_answer.time,
+        )
+        db.add(new_event)
+        db.commit()
+        db.refresh(new_event)
+
+    return {
+        "content_id": dialogue.content_id,
+        "end": step.is_end,
+        "subject": dialogue.subject,
+        "flow": step.flow,
+        "content": step.content,
+        "feedback": step.feedback,
+    }

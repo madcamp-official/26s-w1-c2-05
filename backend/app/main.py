@@ -9,6 +9,7 @@ from app.models.language import Language
 from app.models.learning_progress import LearningProgresses
 from app.models.refresh_token import RefreshToken
 from app.models.eventlog import EventLog
+from app.models.dialogue import Dialogue
 
 from app.api import auth, vocabulary, onboarding, me, learning
 from app.database import Base, engine, SessionLocal

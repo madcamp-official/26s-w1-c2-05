@@ -6,8 +6,10 @@ from app.database import get_db
 from app.schemas.vocabulary import VocabularyResponse
 from app.models.vocabulary import Vocabulary
 from app.models.user import User
+from app.models.learning_progress import LearningProgresses
 
 from app.utils.security import get_current_user
+from app.utils.learning import select_vocabulary_for_today
 
 router = APIRouter()
 
@@ -20,8 +22,8 @@ async def get_vocabulary(current_user: User = Depends(get_current_user), db: Ses
     event_logs = db.query(EventLog).filter(EventLog.user_id == user_id).all()
     '''
 
-    # 일단 지금은 랜덤하게 단어 5개를 추출해서 뜻, 의미, 예시 세 가지를 반환하도록 한다.
-    vocabulary_list = db.query(Vocabulary).order_by(func.random()).limit(5).all()
+    current_user_lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id
+    vocabulary_list = select_vocabulary_for_today(db, current_user.user_id, current_user_lang_id, limit=5)
     #key 중 level을 제거하고 프론트엔드가 알 수 있도록 임의 순서 key, value 페어도 부여.
     refined_voca_list = []
     i = 1
