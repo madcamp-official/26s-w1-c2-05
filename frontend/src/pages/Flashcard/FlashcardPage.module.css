@@ -12,7 +12,79 @@
 .subtitle {
   font-size: 14px;
   color: #888;
-  margin: 0 0 16px;
+  margin: 0;
+}
+
+.headerRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.timerCluster {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timerBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 999px;
+  background: #fafafa;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  color: #1a1a1a;
+}
+
+.timerDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2e7d32;
+  animation: timerPulse 1.4s ease-in-out infinite;
+}
+
+.timerDotPaused {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ccc;
+}
+
+@keyframes timerPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.pauseButton {
+  padding: 8px 18px;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  background: #fff;
+  color: #1a1a1a;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.pauseButton:hover {
+  border-color: #999;
+}
+
+.pauseButtonActive {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+
+.pauseButtonActive:hover {
+  border-color: #1a1a1a;
 }
 
 .progressBar {
@@ -44,12 +116,32 @@
 }
 
 .card {
+  position: relative;
   border: 1px dashed #ccc;
   border-radius: 12px;
   padding: 96px 32px;
   text-align: center;
   background: #fff;
   margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.pauseOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(3px);
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.pauseOverlayIcon {
+  font-size: 20px;
 }
 
 .word {

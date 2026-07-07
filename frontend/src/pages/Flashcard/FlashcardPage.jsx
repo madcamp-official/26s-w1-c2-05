@@ -35,7 +35,11 @@ function FlashcardPage(){
     const [selected, setSelected] = useState(null);
     const [correctCount, setCorrectCount] = useState(0);
     const [incorrectCount, setIncorrectCount] = useState(0);
+    const [lastResponseTime, setLastResponseTime] = useState(null);
+    const [isPaused, setIsPaused] = useState(false);
+    const [elapsed, setElapsed] = useState(0);
     const cardShownAt = useRef(null);
+    const pausedAt = useRef(null);
 
     useEffect(() => {
         client.get("/flashcard", { params: { category: "flash" } })
@@ -43,6 +47,7 @@ function FlashcardPage(){
                 console.log("플래시카드 응답:", res.data);
                 if (Array.isArray(res.data?.vocabularies)){
                     setVocabularies(res.data.vocabularies);
+                    cardShownAt.current = Date.now();
                 }
             })
             .catch((err) => console.error("플래시카드 조회 실패:", err));
@@ -51,6 +56,15 @@ function FlashcardPage(){
     useEffect(() => {
         cardShownAt.current = Date.now();
     }, [index]);
+
+    useEffect(() => {
+        if (isPaused || selected) return undefined;
+
+        const tick = () => setElapsed((Date.now() - cardShownAt.current) / 1000);
+        tick();
+        const id = setInterval(tick, 100);
+        return () => clearInterval(id);
+    }, [isPaused, selected, index]);
 
     const current = vocabularies[index];
 
@@ -65,6 +79,7 @@ function FlashcardPage(){
         // 클릭 이벤트 핸들러 안에서만 호출되므로 렌더링과 무관함 (린트 규칙의 오탐).
         // eslint-disable-next-line react-hooks/purity
         const responseTime = (Date.now() - cardShownAt.current) / 1000;
+        setLastResponseTime(responseTime);
 
         client.post("/answerlog", {
             content_id: current.content_id,
@@ -85,6 +100,22 @@ function FlashcardPage(){
         if (nextIndex < 0 || nextIndex >= vocabularies.length) return;
         setIndex(nextIndex);
         setSelected(null);
+        setLastResponseTime(null);
+        setIsPaused(false);
+        setElapsed(0);
+        pausedAt.current = null;
+    };
+
+    const handleTogglePause = () => {
+        if (isPaused){
+            const pausedDuration = Date.now() - pausedAt.current;
+            cardShownAt.current += pausedDuration;
+            pausedAt.current = null;
+            setIsPaused(false);
+        } else {
+            pausedAt.current = Date.now();
+            setIsPaused(true);
+        }
     };
 
     if (!current){
@@ -93,8 +124,25 @@ function FlashcardPage(){
 
     return (
         <div className={styles.page}>
-            <h1 className={styles.title}>플래시카드 퀴즈</h1>
-            <p className={styles.subtitle}>Card {index + 1} of {vocabularies.length}</p>
+            <div className={styles.headerRow}>
+                <div>
+                    <h1 className={styles.title}>플래시카드 퀴즈</h1>
+                    <p className={styles.subtitle}>Card {index + 1} of {vocabularies.length}</p>
+                </div>
+
+                <div className={styles.timerCluster}>
+                    <span className={styles.timerBadge}>
+                        <span className={isPaused ? styles.timerDotPaused : styles.timerDot} />
+                        {elapsed.toFixed(1)}s
+                    </span>
+                    <button
+                        className={isPaused ? `${styles.pauseButton} ${styles.pauseButtonActive}` : styles.pauseButton}
+                        onClick={handleTogglePause}
+                    >
+                        {isPaused ? "▶ 재개" : "⏸ 일시정지"}
+                    </button>
+                </div>
+            </div>
 
             <div className={styles.progressBar}>
                 <div
@@ -108,6 +156,13 @@ function FlashcardPage(){
                     <div className={styles.card}>
                         <p className={styles.word}>{current.word}</p>
                         <p className={styles.hint}>알맞은 뜻을 선택하세요</p>
+
+                        {isPaused && (
+                            <div className={styles.pauseOverlay}>
+                                <span className={styles.pauseOverlayIcon}>⏸</span>
+                                <span>일시정지 중</span>
+                            </div>
+                        )}
                     </div>
 
                     <div className={styles.choices}>
@@ -125,7 +180,7 @@ function FlashcardPage(){
                                     key={choice}
                                     className={choiceClass}
                                     onClick={() => handleSelect(choice, i)}
-                                    disabled={showResult}
+                                    disabled={showResult || isPaused}
                                 >
                                     <span className={styles.choiceLabel}>{String.fromCharCode(65 + i)}</span>
                                     {choice}
@@ -134,17 +189,21 @@ function FlashcardPage(){
                         })}
                     </div>
 
+                    {lastResponseTime !== null && (
+                        <p className={styles.hint}>{lastResponseTime.toFixed(1)}초 만에 답했어요</p>
+                    )}
+
                     <div className={styles.actions}>
-                        <button className={styles.secondaryButton} onClick={() => goToIndex(index - 1)}>
+                        <button className={styles.secondaryButton} onClick={() => goToIndex(index - 1)} disabled={isPaused}>
                             이전
                         </button>
-                        <button className={styles.secondaryButton} onClick={() => goToIndex(index + 1)}>
+                        <button className={styles.secondaryButton} onClick={() => goToIndex(index + 1)} disabled={isPaused}>
                             건너뛰기
                         </button>
                         <button
                             className={styles.primaryButton}
                             onClick={() => goToIndex(index + 1)}
-                            disabled={!selected}
+                            disabled={!selected || isPaused}
                         >
                             다음
                         </button>
