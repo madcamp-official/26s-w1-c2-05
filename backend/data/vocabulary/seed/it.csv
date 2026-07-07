@@ -1,0 +1,301 @@
+lang_id,level,word,meaning,example
+7,1,ciao,안녕,"Ciao, come stai?"
+7,1,grazie,감사합니다,Grazie mille per il tuo aiuto.
+7,1,casa,집,Abito in una piccola casa.
+7,1,famiglia,가족,La mia famiglia è molto grande.
+7,1,amico,친구,Lui è il mio migliore amico.
+7,1,scuola,학교,I bambini vanno a scuola la mattina.
+7,1,libro,책,Sto leggendo un libro interessante.
+7,1,acqua,물,Bevo acqua ogni mattina.
+7,1,pane,빵,Compriamo pane fresco.
+7,1,latte,우유,Il bambino beve latte caldo.
+7,1,mela,사과,Lei mangia una mela rossa.
+7,1,macchina,자동차,Lui guida una macchina blu.
+7,1,strada,"거리, 길",Il panificio è in questa strada.
+7,1,città,도시,Roma è una grande città.
+7,1,giorno,"날, 하루",Oggi è una bella giornata.
+7,1,notte,밤,Lui lavora spesso di notte.
+7,1,mattina,아침,Mi sveglio presto la mattina.
+7,1,sera,저녁,Ceniamo insieme la sera.
+7,1,settimana,주(일주일),La prossima settimana vado in vacanza.
+7,1,mese,"달, 월",Il mese di luglio è molto caldo.
+7,1,anno,년,Quest'anno imparo l'italiano.
+7,1,lavoro,"일, 직장",Cerca un nuovo lavoro.
+7,1,camera,방,La sua camera è molto pulita.
+7,1,tavolo,탁자,I libri sono sul tavolo.
+7,1,sedia,의자,Siediti su questa sedia.
+7,1,finestra,창문,"Apri la finestra, per favore."
+7,1,porta,문,Chiudi la porta dietro di te.
+7,1,cane,개,Il mio cane ama giocare in giardino.
+7,1,gatto,고양이,Il gatto dorme sul divano.
+7,1,uccello,새,Un uccello canta sull'albero.
+7,1,fiore,꽃,Ha comprato dei fiori per sua madre.
+7,1,sole,태양,Il sole splende oggi.
+7,1,pioggia,비,C'è molta pioggia in autunno.
+7,1,freddo,추운,Fa molto freddo in inverno.
+7,1,caldo,더운,Fa caldo in estate.
+7,1,grande,큰,Questo è un grande edificio.
+7,1,piccolo,작은,Il gatto è molto piccolo.
+7,1,bello,"아름다운, 멋진",Il paesaggio è molto bello.
+7,1,contento,"기쁜, 만족한",Sono contento di vederti.
+7,1,stanco,피곤한,Sono molto stanco stasera.
+7,1,professore,교사,Il professore spiega la lezione.
+7,1,medico,의사,Il medico visita il paziente.
+7,1,vestito,옷,Compro un vestito nuovo.
+7,1,camicia,셔츠,Indossa una camicia bianca.
+7,1,scarpa,신발,Queste scarpe sono comode.
+7,1,rosso,빨간,Indossa un vestito rosso.
+7,1,blu,파란,Il cielo è blu oggi.
+7,1,testa,머리,Ho mal di testa.
+7,1,mano,손,Dammi la mano.
+7,1,piede,발,Mi fa male il piede.
+7,2,incontrare,만나다,Ho incontrato un amico al mercato.
+7,2,viaggio,여행,Il nostro viaggio in Italia è stato magnifico.
+7,2,biglietto,"표, 티켓",Ho comprato un biglietto del treno.
+7,2,valigia,여행가방,Ha preparato la valigia per il viaggio.
+7,2,aeroporto,공항,Siamo arrivati in aeroporto presto.
+7,2,albergo,호텔,L'albergo è vicino alla spiaggia.
+7,2,ristorante,식당,Mangiamo spesso in questo ristorante.
+7,2,cucina,"요리, 부엌",La cucina italiana è deliziosa.
+7,2,conto,계산서,"Il conto, per favore."
+7,2,spendere,"소비하다, 쓰다",Spende troppi soldi.
+7,2,guadagnare,벌다,Guadagna bene con il suo lavoro.
+7,2,risparmiare,절약하다,Cerchiamo di risparmiare soldi.
+7,2,mestiere,직업,Qual è il tuo mestiere?
+7,2,azienda,"회사, 기업",Lavora in una grande azienda.
+7,2,collega,동료,I miei colleghi sono molto simpatici.
+7,2,riunione,회의,La riunione inizia alle dieci.
+7,2,orario,시간표,L'orario dell'autobus è cambiato.
+7,2,ritardo,"지각, 지연",Il treno è in ritardo.
+7,2,quartiere,"동네, 구역",Mi piace molto questo quartiere.
+7,2,vicino,이웃,Il mio vicino è molto gentile.
+7,2,traslocare,이사하다,Trasloceranno il mese prossimo.
+7,2,affitto,"집세, 임대료",L'affitto è aumentato quest'anno.
+7,2,proprietario,"집주인, 소유자",Il proprietario abita al piano di sopra.
+7,2,salute,건강,Bisogna prendersi cura della propria salute.
+7,2,malattia,"병, 질병",Questa malattia è molto comune.
+7,2,medicina,약,Prende una medicina ogni mattina.
+7,2,ferito,다친,È ferito alla gamba.
+7,2,preoccupato,걱정하는,È preoccupata per l'esame.
+7,2,deluso,실망한,È deluso dal risultato.
+7,2,sorpreso,놀란,Eravamo sorpresi dalla notizia.
+7,2,paesaggio,풍경,Il paesaggio di montagna è magnifico.
+7,2,foresta,숲,Abbiamo camminato nella foresta.
+7,2,montagna,산,Fanno trekking in montagna.
+7,2,spiaggia,해변,I bambini giocano sulla spiaggia.
+7,2,fiume,강,Il fiume attraversa la città.
+7,2,tempo libero,여가,La lettura è il mio passatempo preferito.
+7,2,spettacolo,공연,Abbiamo visto uno spettacolo ieri sera.
+7,2,biglietteria,매표소,La biglietteria apre alle nove.
+7,2,abbonamento,"정기구독, 회원권",Ho un abbonamento al cinema.
+7,2,sconto,할인,C'è uno sconto per gli studenti.
+7,2,negozio,가게,Il negozio chiude alle venti.
+7,2,sinistra,왼쪽,Gira a sinistra al semaforo.
+7,2,destra,오른쪽,Il museo è a destra della banca.
+7,2,commesso,판매원,Il commesso mi ha consigliato bene.
+7,2,cliente,고객,Questo negozio ha molti clienti.
+7,2,prezzo,가격,Il prezzo è aumentato molto.
+7,2,mercato,시장,Facciamo la spesa al mercato il sabato.
+7,2,direzione,방향,Stai andando nella direzione sbagliata.
+7,2,candidato,"후보자, 지원자",Tre candidati si presentano alle elezioni.
+7,2,stipendio,급여,Il suo stipendio è aumentato quest'anno.
+7,3,ambiente,환경,Dobbiamo proteggere l'ambiente.
+7,3,inquinamento,오염,L'inquinamento dell'aria aumenta in città.
+7,3,riciclaggio,재활용,Il riciclaggio è importante per il pianeta.
+7,3,economia,경제,L'economia del paese si sta sviluppando rapidamente.
+7,3,società,사회,La società cambia continuamente.
+7,3,governo,정부,Il governo ha annunciato nuove misure.
+7,3,elezione,선거,Le elezioni si terranno a maggio.
+7,3,cittadino,시민,Ogni cittadino ha il diritto di voto.
+7,3,legge,법,Questa legge è stata approvata l'anno scorso.
+7,3,giustizia,"정의, 사법",Crede fermamente nella giustizia.
+7,3,colloquio,"면접, 인터뷰",Ha un colloquio di lavoro domani.
+7,3,carriera,"경력, 커리어",Ha fatto una bella carriera.
+7,3,formazione,"교육, 연수",Questa formazione dura sei mesi.
+7,3,competenza,"능력, 역량",Ha buone competenze informatiche.
+7,3,responsabilità,책임,È una grande responsabilità.
+7,3,vantaggio,"장점, 이점",Questo lavoro ha diversi vantaggi.
+7,3,svantaggio,단점,Ogni soluzione ha i suoi svantaggi.
+7,3,esigenza,요구사항,Il posto ha esigenze precise.
+7,3,negoziare,협상하다,Stanno negoziando un nuovo contratto.
+7,3,accordo,"합의, 협정",I due paesi hanno firmato un accordo.
+7,3,conflitto,"갈등, 분쟁",Il conflitto è durato molti anni.
+7,3,soluzione,해결책,Dobbiamo trovare una soluzione rapida.
+7,3,obiettivo,목표,Il nostro obiettivo è migliorare la qualità.
+7,3,strategia,전략,L'azienda ha cambiato strategia.
+7,3,progresso,"발전, 진보",La medicina ha fatto molti progressi.
+7,3,evoluzione,"변화, 진화",L'evoluzione della tecnologia è rapida.
+7,3,tendenza,"경향, 트렌드",Questa tendenza sta diventando sempre più popolare.
+7,3,comportamento,행동,Il suo comportamento è cambiato molto.
+7,3,atteggiamento,태도,Ha un atteggiamento positivo.
+7,3,opinione,의견,Ognuno ha il diritto alla propria opinione.
+7,3,dibattito,토론,Il dibattito è stato molto animato.
+7,3,argomento,"논거, 주장",Ha presentato un buon argomento.
+7,3,prova,증거,Non c'è nessuna prova di questo fatto.
+7,3,conseguenza,"결과, 결말",Questa decisione avrà conseguenze importanti.
+7,3,causa,원인,Qual è la causa di questo problema?
+7,3,fattore,요인,Diversi fattori spiegano questo risultato.
+7,3,fenomeno,현상,Questo fenomeno interessa gli scienziati.
+7,3,futuro,미래,Nessuno conosce il futuro.
+7,3,epoca,시대,"A quell'epoca, la vita era diversa."
+7,3,generazione,세대,Ogni generazione ha i propri valori.
+7,3,sindacato,노동조합,Il sindacato ha organizzato una riunione.
+7,3,sciopero,파업,I dipendenti sono in sciopero da tre giorni.
+7,3,manifestazione,시위,Ieri c'è stata una grande manifestazione.
+7,3,riforma,개혁,Il governo sta preparando una nuova riforma.
+7,3,bilancio,예산,Il bilancio dello Stato è stato approvato.
+7,3,tassa,세금,Bisogna pagare le tasse entro aprile.
+7,3,contratto,계약,Hanno firmato un contratto di lavoro.
+7,3,datore di lavoro,고용주,Il suo datore di lavoro gli ha offerto una promozione.
+7,3,impiegato,직원,L'impiegato ha lavorato tutto il giorno.
+7,3,ruolo,역할,Ognuno ha il proprio ruolo.
+7,4,tuttavia,"그럼에도 불구하고, 하지만",Pioveva; tuttavia siamo usciti.
+7,4,nonostante,~에도 불구하고,"Nonostante la pioggia, hanno continuato la partita."
+7,4,sebbene,비록 ~일지라도,"Sebbene sia stanco, continua a lavorare."
+7,4,sottolineare,강조하다,Il professore ha sottolineato l'importanza del lavoro.
+7,4,considerare,고려하다,Considerano di trasferirsi l'anno prossimo.
+7,4,constatare,"확인하다, 알아차리다",Abbiamo constatato un miglioramento.
+7,4,stimare,"추정하다, 평가하다",Gli esperti stimano che la situazione migliorerà.
+7,4,suscitare,"불러일으키다, 유발하다",Questo argomento suscita molti dibattiti.
+7,4,riguardare,관련되다,Questa regola riguarda tutti i dipendenti.
+7,4,implicare,"함의하다, 관련시키다",Questa decisione implica cambiamenti importanti.
+7,4,facilitare,용이하게 하다,Questo strumento facilita il lavoro quotidiano.
+7,4,rafforzare,강화하다,Bisogna rafforzare la sicurezza.
+7,4,mantenere,유지하다,Vogliono mantenere buoni rapporti.
+7,4,basarsi su,~에 근거하다,Questa teoria si basa su dati solidi.
+7,4,mettere in discussione,의문을 제기하다,Questi risultati mettono in discussione il nostro metodo.
+7,4,misura,"조치, 정도",Il governo ha preso nuove misure.
+7,4,portata,"범위, 영향력",Questa decisione ha una grande portata.
+7,4,posta in gioco,"쟁점, 이해관계",La posta in gioco principale è la protezione dell'ambiente.
+7,4,prospettiva,"관점, 전망",Bisogna vedere questo da un'altra prospettiva.
+7,4,contesto,"맥락, 상황",Bisogna capire il contesto storico.
+7,4,entità,"규모, 정도",L'entità dei danni è impressionante.
+7,4,approccio,접근법,Serve un nuovo approccio a questo problema.
+7,4,procedimento,"절차, 접근방식",Questo procedimento richiede pazienza.
+7,4,attuazione,"실행, 시행",L'attuazione del progetto ha richiesto tempo.
+7,4,ambiguità,모호함,Bisogna evitare ogni ambiguità nel contratto.
+7,4,sfumatura,뉘앙스,Questa traduzione perde alcune sfumature.
+7,4,controverso,논쟁적인,È un argomento molto controverso.
+7,4,paradossale,역설적인,È paradossale che rifiuti questo aiuto.
+7,4,pertinente,"적절한, 타당한",È un'osservazione molto pertinente.
+7,4,coerente,일관성 있는,Il suo discorso non è molto coerente.
+7,4,rigoroso,"엄밀한, 철저한",Ha un metodo di lavoro rigoroso.
+7,4,approfondire,심화하다,Dobbiamo approfondire questa questione.
+7,4,elaborare,"정교하게 만들다, 수립하다",Hanno elaborato un nuovo piano.
+7,4,ipotesi,가설,Questa ipotesi non è ancora stata dimostrata.
+7,4,ragionamento,"추론, 논리",Il suo ragionamento è logico.
+7,4,controversia,논쟁,La controversia è durata diverse settimane.
+7,4,incidenza,영향,Questo fattore ha un'incidenza diretta sui risultati.
+7,4,dispositivo,"장치, 제도",Questo dispositivo aiuta le giovani imprese.
+7,4,disparità,"격차, 불균형",Esiste una grande disparità tra le regioni.
+7,4,lacuna,"공백, 결함",Questo rapporto presenta diverse lacune.
+7,4,pregiudizio,편견,Bisogna lottare contro i pregiudizi.
+7,4,imprevisto,"불확실 요소, 우발적 사건",Il progetto dipende da molti imprevisti.
+7,4,verosimiglianza,"그럴듯함, 개연성",La storia manca di verosimiglianza.
+7,4,presupposto,"공준, 전제",Tutta la teoria si basa su questo presupposto.
+7,4,singolarità,"특이성, 독특함",Questo fenomeno presenta una grande singolarità.
+7,4,congiuntura,"정세, 국면",La congiuntura economica è difficile.
+7,4,consenso,합의,È stato trovato un consenso tra le parti.
+7,4,omissione,"누락, 생략",Questa omissione ha causato problemi.
+7,4,legittimità,정당성,La legittimità di questa decisione è contestata.
+7,4,divario,격차,Il divario tra ricchi e poveri cresce.
+7,5,ambivalenza,양가성,La sua ambivalenza verso questa scelta è visibile.
+7,5,subordinare,종속시키다,Non bisogna subordinare la salute al profitto.
+7,5,ostacolo,"방해, 장애물",Questa regola costituisce un ostacolo alla libertà.
+7,5,ostacolare,방해하다,La mancanza di mezzi ostacola il progetto.
+7,5,prerogativa,특권,È una prerogativa del presidente.
+7,5,ineluttabile,불가피한,Il cambiamento climatico sembra ineluttabile.
+7,5,paradigma,패러다임,Questo paradigma domina la ricerca attuale.
+7,5,occorrenza,"발생, 경우","In questa occorrenza, è meglio aspettare."
+7,5,correlazione,상관관계,Esiste una correlazione tra i due fenomeni.
+7,5,inerente,내재된,Questo rischio è inerente a ogni impresa.
+7,5,veridicità,진실성,Si dubita della veridicità di queste informazioni.
+7,5,anteriorità,"선행성, 우선성",L'anteriorità del progetto non è contestata.
+7,5,preponderanza,"우세, 지배",La preponderanza di questa teoria si spiega facilmente.
+7,5,tributario,~에 의존하는,L'agricoltura è tributaria del clima.
+7,5,sostentare,"부양하다, 조달하다",Deve sostentare la sua famiglia.
+7,5,affrancamento,"해방, 자유화",L'affrancamento dalle norme tradizionali ha richiesto tempo.
+7,5,scissione,"분열, 균열",C'è una scissione tra le generazioni.
+7,5,dissenso,"불화, 의견 대립",Sono emersi dei dissensi all'interno del gruppo.
+7,5,imputazione,"귀책, 전가",L'imputazione della colpa resta incerta.
+7,5,imputare,~탓으로 돌리다,Si imputa questo fallimento a una scarsa preparazione.
+7,5,tenacia,끈기,La sua tenacia gli ha permesso di riuscire.
+7,5,adiacente,인접한,Il giardino adiacente alla casa è molto grande.
+7,5,circospezione,신중함,Bisogna agire con circospezione.
+7,5,idiosincrasia,"특이성, 개성",Ogni cultura ha le proprie idiosincrasie.
+7,5,tramite,"매개, 수단",Ha ottenuto l'informazione tramite un amico.
+7,5,acume,"예리함, 날카로움",Analizza la situazione con acume.
+7,5,probità,"청렴, 정직",La sua probità è riconosciuta da tutti.
+7,5,alterità,타자성,Il rispetto dell'alterità è essenziale.
+7,5,sconfessione,"부인, 철회",Questo voto è una sconfessione del governo.
+7,5,sconfessare,부인하다,Ha sconfessato le parole del suo collega.
+7,5,parsimonia,"절약, 인색함",Gestisce il suo budget con parsimonia.
+7,5,obsolescenza,"노후화, 진부화",L'obsolescenza di questa tecnologia è rapida.
+7,5,ovvietà,자명한 이치,Dire che il tempo passa è un'ovvietà.
+7,5,ostracismo,배척,È stato vittima di ostracismo sul lavoro.
+7,5,propensione,"경향, 성향",Ha una propensione a esagerare.
+7,5,subdolo,"은근한, 교활한",Il pericolo è subdolo e difficile da vedere.
+7,5,presunzione,추정,La presunzione di innocenza è un diritto fondamentale.
+7,5,intransigenza,"강경함, 비타협적 태도",La sua intransigenza ha bloccato i negoziati.
+7,5,dicotomia,이분법,Esiste una dicotomia tra teoria e pratica.
+7,5,connivenza,"공모, 결탁",Si percepiva una certa connivenza tra loro.
+7,5,presupposizione,"전제, 예단",Questa presupposizione non è fondata.
+7,5,confutazione,"반박, 논박",La sua confutazione era molto convincente.
+7,5,irrevocabile,돌이킬 수 없는 것,La sua decisione sembra irrevocabile.
+7,5,magnanimità,"관대함, 아량",Ha dimostrato magnanimità verso i suoi rivali.
+7,5,invettiva,"비난, 욕설",Il dibattito si è concluso con invettive.
+7,5,mordacità,"신랄함, 통렬함",Critica sempre con mordacità.
+7,5,apatia,"무기력, 무관심",L'apatia generale preoccupa gli organizzatori.
+7,5,atavismo,격세유전적 성향,La sua violenza sembra un atavismo familiare.
+7,5,espediente,임시방편,Questa misura è solo un espediente.
+7,5,baluardo,"보루, 방벽",Questa legge è un baluardo dei diritti civili.
+7,6,accezione,"단어의 의미, 뜻","In questa accezione, la parola ha un significato diverso."
+7,6,astio,"원한, 앙심",Ha risposto con astio.
+7,6,acrimonia,"신랄함, 씁쓸함",Ha risposto con acrimonia.
+7,6,adagio,"격언, 속담","Come dice l'adagio, non dire mai mai."
+7,6,appannaggio,"특권, 전유물",Questo talento non è appannaggio dei ricchi.
+7,6,apogeo,"정점, 절정",Questa civiltà ha raggiunto il suo apogeo nel XV secolo.
+7,6,aporia,"난제, 역설",Questo ragionamento porta a una vera aporia.
+7,6,scaltro,교활한,Il suo sorriso scaltro preoccupava tutti.
+7,6,circonlocuzione,"완곡한 표현, 우회적 표현",Ha evitato l'argomento con circonlocuzioni.
+7,6,contumacia,법정에서의 궐석,È stato giudicato in contumacia.
+7,6,deliquescente,쇠퇴하는,Il regime deliquescente crollava a poco a poco.
+7,6,devoluto,"부여된, 할당된",Questo ruolo gli è devoluto da anni.
+7,6,egida,"보호, 후원",L'evento si tiene sotto l'egida dell'UNESCO.
+7,6,enfasi,"과장, 강조",Parla sempre con enfasi.
+7,6,epigono,"아류, 모방자",Questo artista è solo un epigono dei suoi predecessori.
+7,6,schivata,회피,La sua risposta era una pura schivata.
+7,6,esegesi,"주해, 해석",L'esegesi di questo testo richiede anni di studio.
+7,6,fatuità,"자만, 허영",La sua fatuità infastidiva tutti.
+7,6,guazzabuglio,횡설수설,Il suo discorso era solo un guazzabuglio incomprensibile.
+7,6,idoneo,적합한,Non è il momento idoneo per discutere.
+7,6,imperizia,무능함,L'imperizia del gestore ha causato il fallimento.
+7,6,incuria,"태만, 부주의",L'incuria amministrativa ha aggravato la crisi.
+7,6,inenarrabile,이루 말할 수 없는,Ci ha raccontato una storia inenarrabile.
+7,6,inestricabile,"얽히고설킨, 해결 불가능한",La situazione è diventata inestricabile.
+7,6,iattanza,"허풍, 자랑",Parla delle sue imprese con iattanza.
+7,6,loquacità,수다스러움,La sua loquacità contrastava con il silenzio degli altri.
+7,6,mansuetudine,관대함,Il giudice ha dimostrato mansuetudine.
+7,6,nondimeno,~에도 불구하고,"Nondimeno le critiche, ha mantenuto la sua decisione."
+7,6,ossequiosità,"아첨, 비굴함",La sua ossequiosità verso il capo era imbarazzante.
+7,6,obbrobrio,"치욕, 오명",Questa vicenda ha gettato l'obbrobrio su tutta l'azienda.
+7,6,perennità,영속성,Bisogna garantire la perennità di questo progetto.
+7,6,pleonasmo,중복 표현,Dire 'salire su' è un pleonasmo.
+7,6,proselitismo,"포교, 개종 권유",Il proselitismo religioso è vietato in questa scuola.
+7,6,quiete,평온함,Cercava la quiete in campagna.
+7,6,rimanenza,"잔류, 잔존",La rimanenza di questo odore è sorprendente.
+7,6,scaltrezza,"잔꾀, 교활함",La sua scaltrezza gli ha permesso di evitare i guai.
+7,6,sotterfugio,"술책, 계략",Ha usato un sotterfugio per scappare.
+7,6,truculenza,"익살스러움, 걸쭉함",Le sue storie sono piene di truculenza.
+7,6,ubiquità,"편재성, 동시 존재",La sua apparente ubiquità impressionava i colleghi.
+7,6,zelo,"열성, 열의",Lavora con grande zelo.
+7,6,sdegno,"경멸, 무시",Ha risposto con un'aria di sdegno.
+7,6,rivalsa,"앙갚음, 보복",Cercava una rivalsa dopo la sconfitta.
+7,6,anatema,"저주, 파문",Le sue parole sono state colpite da anatema.
+7,6,egemonia,패권,L'egemonia di questo paese si estende su tutta la regione.
+7,6,dialettica,변증법,La sua dialettica è difficile da seguire.
+7,6,ostentazione,과시,Mostra la sua ricchezza con ostentazione.
+7,6,reminiscenza,"회상, 잔상",Questo profumo evoca una reminiscenza d'infanzia.
+7,6,disaccordo,불화,È scoppiato un disaccordo tra le due famiglie.
+7,6,sofisma,궤변,Il suo argomento è solo un sofisma.
+7,6,turpitudine,"비열함, 부도덕",Le sue turpitudini sono state rivelate pubblicamente.

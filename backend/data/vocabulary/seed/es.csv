@@ -1,0 +1,241 @@
+lang_id,level,word,meaning,example
+4,1,pelo,머리카락,Ella tiene el pelo largo.
+4,1,ojo,눈,Tiene los ojos verdes.
+4,1,nariz,코,El niño se tocó la nariz.
+4,1,simpático,"상냥한, 호감 가는",Mi profesor es muy simpático.
+4,1,antipático,불친절한,El vecino es un poco antipático.
+4,1,inteligente,똑똑한,Ella es muy inteligente.
+4,1,trabajador,"근면한, 부지런한",Mi padre es muy trabajador.
+4,1,alegre,"명랑한, 즐거운",La fiesta fue muy alegre.
+4,1,serio,진지한,El director es un hombre serio.
+4,1,tímido,"수줍은, 소심한",El niño es muy tímido con extraños.
+4,1,sociable,사교적인,Mi hermana es muy sociable.
+4,1,triste,슬픈,Estoy triste hoy.
+4,1,contento,"기쁜, 만족한",Estamos muy contentos con el resultado.
+4,1,enfadado,화가 난,Mi madre está enfadada conmigo.
+4,1,desayuno,아침식사,Tomo café en el desayuno.
+4,1,comida,"식사, 음식",La comida está lista.
+4,1,cena,저녁식사,Cenamos a las nueve.
+4,1,carne,고기,No como carne los viernes.
+4,1,pescado,생선,El pescado está muy fresco.
+4,1,fruta,과일,Me gusta comer fruta cada día.
+4,1,verdura,채소,Hay que comer más verdura.
+4,1,pan,빵,Compramos pan cada mañana.
+4,1,instituto,중고등학교,Voy al instituto en autobús.
+4,1,universidad,대학교,Estudia en la universidad.
+4,1,clase,"수업, 교실",La clase empieza a las ocho.
+4,1,biblioteca,도서관,Estudio en la biblioteca los sábados.
+4,1,profesor,"선생님, 교수",Mi profesor de español es muy amable.
+4,1,estudiante,학생,Es estudiante de medicina.
+4,1,abogado,변호사,Su padre es abogado.
+4,1,médico,의사,El médico me examinó ayer.
+4,1,taxista,택시기사,El taxista conoce muy bien la ciudad.
+4,1,jefe,상사,Mi jefe es muy exigente.
+4,1,oficina,사무실,Trabajo en una oficina grande.
+4,1,tienda,가게,Hay una tienda cerca de mi casa.
+4,1,ordenador,컴퓨터,Necesito un ordenador nuevo.
+4,1,teléfono,전화기,¿Me das tu número de teléfono?
+4,1,vacaciones,"방학, 휴가",Vamos de vacaciones en agosto.
+4,1,turista,관광객,Muchos turistas visitan la ciudad.
+4,1,cine,영화관,Vamos al cine esta noche.
+4,1,teatro,"극장, 연극",Fuimos al teatro el sábado.
+4,2,cabeza,머리,Me duele la cabeza.
+4,2,cara,얼굴,Tiene la cara redonda.
+4,2,brazo,팔,Se rompió el brazo jugando al fútbol.
+4,2,mano,손,Dame la mano.
+4,2,dedo,손가락,Se cortó el dedo cocinando.
+4,2,pierna,다리,Le duele la pierna.
+4,2,pie,발,Tengo los pies fríos.
+4,2,carácter,성격,Tiene un carácter muy fuerte.
+4,2,optimista,낙관적인,Ella siempre es optimista.
+4,2,tranquilo,"차분한, 조용한",Es un chico muy tranquilo.
+4,2,nervioso,"긴장한, 불안한",Estoy nervioso antes del examen.
+4,2,generoso,관대한,Mi abuelo es muy generoso.
+4,2,egoísta,이기적인,No seas tan egoísta.
+4,2,amable,친절한,El camarero fue muy amable.
+4,2,lechuga,상추,La ensalada lleva lechuga y tomate.
+4,2,tomate,토마토,Compré tomates frescos.
+4,2,zanahoria,당근,El conejo come zanahorias.
+4,2,plátano,바나나,Como un plátano cada mañana.
+4,2,manzana,사과,Una manzana al día es bueno para la salud.
+4,2,naranja,오렌지,El zumo de naranja es mi favorito.
+4,2,patata,감자,Las patatas fritas están deliciosas.
+4,2,queso,치즈,Me gusta el queso manchego.
+4,2,yogur,요구르트,Desayuno un yogur con fruta.
+4,2,colegio,초등학교,Mi hijo va al colegio en bicicleta.
+4,2,academia,학원,Estudio inglés en una academia.
+4,2,aula,"강의실, 교실",El aula está llena de estudiantes.
+4,2,alumno,학생,El alumno hizo todas las preguntas.
+4,2,dependiente,점원,El dependiente me ayudó a elegir la talla.
+4,2,funcionario,공무원,Su madre es funcionaria del gobierno.
+4,2,empresario,"사업가, 기업가",El empresario abrió una nueva tienda.
+4,2,edificio,건물,Vivimos en un edificio muy alto.
+4,2,chalé,"단독주택, 별장",Tienen un chalé en la montaña.
+4,2,gimnasio,"체육관, 헬스장",Voy al gimnasio tres veces por semana.
+4,2,piscina,수영장,El hotel tiene una piscina grande.
+4,2,isla,섬,Pasamos las vacaciones en una isla.
+4,2,desierto,사막,El desierto es muy seco y caluroso.
+4,2,bosque,숲,Caminamos por el bosque toda la tarde.
+4,2,perro,개,Mi perro se llama Toby.
+4,2,gato,고양이,El gato duerme todo el día.
+4,2,pájaro,새,Un pájaro canta en el jardín.
+4,3,marisco,해산물,Me encanta el marisco fresco.
+4,3,embutido,육가공품,El plato tiene embutido y queso.
+4,3,chorizo,초리소(소시지),El chorizo es un embutido típico español.
+4,3,berenjena,가지,Cociné berenjenas con aceite de oliva.
+4,3,calabacín,애호박,Añadí calabacín a la sopa.
+4,3,espinacas,시금치,Las espinacas tienen mucho hierro.
+4,3,garbanzos,병아리콩,El cocido lleva garbanzos.
+4,3,freír,튀기다,Vamos a freír unas patatas.
+4,3,hervir,끓이다,Hay que hervir el agua primero.
+4,3,asar,굽다,Vamos a asar la carne en el jardín.
+4,3,campus,캠퍼스,El campus universitario es enorme.
+4,3,guardería,어린이집,Mi hija va a la guardería por la mañana.
+4,3,catedrático,정교수,Es catedrático de historia.
+4,3,rector,총장,El rector dio un discurso en la ceremonia.
+4,3,maestro,초등교사,Fue mi maestro en primaria.
+4,3,tutor,"지도교사, 튜터",Mi tutor me ayudó con el proyecto.
+4,3,matricularse,등록하다,Voy a matricularme en el curso de verano.
+4,3,descanso,휴식,Necesito un descanso después del trabajo.
+4,3,jardinería,"원예, 정원 가꾸기",La jardinería es su pasatiempo favorito.
+4,3,bricolaje,목공/수리 취미,Le gusta hacer bricolaje los fines de semana.
+4,3,árbitro,심판,El árbitro pitó una falta.
+4,3,entrenador,"감독, 코치",El entrenador cambió la estrategia.
+4,3,deportista,운동선수,Es un deportista muy conocido.
+4,3,videojuego,비디오게임,Los niños juegan a videojuegos todo el día.
+4,3,mudanza,이사,Hicimos la mudanza el mes pasado.
+4,3,fregar,설거지하다,Voy a fregar los platos.
+4,3,barrer,"쓸다, 비질하다",Tengo que barrer la cocina.
+4,3,visado,비자,Necesitas un visado para entrar al país.
+4,3,equipaje,"짐, 수하물",Perdimos el equipaje en el aeropuerto.
+4,3,crucero,크루즈 여행,Hicimos un crucero por el Mediterráneo.
+4,3,safari,사파리,Fuimos de safari en África.
+4,3,orquesta,오케스트라,La orquesta tocó una sinfonía.
+4,3,compositor,작곡가,Es un compositor muy famoso.
+4,3,continente,대륙,Asia es el continente más grande.
+4,3,península,반도,España está en la Península Ibérica.
+4,3,valle,"계곡, 골짜기",El pueblo está en un valle.
+4,3,lago,호수,Nadamos en el lago.
+4,3,selva,정글,La selva amazónica es enorme.
+4,3,mamífero,포유류,La ballena es un mamífero.
+4,3,insecto,곤충,Un insecto entró en la habitación.
+4,4,lenguado,서대기(생선),Pedí lenguado a la plancha.
+4,4,dorada,도미(생선),La dorada es un pescado muy popular en España.
+4,4,lubina,농어,La lubina al horno es deliciosa.
+4,4,langosta,랍스터,La langosta es muy cara en este restaurante.
+4,4,langostino,왕새우,Comimos langostinos a la plancha.
+4,4,mejillón,홍합,Los mejillones estaban muy frescos.
+4,4,rebozar,튀김옷을 입히다,Hay que rebozar el pescado antes de freírlo.
+4,4,empanar,빵가루를 입히다,Vamos a empanar el filete.
+4,4,dorar,노릇하게 굽다,Dora la cebolla antes de añadir el tomate.
+4,4,autoservicio,셀프서비스 식당,Comimos en un restaurante de autoservicio.
+4,4,banquete,연회,Celebraron un banquete de boda.
+4,4,licenciatura,학사 학위,Terminó su licenciatura en derecho.
+4,4,diplomatura,전문학사 과정,Hizo una diplomatura en turismo.
+4,4,doctorado,박사 학위,Está haciendo un doctorado en física.
+4,4,evaluación,평가,La evaluación final es la semana que viene.
+4,4,ático,"다락방, 펜트하우스",Compraron un ático con terraza.
+4,4,dúplex,복층 아파트,Viven en un dúplex muy moderno.
+4,4,buhardilla,다락방,Guardan las maletas en la buhardilla.
+4,4,entrenar,훈련하다,Los jugadores entrenan cada mañana.
+4,4,campeonato,"챔피언십, 선수권 대회",Ganaron el campeonato nacional.
+4,4,liga,리그,Su equipo juega en la primera liga.
+4,4,albergue,유스호스텔,Nos alojamos en un albergue barato.
+4,4,bungaló,방갈로,Alquilamos un bungaló junto a la playa.
+4,4,parador,스페인 국영 호텔,Dormimos en un parador histórico.
+4,4,ferry,페리,Cruzamos el estrecho en ferry.
+4,4,clarinete,클라리넷,Toca el clarinete en la orquesta.
+4,4,saxofón,색소폰,Aprende a tocar el saxofón.
+4,4,trompeta,트럼펫,El músico tocó la trompeta.
+4,4,violonchelo,첼로,Estudia violonchelo desde niña.
+4,4,largometraje,장편 영화,Dirigió su primer largometraje este año.
+4,4,cortometraje,단편 영화,El cortometraje ganó un premio.
+4,4,altitud,고도,El avión vuela a gran altitud.
+4,4,profundidad,깊이,El lago tiene mucha profundidad.
+4,4,ecuador,적도,El país está cerca del ecuador.
+4,4,trópico,열대 지방,Las plantas tropicales crecen en el trópico.
+4,4,contaminación,오염,La contaminación del aire es un problema grave.
+4,4,ecosistema,생태계,Hay que proteger el ecosistema marino.
+4,4,sequía,가뭄,La sequía afectó a la agricultura.
+4,4,desertización,사막화,La desertización avanza en la región.
+4,4,vencer,"이기다, 물리치다",El equipo venció al rival por dos goles.
+4,5,escurrir,물기를 빼다,Escurre la pasta antes de servirla.
+4,5,sofreír,살짝 볶다,Sofríe la cebolla y el ajo primero.
+4,5,profesorado,"교직원, 교원",El profesorado se reunió para hablar del proyecto.
+4,5,taller,"워크숍, 강습",Apuntó a un taller de escritura.
+4,5,cursillo,단기 강습,Hizo un cursillo de primeros auxilios.
+4,5,asalariado,봉급생활자,La mayoría de los trabajadores son asalariados.
+4,5,jornada,"근무 시간, 하루 일과",Trabaja media jornada por las tardes.
+4,5,desempeñar,직무를 수행하다,Desempeña el cargo de director desde hace años.
+4,5,mansión,대저택,Vive en una mansión enorme.
+4,5,hipotecar,담보 대출을 받다,Tuvieron que hipotecar la casa para pagar la deuda.
+4,5,rehabilitar,"개축하다, 재활하다",Van a rehabilitar el edificio antiguo.
+4,5,veraneo,여름휴가,Pasan el veraneo en la costa.
+4,5,veraneante,여름 휴가객,El pueblo se llena de veraneantes en agosto.
+4,5,escalada,암벽등반,Practica escalada los fines de semana.
+4,5,ascenso,"승진, 등반",Consiguió un ascenso en el trabajo.
+4,5,talento,재능,Tiene mucho talento para la música.
+4,5,elogiar,칭찬하다,El profesor elogió su trabajo.
+4,5,corrupción,부패,El escándalo de corrupción fue muy conocido.
+4,5,disciplina,"규율, 학문 분야",La física es una disciplina fascinante.
+4,5,hipótesis,가설,Los científicos propusieron una nueva hipótesis.
+4,5,cromosoma,염색체,Los humanos tienen 46 cromosomas.
+4,5,especie protegida,보호종,El lince ibérico es una especie protegida.
+4,5,matrícula,등록(금),Pagó la matrícula del curso.
+4,5,fracaso escolar,"학업 실패, 낙제",El fracaso escolar preocupa a los padres.
+4,5,profesión,직업,Su profesión es muy exigente.
+4,5,construcción,"건설, 공사",La construcción del puente terminó este año.
+4,5,obra maestra,걸작,Esta novela es una obra maestra.
+4,5,don,"재능, 천부적 소질",Tiene un don especial para el dibujo.
+4,5,vecino,이웃,Mi vecino es muy amable.
+4,5,pluralidad,"다원성, 다양성",La pluralidad cultural enriquece la sociedad.
+4,5,juicio penal,형사 재판,El juicio penal duró varios meses.
+4,5,juicio civil,민사 재판,Presentaron un juicio civil por el contrato.
+4,5,guerra fría,냉전,La Guerra Fría duró varias décadas.
+4,5,tecnología punta,첨단 기술,La empresa usa tecnología punta.
+4,5,precio,가격,El precio subió mucho este año.
+4,5,a estrenar,"새것인, 미사용의",Compró un piso a estrenar.
+4,5,limpiar a fondo,대청소하다,Vamos a limpiar la casa a fondo este fin de semana.
+4,5,playa tranquila,한적한 해변,Buscamos una playa tranquila para descansar.
+4,5,casa rústica,시골집,Alquilaron una casa rústica en el campo.
+4,5,formalizar,"정식으로 완료하다, 공식화하다",Hay que formalizar el contrato mañana.
+4,6,perecedero,부패하기 쉬운,Los productos perecederos deben refrigerarse.
+4,6,ahumar,훈제하다,Ahuman el salmón con madera de roble.
+4,6,estofar,뭉근히 조리다,Vamos a estofar la carne durante dos horas.
+4,6,hornear,오븐에 굽다,Horneó un pastel de chocolate.
+4,6,salazón,염장(법),El bacalao se conserva en salazón.
+4,6,al peso,무게 단위로 판매되는,Venden el jamón al peso.
+4,6,a granel,낱개/벌크로 판매되는,Compramos las lentejas a granel.
+4,6,colegio mayor,대학 기숙사,Vivió en un colegio mayor durante la carrera.
+4,6,simposio,"심포지엄, 학술회의",Participó en un simposio internacional.
+4,6,currar,일하다(구어체),Tengo que currar todo el fin de semana.
+4,6,inmueble,"부동산, 건물",Compró un inmueble en el centro.
+4,6,casa señorial,"저택, 대저택",Visitamos una casa señorial del siglo XVIII.
+4,6,desván,다락방,Guardan objetos viejos en el desván.
+4,6,destartalado,"다 낡은, 허물어져 가는",Vive en un piso destartalado.
+4,6,abrillantar,광택을 내다,Va a abrillantar el suelo de madera.
+4,6,impecable,흠잡을 데 없는,Su trabajo fue impecable.
+4,6,expedición,"탐험, 원정",Organizaron una expedición al Ártico.
+4,6,explorador,탐험가,El explorador cruzó el desierto solo.
+4,6,cala,"작은 만, 코브",Encontramos una cala escondida.
+4,6,acantilado,절벽,Los acantilados son impresionantes al atardecer.
+4,6,precipicio,낭떠러지,El coche casi cayó por el precipicio.
+4,6,desfiladero,협곡,El río pasa por un desfiladero estrecho.
+4,6,marchante,"화상, 미술품 거래상",El marchante vendió el cuadro a un coleccionista.
+4,6,mecenas,후원자,El mecenas financió la exposición.
+4,6,obra cumbre,"대표작, 걸작",Esta pintura es su obra cumbre.
+4,6,consagrado,"예술가로서 인정받은, 저명한",Es un pintor consagrado en Europa.
+4,6,canon estético,미적 기준,El canon estético cambia con cada época.
+4,6,linaje,"혈통, 가문",Pertenece a un linaje noble.
+4,6,estamento social,사회 계층,La sociedad estaba dividida en estamentos sociales.
+4,6,patriotismo,애국심,Mostró un gran patriotismo durante la guerra.
+4,6,prevaricación,"직권 남용, 배임",Lo acusaron de prevaricación.
+4,6,decreto,"법령, 칙령",El gobierno aprobó un nuevo decreto.
+4,6,contienda,"분쟁, 다툼",La contienda duró varios años.
+4,6,armada,"해군, 함대",La Armada Invencible fue derrotada en 1588.
+4,6,I+D,연구개발(R&D),La empresa invierte mucho en I+D.
+4,6,biología molecular,분자생물학,Estudia biología molecular en la universidad.
+4,6,glóbulo blanco,백혈구,Los glóbulos blancos combaten las infecciones.
+4,6,número primo,소수(수학),Siete es un número primo.
+4,6,robótica,로봇공학,La robótica avanza muy rápido.
+4,6,física cuántica,양자역학,La física cuántica es difícil de entender.
