@@ -19,6 +19,14 @@
   비율을 세션마다 일정하게 섞는 아이디어의 근거.
 - Roediger, H. L., & Karpicke, J. D. (2006). "The Power of Testing Memory" (testing
   effect) — 아직 정답률이 낮거나 시도하지 않은 문제를 우선 노출하는 퀴즈 선정 로직의 근거.
+- Canale, M., & Swain, M. (1980). "Theoretical Bases of Communicative Approaches to
+  Second Language Teaching and Testing." 언어 능력을 어휘(단어)/문법/의사소통(회화) 등으로
+  구분하는 근거 — 취약점/개선점 분석을 "단어·문법·회화" 세 범주로 나누는 데 사용.
+- Bloom, B. S. (1984). "The 2 Sigma Problem." Mastery learning — 목표 숙달 수준에 가장
+  못 미치는 범주를 취약점으로 우선 노출해야 한다는 근거.
+- Newell, A., & Rosenbloom, P. S. (1981). "Mechanisms of Skill Acquisition and the Law
+  of Practice." 연습에 따라 오류율이 감소하는 학습 곡선 — 이력을 전반부/후반부로 나누어
+  비교함으로써 "가장 개선된 범주"를 근사적으로 측정하는 데 사용.
 '''
 
 from dataclasses import dataclass
@@ -451,3 +459,133 @@ def generate_dialogue_step(
         flow=next_flow if next_flow is not None else current_flow,
         is_end=is_end,
     )
+
+
+# ---------------------------------------------------------------------------
+# 카테고리별(단어/문법/회화) 취약점 및 개선점 분석
+#
+# EventLog.type은 app/api/learning.py의 type_converter와 동일한 값을 쓴다:
+#   1 = 단어(flash), 2 = 문법(grammar_quiz), 3 = 회화(dialogue)
+# (Canale & Swain, 1980의 어휘/문법/의사소통 능력 구분에 대응)
+# ---------------------------------------------------------------------------
+
+_CATEGORY_BY_TYPE = {1: "단어", 2: "문법", 3: "회화"}
+
+# 이력을 전반부/후반부로 나눠 "개선도"를 근사하기 위한 분할 비율
+# (Newell & Rosenbloom, 1981의 연습 학습곡선을 단순화한 근사).
+_TREND_SPLIT_RATIO = 0.5
+# 개선도 비교에 필요한 카테고리별 최소 누적 시도 수.
+_MIN_ATTEMPTS_FOR_TREND = 2
+
+# event_log가 전혀 없는 신규 사용자에게 반환할 기본값.
+# (언어 학습은 통상 단어 학습에서 시작하므로 "단어"를 기본 취약점/개선점으로 둔다.)
+_DEFAULT_CATEGORY = "단어"
+
+
+@dataclass
+class CategoryTrend:
+    category: str
+    n_total: int
+    accuracy: float
+    early_accuracy: float
+    recent_accuracy: float
+
+    @property
+    def improvement(self) -> float:
+        return self.recent_accuracy - self.early_accuracy
+
+
+def _category_event_history(db: Session, user_id: str, lang_id: int) -> dict[str, list[bool]]:
+    '''사용자의 event_logs를 시간순으로 정렬해 카테고리(단어/문법/회화)별 정오답 리스트로 묶는다.'''
+    rows = (
+        db.query(EventLog.type, EventLog.is_correct)
+        .filter(EventLog.user_id == user_id, EventLog.lang_id == lang_id)
+        .order_by(EventLog.time_studied.asc())
+        .all()
+    )
+
+    history: dict[str, list[bool]] = {label: [] for label in _CATEGORY_BY_TYPE.values()}
+    for event_type, is_correct in rows:
+        try:
+            category = _CATEGORY_BY_TYPE.get(int(event_type))
+        except (TypeError, ValueError):
+            category = None
+        if category is not None:
+            history[category].append(bool(is_correct))
+    return history
+
+
+def _build_category_trends(history: dict[str, list[bool]]) -> list[CategoryTrend]:
+    '''각 카테고리 이력을 전반부/후반부로 나누어 정답률과 개선도(improvement)를 계산한다.'''
+    trends = []
+    for category, results in history.items():
+        n_total = len(results)
+        if n_total == 0:
+            continue
+        split = max(1, round(n_total * _TREND_SPLIT_RATIO))
+        early = results[:split]
+        recent = results[split:] or early  # 데이터가 적어 후반부가 비면 초반부로 대체(개선도 0)
+        trends.append(
+            CategoryTrend(
+                category=category,
+                n_total=n_total,
+                accuracy=sum(results) / n_total,
+                early_accuracy=sum(early) / len(early),
+                recent_accuracy=sum(recent) / len(recent),
+            )
+        )
+    return trends
+
+
+def find_weakest_category(db: Session, user_id: str, lang_id: int) -> str:
+    '''
+    "단어", "문법", "회화" 중 사용자가 가장 취약한 범주를 하나 반환한다.
+
+    - 한 번도 시도하지 않은 범주가 있으면(단, 셋 다 미시도는 제외) 가장 우선적으로 취약점으로
+      간주한다 — 전혀 연습하지 않은 영역이 가장 뒤처져 있다고 보는 것이 합리적이다.
+    - 그렇지 않으면 최근 정답률(recent_accuracy)이 가장 낮은 범주를 반환한다
+      (Bloom, 1984의 mastery learning — 목표 숙달에 못 미치는 영역을 우선 노출).
+    - event_log가 전혀 없으면 기본값(_DEFAULT_CATEGORY)을 반환한다.
+    '''
+    history = _category_event_history(db, user_id, lang_id)
+
+    untried = [category for category, results in history.items() if not results]
+    if untried and len(untried) < len(history):
+        return untried[0]
+
+    trends = _build_category_trends(history)
+    if not trends:
+        return _DEFAULT_CATEGORY
+
+    return min(trends, key=lambda t: t.recent_accuracy).category
+
+
+def find_most_improved_category(db: Session, user_id: str, lang_id: int) -> str:
+    '''
+    "단어", "문법", "회화" 중 학습 초반 대비 최근 정답률이 가장 크게 오른 범주를 반환한다
+    (Newell & Rosenbloom, 1981의 연습 학습곡선을 전반부/후반부 비교로 근사).
+
+    - 추세 비교에 필요한 최소 시도 수(_MIN_ATTEMPTS_FOR_TREND)를 채운 범주 중에서 고른다.
+    - 그런 범주가 없으면(데이터가 너무 적으면) 정답률이 가장 높은 범주로 대체한다.
+    - event_log가 전혀 없으면 기본값(_DEFAULT_CATEGORY)을 반환한다.
+    '''
+    history = _category_event_history(db, user_id, lang_id)
+    all_trends = _build_category_trends(history)
+
+    eligible = [t for t in all_trends if t.n_total >= _MIN_ATTEMPTS_FOR_TREND]
+    if eligible:
+        return max(eligible, key=lambda t: t.improvement).category
+
+    if all_trends:
+        return max(all_trends, key=lambda t: t.accuracy).category
+
+    return _DEFAULT_CATEGORY
+
+
+def analyze_category_performance(db: Session, user_id: str, lang_id: int) -> dict[str, str]:
+    '''대시보드에 노출할 취약점(weakness)과 가장 개선된 범주(most_improved)를 함께 반환한다.'''
+    return {
+        "weakness": find_weakest_category(db, user_id, lang_id),
+        "most_improved": find_most_improved_category(db, user_id, lang_id),
+    }
+

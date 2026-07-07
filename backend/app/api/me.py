@@ -8,6 +8,8 @@ from app.models.user import User
 from app.models.language import Language
 
 from app.utils.security import get_current_user
+from app.utils.learning import analyze_category_performance
+from math import floor
 
 router = APIRouter()
 
@@ -30,23 +32,30 @@ async def get_profile(user: User = Depends(get_current_user), db: Session = Depe
     }
 
     return profile_data
-'''
+
 @router.get("/dashboard", response_model=UserDashboardResponse)
 async def get_dashboard(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     current_learning_progress = db.query(LearningProgresses).filter(LearningProgresses.learning_id == user.current_learning_id).first()
+    lang_id = current_learning_progress.lang_id
+    # 취약점/가장 개선된 범주 분석: app/utils/learning.py의 analyze_category_performance 참고.
+    performance = analyze_category_performance(db, user.user_id, lang_id)
     response = UserDashboardResponse(
-      language=db.query(Language.language).filter(Language.lang_id == current_learning_progress.lang_id).first(),
+      language=db.query(Language.language).filter(Language.lang_id == lang_id).scalar(),
       daily_streak=current_learning_progress.daily_streak,
-      language_total= current_learning_progress.language_total,
-      accuracy_rate= #TODO: learningProgress Column에 전체 풀이 수와 전체 맞은 수에서 계산,
-      most_weak= #TODO: 취약점 분석 알고리즘 구현 후 다루기,
-      most_improved= #TODO 취약점 분석 알고리즘 구현 후 다루기,
-      feedback_voca= #TODO,
-      feedback_grammar= #TODO,
-      feedback_dialogue= #TODO,
+      language_total=current_learning_progress.language_total,
+      # learning_progresses의 total_answers/correct_answers로 정답률(%)을 계산.
+      accuracy_rate=0 if current_learning_progress.total_answers == 0 else floor(
+          current_learning_progress.correct_answers / current_learning_progress.total_answers * 100
+      ),
+      most_weak=performance["weakness"],
+      most_improved=performance["most_improved"],
+      feedback_voca="TODO: 구현예정",  # TODO
+      feedback_grammar="TODO: 구현예정",  # TODO
+      feedback_dialogue="TODO: 구현예정",  # TODO
+      error_trend={"voca": [], "grammar": [], "dialogue": []},  # TODO
     )
     return response
-'''
+
 
     
 
