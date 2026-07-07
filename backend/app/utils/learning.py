@@ -28,12 +28,14 @@ from typing import Sequence
 from sqlalchemy import case, func
 from sqlalchemy.orm import Session
 
+from app.api import gemini
 from app.models.content import Content
 from app.models.dialogue import Dialogue
 from app.models.eventlog import EventLog
 from app.models.grammar import Grammar
 from app.models.grammar_quiz import GrammarQuiz
 from app.models.vocabulary import Vocabulary
+
 
 import random
 
@@ -378,24 +380,74 @@ def get_next_flow_stage(flow: str, current_flow: str) -> str | None:
 
 
 # ---------------------------------------------------------------------------
-# LLM 연동 지점 (현재는 미연동 — 고정 placeholder 반환)
+# 회화(Dialogue) 문장/피드백 생성 — Gemini 연동 (app/api/gemini.py)
 #
-# 아래 두 함수는 추후 LLM API 연동 시 실제 구현으로 교체되어야 한다. 지금은 dialogue의
-# subject/flow 단계, 사용자의 응답 등을 프롬프트 구성 요소로 넘겨받아 자리만 잡아둔 상태이며,
-# 실제 문장 생성/피드백 평가 로직은 포함하지 않는다.
+# 실제 문장 생성/평가는 app/api/gemini.py의 LLM 호출 함수가 담당한다. 다만 flow가 다음
+# 단계로 넘어갈지, 대화가 끝났는지(is_end)는 LLM의 advance_flow 판단을 받아 서버가
+# Dialogue.flow 목록 위치를 기준으로 구조적으로 계산한다 (LLM이 flow 위치를 직접 세다가
+# 착각해 대화가 조기 종료되거나 무한 반복되는 것을 방지하기 위함).
 # ---------------------------------------------------------------------------
 
-def generate_dialogue_line(dialogue: Dialogue, flow_stage: str) -> str:
-    '''
-    TODO(LLM 연동): dialogue.subject, flow_stage, dialogue.lang_id 등을 프롬프트로 구성해
-    LLM에 전달하고, 해당 흐름 단계에 맞는 대화 문장을 생성해 반환해야 한다.
-    '''
-    return f"[TODO: LLM 연동 필요] ({dialogue.subject} / {flow_stage} 단계 대화 문장)"
+# 대화에 자연스럽게 녹여낼 추천 단어 개수.
+_DIALOGUE_TARGET_WORD_COUNT = 5
 
 
-def generate_dialogue_feedback(user_response: str, flow_stage: str) -> str:
+def _recommended_words_for_dialogue(db: Session, user_id: str, lang_id: int) -> list[str]:
+    '''오늘의 단어 학습 알고리즘(select_vocabulary_for_today)에서 대화에 사용할 추천 단어를 가져온다.'''
+    vocabularies = select_vocabulary_for_today(db, user_id, lang_id, limit=_DIALOGUE_TARGET_WORD_COUNT)
+    return [vocabulary.word for vocabulary in vocabularies]
+
+
+def generate_dialogue_opening_line(db: Session, dialogue: Dialogue, language: str, user_id: str) -> str:
+    '''대화 주제(subject)와 flow의 첫 단계에 맞는 대화 시작 문장을 LLM으로 생성한다.'''
+    flow_stages = parse_flow_stages(dialogue.flow)
+    target_words = _recommended_words_for_dialogue(db, user_id, dialogue.lang_id)
+    return gemini.generate_dialogue_opening(
+        subject=dialogue.subject,
+        language=language,
+        flow_stages=flow_stages,
+        target_words=target_words,
+    )
+
+
+@dataclass
+class DialogueStepResult:
+    content: str
+    feedback: str
+    flow: str
+    is_end: bool
+
+
+def generate_dialogue_step(
+    db: Session, dialogue: Dialogue, language: str, current_flow: str, user_response: str, user_id: str
+) -> DialogueStepResult:
     '''
-    TODO(LLM 연동): user_response를 constraint와 함께 LLM에 전달해, 문법/의미가 맞는지
-    평가한 피드백을 생성해 반환해야 한다.
+    사용자의 응답을 LLM으로 평가해 다음 대화 문장(content)과 한국어 피드백(feedback)을 생성하고,
+    LLM의 advance_flow 판단(현재 flow 단계를 통과했는지)을 바탕으로 다음 flow 단계와 대화
+    종료 여부(is_end)를 서버가 구조적으로 결정한다.
+
+    - advance_flow=True 이고 다음 flow 단계가 있으면: 다음 단계로 진행 (is_end=False)
+    - advance_flow=True 이고 다음 flow 단계가 없으면(마지막 단계 통과): 대화 종료 (is_end=True)
+    - advance_flow=False 이면: 같은 flow 단계에 머무르며 재시도 (is_end=False)
     '''
-    return "[TODO: LLM 연동 필요] 피드백이 아직 생성되지 않습니다."
+    flow_stages = parse_flow_stages(dialogue.flow)
+    target_words = _recommended_words_for_dialogue(db, user_id, dialogue.lang_id)
+
+    turn = gemini.generate_dialogue_turn(
+        subject=dialogue.subject,
+        language=language,
+        flow_stages=flow_stages,
+        current_flow=current_flow,
+        user_response=user_response,
+        target_words=target_words,
+    )
+
+    next_flow = get_next_flow_stage(dialogue.flow, current_flow) if turn.advance_flow else current_flow
+    is_end = turn.advance_flow and next_flow is None
+
+    return DialogueStepResult(
+        content=turn.content,
+        feedback=turn.feedback,
+        flow=next_flow if next_flow is not None else current_flow,
+        is_end=is_end,
+    )

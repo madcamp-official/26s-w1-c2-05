@@ -19,9 +19,8 @@ from app.utils.learning import (
     select_grammar_quizzes,
     select_dialogue_for_today,
     parse_flow_stages,
-    get_next_flow_stage,
-    generate_dialogue_line,
-    generate_dialogue_feedback,
+    generate_dialogue_opening_line,
+    generate_dialogue_step,
 )
 
 import random
@@ -92,8 +91,7 @@ async def get_dialogue(current_user: User = Depends(get_current_user), db: Sessi
 
     #content_id, subject, flow, content는 current_user의 이벤트로그를 참조해서 고름.
     #회화 주제 선정 알고리즘은 app/utils/learning.py의 select_dialogue_for_today 참고.
-    #content는 LLM에 주제와 constraint 등을 넣은 후에 return되는 dialogue 관련 문장으로, flow의 첫 문맥과 의미가 연관이 있어야 한다.
-    #-> LLM 연동 전까지는 generate_dialogue_line이 placeholder 문장을 대신 반환한다.
+    #content는 LLM(app/api/gemini.py)에 subject/flow/추천 단어를 넣어 생성한 대화 시작 문장이다.
     current_user_lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id
     dialogue_list = select_dialogue_for_today(db, current_user.user_id, current_user_lang_id, limit=1)
     if not dialogue_list:
@@ -102,9 +100,10 @@ async def get_dialogue(current_user: User = Depends(get_current_user), db: Sessi
             detail="학습할 수 있는 회화 콘텐츠가 없습니다."
         )
     dialogue = dialogue_list[0]
+    language = db.query(Language).filter(Language.lang_id == dialogue.lang_id).first()
 
     first_flow = parse_flow_stages(dialogue.flow)[0]
-    content = generate_dialogue_line(dialogue, first_flow)
+    content = generate_dialogue_opening_line(db, dialogue, language.language, current_user.user_id)
 
     return {"content_id": dialogue.content_id, "subject": dialogue.subject, "flow": first_flow, "content": content}
 
@@ -132,14 +131,13 @@ async def post_answer(user_answer: AnswerResponse, current_user: User = Depends(
 
 @router.post("/dialoguelog")
 async def get_more_dialogue(user_answer: DialogueResponse, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    #user_answer를 기반으로 LLM에 답변 제공 -> LLM이 constraint에 따라 답변을 평가하고 피드백 작성. flow 등을 참고해서 다음 대화 흐름에 맞는 문장 생성.
-    #-> LLM 연동 전까지는 generate_dialogue_feedback/generate_dialogue_line이 placeholder를 대신 반환한다.
-    #is_end 변수는 flow를 기반으로 llm이 판단해서 대화가 끝났는지 안끝났는지 나타냄.
-    #-> LLM 연동 전까지는 Dialogue.flow 목록에서 현재 flow가 마지막 단계인지로 구조적으로 판단한다.
-    #is_end가 true면 get_more_dialogue를 return하기 전에 eventlog에 날짜, 정답 여부(정답은 전체대화를 맥락으로 llm이 판단한다), 등을 포함하여 db에 추가한다.
-    #-> LLM 연동 전까지는 is_correct를 True로 고정한다 (TODO: LLM 연동 후 전체 대화 맥락 기반 평가로 교체).
-
-    
+    #user_answer를 기반으로 LLM(app/api/gemini.py)에 답변 제공 -> LLM이 constraint에 따라 답변을 평가하고
+    #피드백 작성, flow 등을 참고해서 다음 대화 흐름에 맞는 문장 생성. (app/utils/learning.py의 generate_dialogue_step)
+    #is_end 변수는 LLM의 advance_flow 판단(현재 flow를 통과했는지)을 받아, Dialogue.flow 목록에서
+    #현재 flow가 마지막 단계인지로 서버가 구조적으로 판단한다 (LLM이 flow 위치를 직접 세다가
+    #착각해 대화가 조기 종료/무한 반복되는 것을 방지하기 위함).
+    #is_end가 true면 get_more_dialogue를 return하기 전에 eventlog에 날짜, 정답 여부(전체 대화 맥락
+    #기반 정답 여부 평가는 추후 고도화 대상이며, 지금은 True로 고정한다) 등을 포함하여 db에 추가한다.
     dialogue = db.query(Dialogue).filter(Dialogue.content_id == user_answer.content_id).first()
     if dialogue is None:
         raise HTTPException(
@@ -152,26 +150,31 @@ async def get_more_dialogue(user_answer: DialogueResponse, current_user: User = 
             detail="잘못된 접근: flow가 해당 회화 콘텐츠의 흐름에 속하지 않습니다."
         )
 
-    next_flow = get_next_flow_stage(dialogue.flow, user_answer.flow)
-    is_end = next_flow is None
+    language = db.query(Language).filter(Language.lang_id == dialogue.lang_id).first()
+    step = generate_dialogue_step(
+        db, dialogue, language.language, user_answer.flow, user_answer.response, current_user.user_id
+    )
 
-    feedback = generate_dialogue_feedback(user_answer.response, user_answer.flow)
-    content = generate_dialogue_line(dialogue, next_flow) if next_flow is not None else None
-
-    if is_end:
+    if step.is_end:
         new_event = EventLog(
             user_id = current_user.user_id,
             content_id = dialogue.content_id,
             lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id,
             type = type_converter["dialogue"],
             response_time = user_answer.response_time,
-            is_correct = True,  # TODO(LLM 연동): 전체 대화 맥락을 바탕으로 한 정답 여부 평가로 교체.
+            is_correct = True,  # TODO(LLM 연동 고도화): 전체 대화 맥락을 바탕으로 한 정답 여부 평가로 교체.
             time_studied = user_answer.time,
         )
         db.add(new_event)
         db.commit()
         db.refresh(new_event)
 
-    flow = next_flow if next_flow is not None else user_answer.flow
-    return {"content_id": dialogue.content_id, "end": is_end, "subject": dialogue.subject, "flow": flow, "content": content, "feedback": feedback}
+    return {
+        "content_id": dialogue.content_id,
+        "end": step.is_end,
+        "subject": dialogue.subject,
+        "flow": step.flow,
+        "content": step.content,
+        "feedback": step.feedback,
+    }
 
