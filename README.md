@@ -81,7 +81,7 @@
 |POST|/answerlog|응답 결과를 전송|JSON {"content_id": 4321, "type": "flash", "response_time": 5.2324242s, "is_correct": True, "time": 2023-07-04T14:30:00Z}||
 |GET|/grammar|문법학습으로 이동||200 OK {"grammars": [{"numbers": 1, "content_id": 4321, "subject": "...", "explanatation": "...", "quiz": [{"quiz": "...", "quiz_content_id": 54321, "answer": "..."}]}]}|
 |GET|/dialogue|회화학습으로 이동||200 OK {"content_id": 4321, "subject": "Restaurant", "flow": "Greeting", "content": "Welcome to our restaurant. Have you made a reservation?"}|
-|POST|/dialoguelog|회화 응답을 전송|JSON {"content_id": 4321, "flow": "greeting", "response": "Yes, I've made with the name Alice."}|200 OK {"content_id": 4321, "subject": "Restaurant", "flow": "ordering", "content": "Ok, I checked your name. Now, what can I get for you?" "feedback": "의미는 통하지만 목적어가 빠졌습니다."}|
+|POST|/dialoguelog|회화 응답을 전송|JSON {"content_id": 4321, "flow": "greeting", "response": "Yes, I've made with the name Alice."}|200 OK {"content_id": 4321, "end" = false, "subject": "Restaurant", "flow": "ordering", "content": "Ok, I checked your name. Now, what can I get for you?" "feedback": "의미는 통하지만 목적어가 빠졌습니다."}|
 |GET|/dashboard|본인의 학습 상태와 취약점 요청||200 OK {"language": "Spanish", "daily_streak": 10, "language_total": 312, "accuracy_rate": 78, "most_weak": "회화", "most_improved": "단어", "feedback_voca": "이번 주 가장 헷갈려 한 단어는 instinct에요.", "feedback_grammar": "가장 많이 헷갈려하는 부분은 현재분사와 과거분사 구분이에요", "feedback_dialogue": "error_trend": {"voca": [20, 19, 18, 18, 19, 18, 16, 16], "grammar": [20, 19, 18, 18, 19, 18, 16, 16], "dialogue": [20, 19, 18, 18, 19, 18, 16, 16]}}|
 ---
 
