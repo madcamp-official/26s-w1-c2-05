@@ -118,6 +118,14 @@ function FlashcardPage(){
         }
     };
 
+    const handleResetTimer = () => {
+        cardShownAt.current = Date.now();
+        setElapsed(0);
+        if (isPaused){
+            pausedAt.current = Date.now();
+        }
+    };
+
     if (!current){
         return <div className={styles.page}>단어를 불러오는 중입니다...</div>;
     }
@@ -140,6 +148,12 @@ function FlashcardPage(){
                         onClick={handleTogglePause}
                     >
                         {isPaused ? "▶ 재개" : "⏸ 일시정지"}
+                    </button>
+                    <button
+                        className={`${styles.pauseButton} ${styles.resetButton}`}
+                        onClick={handleResetTimer}
+                    >
+                        <span className={styles.resetIcon}>⟲</span> 리셋
                     </button>
                 </div>
             </div>

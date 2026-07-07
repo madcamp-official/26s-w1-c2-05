@@ -87,6 +87,17 @@
   border-color: #1a1a1a;
 }
 
+.resetButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.resetIcon {
+  font-size: 20px;
+  line-height: 1;
+}
+
 .progressBar {
   height: 4px;
   background: #e5e5e5;
