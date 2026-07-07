@@ -29,6 +29,7 @@ from sqlalchemy import case, func
 from sqlalchemy.orm import Session
 
 from app.models.content import Content
+from app.models.dialogue import Dialogue
 from app.models.eventlog import EventLog
 from app.models.grammar import Grammar
 from app.models.grammar_quiz import GrammarQuiz
@@ -310,3 +311,91 @@ def select_grammar_quizzes(
 
     quizzes.sort(key=priority)
     return quizzes[:limit]
+
+
+# ---------------------------------------------------------------------------
+# 회화(Dialogue) 주제 선정
+# ---------------------------------------------------------------------------
+
+def select_dialogue_for_today(db: Session, user_id: str, lang_id: int, limit: int = 1) -> list[Dialogue]:
+    '''
+    오늘 학습할 회화(Dialogue) 주제를 선정한다. Vocabulary/Grammar와 달리 CEFR 레벨 컬럼이
+    없으므로 레벨 적응(i+1) 로직은 적용하지 않는다. 대신,
+      1) 아직 한 번도 시도하지 않은 주제를 최우선으로 하고(testing effect, Roediger & Karpicke, 2006),
+      2) 이미 시도한 주제 중에서는 예측 회상 확률(half-life regression)이 낮은,
+         즉 망각 위험이 큰 주제를 우선 복습으로 배정한다.
+    '''
+    dialogues = db.query(Dialogue).filter(Dialogue.lang_id == lang_id).all()
+    if not dialogues:
+        return []
+
+    content_ids = [dialogue.content_id for dialogue in dialogues]
+    stats_map = _aggregate_event_stats(db, user_id, lang_id, content_ids)
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+
+    def priority(dialogue: Dialogue) -> tuple[int, float, float]:
+        stats = stats_map.get(dialogue.content_id)
+        if stats is None or stats.is_new:
+            return (0, 0.0, random.random())  # 미시도 주제 최우선
+
+        last_studied = stats.last_studied
+        if last_studied is not None and last_studied.tzinfo is not None:
+            last_studied = last_studied.replace(tzinfo=None)
+        days_since = max((now - last_studied).total_seconds() / 86400.0, 0.0) if last_studied else 0.0
+        p_recall = estimate_recall_probability(stats.n_correct, stats.n_incorrect, days_since)
+        return (1, p_recall, random.random())  # 회상 확률이 낮을수록(망각 위험이 클수록) 먼저
+
+    dialogues.sort(key=priority)
+    return dialogues[:limit]
+
+
+# ---------------------------------------------------------------------------
+# 회화 흐름(flow) 파싱/진행
+#
+# Dialogue.flow는 하나의 문자열에 대화 흐름 단계를 comma로 구분해 저장한다
+# (예: "greeting,ordering,payment,farewell", 왼쪽부터 시작).
+# ---------------------------------------------------------------------------
+
+def parse_flow_stages(flow: str) -> list[str]:
+    '''Dialogue.flow 문자열을 흐름 단계 리스트로 변환한다.'''
+    return [stage.strip() for stage in flow.split(",") if stage.strip()]
+
+
+def get_next_flow_stage(flow: str, current_flow: str) -> str | None:
+    '''
+    현재 흐름 단계(current_flow) 다음에 올 단계를 반환한다.
+    current_flow가 마지막 단계이거나 flow 목록에 없으면 None을 반환한다
+    (대화가 끝났다는 의미로 사용, get_more_dialogue 참고).
+    '''
+    stages = parse_flow_stages(flow)
+    try:
+        index = stages.index(current_flow)
+    except ValueError:
+        return None
+    if index + 1 < len(stages):
+        return stages[index + 1]
+    return None
+
+
+# ---------------------------------------------------------------------------
+# LLM 연동 지점 (현재는 미연동 — 고정 placeholder 반환)
+#
+# 아래 두 함수는 추후 LLM API 연동 시 실제 구현으로 교체되어야 한다. 지금은 dialogue의
+# subject/flow 단계, 사용자의 응답 등을 프롬프트 구성 요소로 넘겨받아 자리만 잡아둔 상태이며,
+# 실제 문장 생성/피드백 평가 로직은 포함하지 않는다.
+# ---------------------------------------------------------------------------
+
+def generate_dialogue_line(dialogue: Dialogue, flow_stage: str) -> str:
+    '''
+    TODO(LLM 연동): dialogue.subject, flow_stage, dialogue.lang_id 등을 프롬프트로 구성해
+    LLM에 전달하고, 해당 흐름 단계에 맞는 대화 문장을 생성해 반환해야 한다.
+    '''
+    return f"[TODO: LLM 연동 필요] ({dialogue.subject} / {flow_stage} 단계 대화 문장)"
+
+
+def generate_dialogue_feedback(user_response: str, flow_stage: str) -> str:
+    '''
+    TODO(LLM 연동): user_response를 constraint와 함께 LLM에 전달해, 문법/의미가 맞는지
+    평가한 피드백을 생성해 반환해야 한다.
+    '''
+    return "[TODO: LLM 연동 필요] 피드백이 아직 생성되지 않습니다."

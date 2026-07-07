@@ -19,3 +19,7 @@ class Content(Base):
     grammar_quiz = relationship(
         "GrammarQuiz", back_populates="content", uselist=False, cascade="all, delete-orphan"
     )
+
+    dialogue = relationship(
+        "Dialogue", back_populates="content", uselist=False, cascade="all, delete-orphan"
+    )
