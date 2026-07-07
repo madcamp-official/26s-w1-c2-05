@@ -13,3 +13,7 @@ class LearningProgresses(Base):
     study_days = Column(Integer, nullable=False)
     last_studied = Column(DateTime, nullable=True)
     daily_streak = Column(Integer, nullable=False)
+    language_total = Column(Integer, nullable=False)
+    current_level = Column(Integer, nullable=False)
+    total_answers = Column(Integer, nullable=False)
+    correct_answers = Column(Integer, nullable=False)

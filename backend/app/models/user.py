@@ -12,3 +12,4 @@ class User(Base):
     nickname = Column(String, nullable=True)
     profile_img = Column(Integer, nullable=True)
     current_learning_id = Column(Integer, nullable=True)
+    current_level = Column(Integer, nullable=True)

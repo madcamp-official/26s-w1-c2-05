@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.schemas.user import UserProfileResponse
+from app.schemas.user import UserProfileResponse, UserDashboardResponse
 from app.models.learning_progress import LearningProgresses
 from app.models.user import User
 from app.models.language import Language
@@ -30,4 +30,23 @@ async def get_profile(user: User = Depends(get_current_user), db: Session = Depe
     }
 
     return profile_data
+'''
+@router.get("/dashboard", response_model=UserDashboardResponse)
+async def get_dashboard(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    current_learning_progress = db.query(LearningProgresses).filter(LearningProgresses.learning_id == user.current_learning_id).first()
+    response = UserDashboardResponse(
+      language=db.query(Language.language).filter(Language.lang_id == current_learning_progress.lang_id).first(),
+      daily_streak=current_learning_progress.daily_streak,
+      language_total= current_learning_progress.language_total,
+      accuracy_rate= #TODO: learningProgress Column에 전체 풀이 수와 전체 맞은 수에서 계산,
+      most_weak= #TODO: 취약점 분석 알고리즘 구현 후 다루기,
+      most_improved= #TODO 취약점 분석 알고리즘 구현 후 다루기,
+      feedback_voca= #TODO,
+      feedback_grammar= #TODO,
+      feedback_dialogue= #TODO,
+    )
+    return response
+'''
+
+    
 

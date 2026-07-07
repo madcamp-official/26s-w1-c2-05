@@ -32,7 +32,7 @@ async def get_flashcard(current_user: User = Depends(get_current_user), db: Sess
     # 이벤트 기록(event_logs)을 기반으로 사용자의 학습 수준을 추정하고, spaced-repetition +
     # 레벨 적응 알고리즘(app/utils/learning.py)으로 오늘 학습할 단어를 선정한다.
     current_user_lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id
-    vocabulary_list = select_vocabulary_for_today(db, current_user.user_id, current_user_lang_id, limit=5)
+    vocabulary_list = select_vocabulary_for_today(db, current_user.user_id, current_user_lang_id, limit=20)
     language = db.query(Language).filter(Language.lang_id == current_user_lang_id).first()
 
     #key 중 level을 제거하고 선택지 추가.
@@ -61,7 +61,7 @@ async def get_flashcard(current_user: User = Depends(get_current_user), db: Sess
 async def get_grammar(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     # event_logs 기반 spaced-repetition + 레벨 적응 알고리즘으로 오늘 학습할 문법을 선정한다.
     current_user_lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id
-    grammar_list = select_grammar_for_today(db, current_user.user_id, current_user_lang_id, limit=5)
+    grammar_list = select_grammar_for_today(db, current_user.user_id, current_user_lang_id, limit=3)
 
     #key 중 level을 제거하고 선택지 추가.
     refined_grammar_list = []
