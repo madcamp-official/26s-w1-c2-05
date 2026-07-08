@@ -35,6 +35,9 @@ function GrammarPage(){
     const [answers, setAnswers] = useState({});
     const [checked, setChecked] = useState({});
     const [showAnswers, setShowAnswers] = useState(false);
+    // 한 번이라도 열어본 개념은 검은 점으로 남겨서, 다른 개념을 봤다가 돌아와도
+    // 학습 여부 표시가 사라지지 않게 한다.
+    const [visited, setVisited] = useState(() => new Set([0]));
 
     useEffect(() => {
         client.get("/grammar")
@@ -56,8 +59,9 @@ function GrammarPage(){
 
     const handleSelectConcept = (index) => {
         setSelectedIndex(index);
-        setAnswers({});
-        setChecked({});
+        // quiz_content_id는 개념 간에도 고유하므로, 다른 개념으로 이동했다가 돌아와도
+        // 이미 풀었던 문제의 답/정오답 표시가 사라지지 않도록 answers/checked는 초기화하지 않는다.
+        setVisited((prev) => (prev.has(index) ? prev : new Set(prev).add(index)));
         setShowAnswers(false);
         // 클릭 이벤트 핸들러 안에서만 호출되므로 렌더링과 무관함 (린트 규칙의 오탐).
         // eslint-disable-next-line react-hooks/purity
@@ -185,6 +189,7 @@ function GrammarPage(){
                     <ul className={styles.conceptList}>
                         {grammars.map((concept, index) => {
                             const isSelected = index === selectedIndex;
+                            const isVisited = visited.has(index);
                             return (
                                 <li key={concept.content_id}>
                                     <button
@@ -195,7 +200,7 @@ function GrammarPage(){
                                         }
                                         onClick={() => handleSelectConcept(index)}
                                     >
-                                        <span className={`${styles.conceptDot} ${isSelected ? styles.dot_current : styles.dot_locked}`} />
+                                        <span className={`${styles.conceptDot} ${isVisited ? styles.dot_current : styles.dot_locked}`} />
                                         {concept.subject}
                                     </button>
                                 </li>
