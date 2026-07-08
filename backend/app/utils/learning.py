@@ -42,10 +42,38 @@ from app.models.dialogue import Dialogue
 from app.models.eventlog import EventLog
 from app.models.grammar import Grammar
 from app.models.grammar_quiz import GrammarQuiz
+from app.models.learning_progress import LearningProgresses
 from app.models.vocabulary import Vocabulary
 
 
 import random
+
+
+# ---------------------------------------------------------------------------
+# 학습일수(study_days)/연속 학습일(daily_streak) 갱신
+# ---------------------------------------------------------------------------
+
+def record_daily_activity(db: Session, progress: LearningProgresses) -> None:
+    '''
+    오늘 처음으로 학습 활동(답변 제출/회화 turn)이 발생했을 때만 study_days와
+    daily_streak을 갱신한다. last_studied의 날짜를 기준으로 판단하므로, 같은 날
+    여러 번 답을 제출해도(플래시카드 20문제 등) 하루에 한 번만 반영된다.
+
+    - 어제 학습했다면 streak을 이어서 +1.
+    - 어제가 아니라면(하루 이상 건너뛰었거나 첫 학습이라면) streak을 1로 리셋.
+    '''
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    today = now.date()
+    last_date = progress.last_studied.date() if progress.last_studied else None
+
+    if last_date == today:
+        return
+
+    progress.daily_streak = progress.daily_streak + 1 if last_date == today - timedelta(days=1) else 1
+    progress.study_days += 1
+    progress.last_studied = now
+    db.add(progress)
+    db.commit()
 
 
 # ---------------------------------------------------------------------------
@@ -267,7 +295,7 @@ def _select_items(db: Session, user_id: str, lang_id: int, model, limit: int) ->
             if remaining <= 0:
                 break
             candidates = new_ids_by_level[level]
-            random.shuffle(candidates)
+            candidates.sort(key=lambda cid: _daily_tiebreaker(user_id, lang_id, cid, kind=model.__name__))
             take = candidates[:remaining]
             selected_ids.extend(take)
             remaining -= len(take)
@@ -278,7 +306,7 @@ def _select_items(db: Session, user_id: str, lang_id: int, model, limit: int) ->
 
     if not selected_ids:
         selected_ids = list(level_map.keys())
-        random.shuffle(selected_ids)
+        selected_ids.sort(key=lambda cid: _daily_tiebreaker(user_id, lang_id, cid, kind=model.__name__))
         selected_ids = selected_ids[:limit]
 
     rows = db.query(model).filter(model.content_id.in_(selected_ids)).all()
@@ -313,11 +341,12 @@ def select_grammar_quizzes(
     stats_map = _aggregate_event_stats(db, user_id, lang_id, content_ids)
 
     def priority(quiz: GrammarQuiz) -> tuple[int, float, float]:
+        tiebreak = _daily_tiebreaker(user_id, lang_id, quiz.content_id, kind="grammar_quiz")
         stats = stats_map.get(quiz.content_id)
         if stats is None or stats.n_total == 0:
-            return (0, 0.0, random.random())  # 미시도 문제 최우선
+            return (0, 0.0, tiebreak)  # 미시도 문제 최우선
         accuracy = stats.n_correct / stats.n_total
-        return (1, accuracy, random.random())  # 정답률이 낮을수록 먼저
+        return (1, accuracy, tiebreak)  # 정답률이 낮을수록 먼저
 
     quizzes.sort(key=priority)
     return quizzes[:limit]
@@ -327,6 +356,22 @@ def select_grammar_quizzes(
 # 회화(Dialogue) 주제 선정
 # ---------------------------------------------------------------------------
 
+def _daily_tiebreaker(user_id: str, lang_id: int, content_id: int, kind: str = "dialogue") -> float:
+    '''
+    user_id/lang_id/content_id/오늘 날짜(UTC)로 시드를 고정한 난수를 반환한다.
+
+    아직 시도하지 않은 후보가 여러 개면 무작위로 순서를 정해야 하는 선정 로직(회화 주제,
+    단어/문법 신규 항목)에서 매 요청마다 전역 random을 쓰면, 진행 중인 학습 이력(EventLog)
+    변화가 전혀 없어도 화면에 들어갈 때마다 다른 항목이 뽑힌다. content_id별로 오늘 하루는
+    항상 같은 값이 나오도록 고정하되, 날짜가 바뀌면 자연스럽게 다른 조합이 나오도록 시드에
+    날짜를 포함한다. kind는 서로 다른 종류(단어/문법/회화 등)의 셔플이 같은 content_id에서
+    우연히 같은 순서로 얽히지 않도록 구분하는 용도.
+    '''
+    today = datetime.now(timezone.utc).date().isoformat()
+    seed = f"{kind}:{user_id}:{lang_id}:{today}:{content_id}"
+    return random.Random(seed).random()
+
+
 def select_dialogue_for_today(db: Session, user_id: str, lang_id: int, limit: int = 1) -> list[Dialogue]:
     '''
     오늘 학습할 회화(Dialogue) 주제를 선정한다. Vocabulary/Grammar와 달리 CEFR 레벨 컬럼이
@@ -334,6 +379,9 @@ def select_dialogue_for_today(db: Session, user_id: str, lang_id: int, limit: in
       1) 아직 한 번도 시도하지 않은 주제를 최우선으로 하고(testing effect, Roediger & Karpicke, 2006),
       2) 이미 시도한 주제 중에서는 예측 회상 확률(half-life regression)이 낮은,
          즉 망각 위험이 큰 주제를 우선 복습으로 배정한다.
+
+    동률(예: 미시도 주제끼리)일 때의 순서는 _daily_tiebreaker로 고정해, 같은 날 안에는 페이지에
+    다시 들어가도 같은 주제가 나오도록 한다.
     '''
     dialogues = db.query(Dialogue).filter(Dialogue.lang_id == lang_id).all()
     if not dialogues:
@@ -344,16 +392,17 @@ def select_dialogue_for_today(db: Session, user_id: str, lang_id: int, limit: in
     now = datetime.now(timezone.utc).replace(tzinfo=None)
 
     def priority(dialogue: Dialogue) -> tuple[int, float, float]:
+        tiebreaker = _daily_tiebreaker(user_id, lang_id, dialogue.content_id)
         stats = stats_map.get(dialogue.content_id)
         if stats is None or stats.is_new:
-            return (0, 0.0, random.random())  # 미시도 주제 최우선
+            return (0, 0.0, tiebreaker)  # 미시도 주제 최우선
 
         last_studied = stats.last_studied
         if last_studied is not None and last_studied.tzinfo is not None:
             last_studied = last_studied.replace(tzinfo=None)
         days_since = max((now - last_studied).total_seconds() / 86400.0, 0.0) if last_studied else 0.0
         p_recall = estimate_recall_probability(stats.n_correct, stats.n_incorrect, days_since)
-        return (1, p_recall, random.random())  # 회상 확률이 낮을수록(망각 위험이 클수록) 먼저
+        return (1, p_recall, tiebreaker)  # 회상 확률이 낮을수록(망각 위험이 클수록) 먼저
 
     dialogues.sort(key=priority)
     return dialogues[:limit]
@@ -406,28 +455,39 @@ def _recommended_words_for_dialogue(db: Session, user_id: str, lang_id: int) -> 
     return [vocabulary.word for vocabulary in vocabularies]
 
 
-def generate_dialogue_opening_line(db: Session, dialogue: Dialogue, language: str, user_id: str) -> str:
-    '''대화 주제(subject)와 flow의 첫 단계에 맞는 대화 시작 문장을 LLM으로 생성한다.'''
+@dataclass
+class DialogueOpeningLineResult:
+    content: str
+    translation: str
+
+
+def generate_dialogue_opening_line(
+    db: Session, dialogue: Dialogue, language: str, user_id: str
+) -> DialogueOpeningLineResult:
+    '''대화 주제(subject)와 flow의 첫 단계에 맞는 대화 시작 문장(및 한국어 번역)을 LLM으로 생성한다.'''
     flow_stages = parse_flow_stages(dialogue.flow)
     target_words = _recommended_words_for_dialogue(db, user_id, dialogue.lang_id)
-    return gemini.generate_dialogue_opening(
+    result = gemini.generate_dialogue_opening(
         subject=dialogue.subject,
         language=language,
         flow_stages=flow_stages,
         target_words=target_words,
     )
+    return DialogueOpeningLineResult(content=result.content, translation=result.translation)
 
 
 @dataclass
 class DialogueStepResult:
     content: str
+    translation: str
     feedback: str
     flow: str
     is_end: bool
 
 
 def generate_dialogue_step(
-    db: Session, dialogue: Dialogue, language: str, current_flow: str, user_response: str, user_id: str
+    db: Session, dialogue: Dialogue, language: str, current_flow: str, user_response: str, user_id: str,
+    history: list | None = None,
 ) -> DialogueStepResult:
     '''
     사용자의 응답을 LLM으로 평가해 다음 대화 문장(content)과 한국어 피드백(feedback)을 생성하고,
@@ -437,6 +497,10 @@ def generate_dialogue_step(
     - advance_flow=True 이고 다음 flow 단계가 있으면: 다음 단계로 진행 (is_end=False)
     - advance_flow=True 이고 다음 flow 단계가 없으면(마지막 단계 통과): 대화 종료 (is_end=True)
     - advance_flow=False 이면: 같은 flow 단계에 머무르며 재시도 (is_end=False)
+
+    history는 이번 응답 이전까지의 대화 turn 목록(요청 스키마의 DialogueTurn)이다. 백엔드가
+    turn 단위 대화를 저장하지 않으므로, LLM이 이미 오간 내용을 기억한 채 판단하도록 매 요청마다
+    프론트가 함께 보낸 값을 그대로 gemini 호출에 전달한다.
     '''
     flow_stages = parse_flow_stages(dialogue.flow)
     target_words = _recommended_words_for_dialogue(db, user_id, dialogue.lang_id)
@@ -448,6 +512,7 @@ def generate_dialogue_step(
         current_flow=current_flow,
         user_response=user_response,
         target_words=target_words,
+        history=history,
     )
 
     next_flow = get_next_flow_stage(dialogue.flow, current_flow) if turn.advance_flow else current_flow
@@ -455,6 +520,7 @@ def generate_dialogue_step(
 
     return DialogueStepResult(
         content=turn.content,
+        translation=turn.translation,
         feedback=turn.feedback,
         flow=next_flow if next_flow is not None else current_flow,
         is_end=is_end,

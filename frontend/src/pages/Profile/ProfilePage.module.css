@@ -1,0 +1,154 @@
+.page {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--page-text);
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--page-text-muted);
+  margin: 0 0 24px;
+}
+
+.body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.card {
+  flex: 1 1 320px;
+  min-width: 280px;
+  border: 1px solid var(--page-border);
+  border-radius: 10px;
+  padding: 24px;
+  background: var(--page-surface);
+  box-sizing: border-box;
+}
+
+.cardTitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--page-text-secondary);
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+
+/* 계정 정보 */
+
+.accountRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userId {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.userEmail {
+  font-size: 13px;
+  color: var(--page-text-muted);
+  margin: 0;
+}
+
+.logoutButton {
+  padding: 10px 20px;
+  border: 1px solid var(--page-border-strong);
+  border-radius: 6px;
+  background: var(--page-surface);
+  color: var(--page-danger);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.logoutButton:hover:not(:disabled) {
+  border-color: var(--page-danger);
+  background: var(--page-danger-bg);
+}
+
+.logoutButton:disabled {
+  color: var(--page-border-strong);
+  cursor: not-allowed;
+}
+
+/* 학습 현황 */
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--page-text-secondary);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--page-surface-hover);
+}
+
+.infoValue {
+  color: var(--page-text);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.changeLanguageButton {
+  padding: 3px 10px;
+  border: 1px solid var(--page-border-strong);
+  border-radius: 999px;
+  background: var(--page-surface);
+  color: var(--page-text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.changeLanguageButton:hover {
+  border-color: var(--page-text-muted);
+  color: var(--page-text);
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--page-text-secondary);
+  margin: 16px 0 8px;
+}
+
+.progressBar {
+  height: 6px;
+  background: var(--page-surface-hover);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: var(--page-invert-bg);
+  transition: width 0.2s ease;
+}

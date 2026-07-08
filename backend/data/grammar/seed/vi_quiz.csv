@@ -1,0 +1,181 @@
+level,subject,problem,answer
+1,인칭대명사·호칭어,___ tên là gì? (너:손아랫사람),Em
+1,인칭대명사·호칭어,___ là bác sĩ. (그:손윗사람 남성),Anh
+1,인칭대명사·호칭어,"___ ơi, cho tôi hỏi. (아주머니:호칭)",Chị
+1,là 동사(~이다),Tôi ___ sinh viên.,là
+1,là 동사(~이다),Đây ___ sách của tôi.,là
+1,là 동사(~이다),Anh ấy ___ bác sĩ.,là
+1,형용사서술문,Cô ấy ___(예쁘다:đẹp).,đẹp
+1,형용사서술문,Món ăn này ___(맛있다:ngon).,ngon
+1,형용사서술문,Trời hôm nay ___(덥다:nóng).,nóng
+1,지시사(này/đó/kia),Quyển sách ___ rất hay. (이:này),này
+1,지시사(này/đó/kia),Cái bàn ___ là của tôi. (그:đó),đó
+1,지시사(này/đó/kia),Ngôi nhà ___ rất đẹp. (저:kia),kia
+1,존재표현 có,Tôi ___ một quyển sách.,có
+1,존재표현 có,Trên bàn ___ nhiều sách.,có
+1,존재표현 có,Tôi không ___ tiền. (없다),có
+1,시제표시어(đã/đang/sẽ),Tôi ___ ăn cơm rồi. (과거),đã
+1,시제표시어(đã/đang/sẽ),Tôi ___ học tiếng Việt. (현재진행),đang
+1,시제표시어(đã/đang/sẽ),Ngày mai tôi ___ đi Hà Nội. (미래),sẽ
+1,기본 의문문(có...không/gì/ai/đâu),Bạn ___ khỏe không?,có
+1,기본 의문문(có...không/gì/ai/đâu),Bạn tên là ___?,gì
+1,기본 의문문(có...không/gì/ai/đâu),Bạn đi ___?,đâu
+1,부정문(không/chưa),Tôi ___ thích cà phê. (안좋아하다),không
+1,부정문(không/chưa),Tôi ___ ăn cơm. (아직~않다),chưa
+1,부정문(không/chưa),Anh ấy ___ đến. (아직 안 왔다),chưa
+2,분류사(cái/con/quyển),Tôi có hai ___ sách. (책 분류사),quyển
+2,분류사(cái/con/quyển),Cô ấy có một ___ mèo. (동물 분류사),con
+2,분류사(cái/con/quyển),Đây là ___ bàn mới. (무생물 분류사),cái
+2,수량표현과 어순,Tôi có ___ bạn. (많은:nhiều),nhiều
+2,수량표현과 어순,Cô ấy có ___ tiền. (적은:ít),ít
+2,수량표현과 어순,Tôi có ba ___ bút. (자루 분류사:cây),cây
+2,정도부사(rất/lắm/quá),Món này ___ ngon. (형용사 앞:rất),rất
+2,정도부사(rất/lắm/quá),Món này ngon ___. (형용사 뒤:lắm),lắm
+2,정도부사(rất/lắm/quá),Trời hôm nay nóng ___. (너무:quá),quá
+2,비교표현(hơn/bằng/nhất),Cô ấy cao ___ tôi. (~보다),hơn
+2,비교표현(hơn/bằng/nhất),Cô ấy cao ___ lớp. (가장),nhất
+2,비교표현(hơn/bằng/nhất),Tôi cao ___ anh ấy. (~만큼),bằng
+2,접속사(và/nhưng/vì...nên),"Tôi thích trà, ___ tôi cũng thích cà phê.",nhưng
+2,접속사(và/nhưng/vì...nên),___ trời mưa nên tôi ở nhà.,Vì
+2,접속사(và/nhưng/vì...nên),Vì trời mưa ___ tôi ở nhà.,nên
+2,전치사(ở/đến/từ),Tôi sống ___ Hà Nội. (~에서),ở
+2,전치사(ở/đến/từ),Tôi đi ___ nhà đến trường. (부터),từ
+2,전치사(ở/đến/từ),Anh ấy đi ___ Hà Nội. (~으로),đến
+2,완료상 rồi,Tôi ăn cơm ___.,rồi
+2,완료상 rồi,Anh ấy đi ___.,rồi
+2,완료상 rồi,Tôi làm xong bài tập ___.,rồi
+2,경험표현(đã...chưa/từng),Bạn đã đi Việt Nam ___?,chưa
+2,경험표현(đã...chưa/từng),Tôi ___ đi Việt Nam. (경험이 있다),từng
+2,경험표현(đã...chưa/từng),Tôi ___ ăn món này bao giờ. (한번도~않다),chưa
+2,명령문(hãy/đừng/chớ),___ đi ngủ sớm. (권유),Hãy
+2,명령문(hãy/đừng/chớ),___ làm ồn. (금지),Đừng
+2,명령문(hãy/đừng/chớ),___ lo lắng. (걱정하지 마),Đừng
+2,부가의문문(phải không),"Bạn là sinh viên, ___?",phải không
+2,부가의문문(phải không),"Anh ấy đã đi rồi, ___?",phải không
+2,부가의문문(phải không),"Món này ngon, ___?",phải không
+3,동시동작(vừa...vừa),Tôi ___ ăn ___ xem tivi.,vừa
+3,동시동작(vừa...vừa),Cô ấy vừa hát ___ nhảy.,vừa
+3,동시동작(vừa...vừa),Anh ấy vừa đi ___ nói chuyện điện thoại.,vừa
+3,조건문(nếu...thì),___ trời mưa thì tôi ở nhà.,Nếu
+3,조건문(nếu...thì),Nếu trời mưa ___ tôi ở nhà.,thì
+3,조건문(nếu...thì),"Nếu bạn không hiểu, ___ hỏi giáo viên.",thì
+3,양보표현(tuy...nhưng),___ trời mưa nhưng tôi vẫn đi học.,Tuy
+3,양보표현(tuy...nhưng),Tuy trời mưa ___ tôi vẫn đi học.,nhưng
+3,양보표현(tuy...nhưng),Tuy mệt ___ anh ấy vẫn làm việc.,nhưng
+3,목적표현(để),Tôi học tiếng Việt ___ đi du lịch.,để
+3,목적표현(để),Tôi tiết kiệm tiền ___ mua nhà.,để
+3,목적표현(để),Anh ấy dậy sớm ___ tập thể dục.,để
+3,사동표현(làm cho/khiến),Tin này ___ cho tôi vui.,làm
+3,사동표현(làm cho/khiến),Câu chuyện đó ___ mọi người cười. (khiến),khiến
+3,사동표현(làm cho/khiến),Lời nói của anh ấy làm ___ tôi buồn.,cho
+3,피동표현(bị/được),Tôi ___ khen. (긍정),được
+3,피동표현(bị/được),Tôi ___ phạt. (부정),bị
+3,피동표현(bị/được),Anh ấy ___ mời đi ăn tối. (긍정),được
+3,관계절(mà),Quyển sách ___ tôi đọc rất hay.,mà
+3,관계절(mà),Người ___ tôi gặp hôm qua là bạn tôi.,mà
+3,관계절(mà),Đây là món ăn ___ tôi thích nhất.,mà
+3,정도보어 심화,Món này ngon ___ đi mất. (너무:quá),quá
+3,정도보어 심화,Trời hôm nay lạnh ___ chịu nổi. (không thể),không thể
+3,정도보어 심화,Cô ấy đẹp ___ tưởng tượng được. (không thể),không thể
+3,결과보어(được/xong/hết),Tôi làm ___ bài tập rồi. (완료:xong),xong
+3,결과보어(được/xong/hết),Tôi ăn ___ cơm rồi. (다:hết),hết
+3,결과보어(được/xong/hết),Tôi nghe ___ tiếng Việt. (가능:được),được
+3,방향보어(ra/vào/lên/xuống),Anh ấy đi ___ ngoài. (밖으로:ra),ra
+3,방향보어(ra/vào/lên/xuống),Cô ấy đi ___ phòng. (안으로:vào),vào
+3,방향보어(ra/vào/lên/xuống),Chúng tôi đi ___ núi. (위로:lên),lên
+3,강조표현(chính/ngay cả),___ anh ấy đã nói điều đó. (바로),Chính
+3,강조표현(chính/ngay cả),___ trẻ con cũng biết. (~조차도),Ngay cả
+3,강조표현(chính/ngay cả),___ tôi cũng không biết. (~조차도),Ngay cả
+3,재귀·상호표현(nhau/tự mình),Họ yêu ___. (서로),nhau
+3,재귀·상호표현(nhau/tự mình),Tôi ___ làm việc này. (스스로),tự mình
+3,재귀·상호표현(nhau/tự mình),Họ giúp đỡ ___. (서로),nhau
+4,이중부정,Tôi ___ phải là không thích.,không
+4,이중부정,Anh ấy không phải là ___ biết. (모르다),không biết
+4,이중부정,Việc này không phải là ___ thể làm được. (불가능),không thể
+4,양보강조(dù...cũng),"___ khó khăn thế nào, tôi cũng sẽ cố gắng.",Dù
+4,양보강조(dù...cũng),"Dù trời mưa, tôi ___ đi học. (역시)",cũng
+4,양보강조(dù...cũng),"Dù ai nói gì, tôi ___ không thay đổi ý kiến.",cũng
+4,추측표현(có lẽ/chắc là/hình như),___ trời sẽ mưa. (아마도),Có lẽ
+4,추측표현(có lẽ/chắc là/hình như),___ anh ấy đã về. (틀림없이),Chắc là
+4,추측표현(có lẽ/chắc là/hình như),___ cô ấy không biết chuyện này. (~인것같다),Hình như
+4,인용·전언표현(nghe nói/theo như),___ anh ấy sắp kết hôn. (듣자하니),Nghe nói
+4,인용·전언표현(nghe nói/theo như),"___ báo chí, giá cả đang tăng. (~에 따르면)",Theo như
+4,인용·전언표현(nghe nói/theo như),Nghe ___ cô ấy đã chuyển nhà. (말하다:nói),nói
+4,강조부사(ngay/mới/chỉ),Tôi sẽ làm ___. (즉시),ngay
+4,강조부사(ngay/mới/chỉ),Tôi ___ đến. (방금),mới
+4,강조부사(ngay/mới/chỉ),Tôi ___ có một cái. (오직),chỉ
+4,접속부사 심화(vì vậy/do đó/tuy nhiên),"Trời mưa to, ___ chúng tôi ở nhà. (그래서)",vì vậy
+4,접속부사 심화(vì vậy/do đó/tuy nhiên),"Anh ấy cố gắng, ___ vẫn thất bại. (그러나)",tuy nhiên
+4,접속부사 심화(vì vậy/do đó/tuy nhiên),"Giá xăng tăng, ___ giá cả hàng hóa cũng tăng. (그러므로)",do đó
+4,조건 심화(giá mà/nếu như),___ tôi giàu hơn. (~였더라면),Giá mà
+4,조건 심화(giá mà/nếu như),"___ bạn cần giúp đỡ, hãy nói với tôi.",Nếu như
+4,조건 심화(giá mà/nếu như),Giá mà tôi ___ biết trước. (알다:biết),biết
+4,화제화 구문(còn...thì),"Tôi thích cà phê, ___ em gái tôi thì thích trà.",còn
+4,화제화 구문(còn...thì),Còn bạn ___ nghĩ sao? (~로 말하자면),thì
+4,화제화 구문(còn...thì),"Anh ấy giỏi tiếng Anh, còn tôi ___ giỏi tiếng Việt.",thì
+4,결과구문(đến nỗi),Cô ấy mệt ___ ngủ quên.,đến nỗi
+4,결과구문(đến nỗi),Trời nóng ___ không ai muốn ra ngoài.,đến nỗi
+4,결과구문(đến nỗi),Anh ấy vui ___ khóc. (~할 정도로),đến nỗi
+4,겸어문(mời/bảo/yêu cầu),Tôi ___ anh ấy đến nhà. (초대하다),mời
+4,겸어문(mời/bảo/yêu cầu),Mẹ ___ tôi dọn phòng. (시키다:bảo),bảo
+4,겸어문(mời/bảo/yêu cầu),Giáo viên ___ học sinh nộp bài. (요청하다),yêu cầu
+4,관형어 심화,Cuốn sách màu đỏ ___ tôi mua hôm qua rất hay. (mà),mà
+4,관형어 심화,Người đàn ông ___ đang đứng kia là bố tôi. (mà),mà
+4,관형어 심화,Ngôi nhà lớn ___ chúng tôi thấy rất đẹp. (mà),mà
+4,시간표현 심화(vừa mới/sắp),Tôi ___ đến. (방금 막),vừa mới
+4,시간표현 심화(vừa mới/sắp),Trời ___ mưa. (곧~할것이다),sắp
+4,시간표현 심화(vừa mới/sắp),Chúng tôi ___ ăn xong. (방금 막),vừa mới
+5,격식체 접속사(bởi vì/do vậy),"___ trời mưa, chúng tôi hoãn chuyến đi. (왜냐하면)",Bởi vì
+5,격식체 접속사(bởi vì/do vậy),"Trời mưa, ___ chúng tôi hoãn chuyến đi. (그렇기 때문에)",do vậy
+5,격식체 접속사(bởi vì/do vậy),"___ anh ấy bận, cuộc họp bị hoãn. (왜냐하면)",Bởi vì
+5,강조도치(chính là...mới),___ sự nỗ lực mới mang lại thành công. (바로),Chính
+5,강조도치(chính là...mới),Chính sự nỗ lực ___ mang lại thành công. (~이어야만),mới
+5,강조도치(chính là...mới),Chính anh ấy ___ là người giúp tôi. (~이야말로),mới
+5,완곡화법(có thể nói là),___ kế hoạch này khá rủi ro. (~라고 말할 수 있다),Có thể nói là
+5,완곡화법(có thể nói là),Có thể nói ___ đây là một thành công lớn. (là),là
+5,완곡화법(có thể nói là),Có thể ___ rằng anh ấy đã cố gắng hết sức. (말하다:nói),nói
+5,담화표지 심화(tuy nhiên/hơn nữa),"Kế hoạch có vẻ tốt; ___, vẫn có rủi ro.",tuy nhiên
+5,담화표지 심화(tuy nhiên/hơn nữa),"___, chi phí khá cao. (게다가)",Hơn nữa
+5,담화표지 심화(tuy nhiên/hơn nữa),"Anh ấy giỏi; ___, anh ấy còn rất chăm chỉ. (게다가)",hơn nữa
+5,명사화 구문(việc/sự),___ học tiếng Việt rất thú vị. (việc),Việc
+5,명사화 구문(việc/sự),___ thành công của anh ấy không phải là ngẫu nhiên. (sự),Sự
+5,명사화 구문(việc/sự),___ thay đổi này ảnh hưởng đến mọi người. (sự),Sự
+5,존대·공손표현(xin/kính),"___ lỗi, tôi có thể hỏi một câu không? (부디)",Xin
+5,존대·공손표현(xin/kính),___ chào quý vị. (삼가),Kính
+5,존대·공손표현(xin/kính),___ mời quý khách vào trong. (공손히 요청),Xin
+5,병렬구조,"Cô ấy thích đọc sách, viết văn và ___(그리다:vẽ) tranh.",vẽ
+5,병렬구조,Anh ấy không chỉ thông minh mà còn ___(친절한:tốt bụng).,tốt bụng
+5,병렬구조,"Công việc này đòi hỏi sự kiên nhẫn, tập trung và ___(헌신:cống hiến).",cống hiến
+5,부정어 강조(chẳng hề/không hề),Tôi ___ biết chuyện này. (전혀~않다),chẳng hề
+5,부정어 강조(chẳng hề/không hề),Anh ấy ___ quan tâm đến việc này. (전혀~않다),không hề
+5,부정어 강조(chẳng hề/không hề),Cô ấy ___ tức giận. (전혀~않다),chẳng hề
+5,양태조동사 조합,Anh ấy ___ sẽ đến. (틀림없이),chắc chắn
+5,양태조동사 조합,Đây ___ một sai lầm. (~일 수도 있다),có thể là
+5,양태조동사 조합,Cô ấy ___ đã quên. (틀림없이),chắc chắn
+5,강조구문(chính...là),___ anh ấy là người đã giúp tôi. (바로),Chính
+5,강조구문(chính...là),Chính điều đó ___ lý do tôi đến đây. (~이다),là
+5,강조구문(chính...là),Chính sự chăm chỉ ___ chìa khóa thành công. (~이다),là
+6,문어체·한자어 표현,Chính phủ đã ___ hành quy định mới. (반포하다:ban),ban
+6,문어체·한자어 표현,Vấn đề này cần được ___ quyết sớm. (해결하다:giải),giải
+6,문어체·한자어 표현,Báo cáo đã được ___ bố công khai. (공포하다:công),công
+6,고급 담화표지(vả lại/hơn thế nữa),"Anh ấy giỏi, ___ còn rất chăm chỉ. (게다가)",vả lại
+6,고급 담화표지(vả lại/hơn thế nữa),"___, vấn đề này còn ảnh hưởng đến kinh tế. (더 나아가)",Hơn thế nữa
+6,고급 담화표지(vả lại/hơn thế nữa),"Kế hoạch này tốn kém, ___ còn mất nhiều thời gian. (게다가)",vả lại
+6,관용구·성어표현,Góp ý cho anh ấy chẳng khác gì nước đổ lá ___. (토란잎:khoai),khoai
+6,관용구·성어표현,Một cây làm chẳng nên ___. (산:non),non
+6,관용구·성어표현,"Đi một ngày đàng, học một sàng ___. (지혜:khôn)",khôn
+6,학술적 글쓰기 문형,Có thể ___ luận rằng biến đổi khí hậu đang diễn ra nhanh hơn. (lập),lập
+6,학술적 글쓰기 문형,Cần ___ ý rằng kết quả này chỉ là sơ bộ. (주의하다:lưu),lưu
+6,학술적 글쓰기 문형,Có thể ___ định rằng lý thuyết này chưa hoàn chỉnh. (확언하다:khẳng),khẳng
+6,생략과 대용,"Tôi không hút thuốc, nhưng anh ấy thì ___. (그렇다)",có
+6,생략과 대용,"Cô ấy tin điều đó, và tôi cũng ___. (그렇다:vậy)",vậy
+6,생략과 대용,"Tôi chưa xong, nhưng anh ấy thì ___. (끝냈다)",xong rồi
+6,뉘앙스 조동사 조합(có lẽ...chăng),___ anh ấy đã quên chăng?,Có lẽ
+6,뉘앙스 조동사 조합(có lẽ...chăng),Có lẽ đây là một sai lầm ___? (~는 아닐까),chăng
+6,뉘앙스 조동사 조합(có lẽ...chăng),Có lẽ cô ấy không muốn đến ___? (~는 아닐까),chăng
+6,문체적 격식 표현,___ gửi quý công ty. (삼가:Kính),Kính
+6,문체적 격식 표현,Tôi xin ___ trọng thông báo. (정중히:trân),trân
+6,문체적 격식 표현,Xin ___ ơn sự quan tâm của quý vị. (감사하다:cảm),cảm
+6,화용론적 공손 표현(정중한 요청),"Nếu không ___, xin anh đóng cửa sổ lại. (폐끼치다:phiền)",phiền
+6,화용론적 공손 표현(정중한 요청),Không biết anh có thể giúp tôi ___? (~할 수 있는지),không
+6,화용론적 공손 표현(정중한 요청),___ anh vui lòng chờ một chút. (부디:Xin),Xin

@@ -7,9 +7,16 @@ export default defineConfig({
   server: {
     proxy: {
       '/auth': 'http://localhost:8000',
+      '/onboarding': 'http://localhost:8000',
       '/vocabulary': 'http://localhost:8000',
       '/flashcard': 'http://localhost:8000',
+      '/grammar': 'http://localhost:8000',
       '/answerlog': 'http://localhost:8000',
+      '/users': 'http://localhost:8000',
+      '/me': 'http://localhost:8000',
+      '/dialogue': 'http://localhost:8000',
+      '/dialoguelog': 'http://localhost:8000',
+      '/dashboard': 'http://localhost:8000',
     },
   },
 })

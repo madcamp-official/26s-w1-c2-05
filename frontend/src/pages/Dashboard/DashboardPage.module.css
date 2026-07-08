@@ -1,0 +1,366 @@
+.page {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--page-text);
+}
+
+.loadingText {
+  font-size: 14px;
+  color: var(--page-text-muted);
+}
+
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.statTile {
+  border: 1px solid var(--page-border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  background: var(--page-surface);
+  box-sizing: border-box;
+}
+
+.statLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--page-text-secondary);
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.statValue {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.statValueEmpty {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--page-text-muted);
+  margin: 0;
+}
+
+.statUnit {
+  font-size: 12px;
+  color: var(--page-text-muted);
+  margin: 4px 0 0;
+}
+
+.card {
+  border: 1px solid var(--page-border);
+  border-radius: 10px;
+  padding: 24px;
+  background: var(--page-surface);
+  box-sizing: border-box;
+}
+
+.cardTitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--page-text-secondary);
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+
+/* 취약점 분석 섹션 */
+
+.sectionHeader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 32px 0 24px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.sectionSubtitle {
+  font-size: 13px;
+  color: var(--page-text-muted);
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: 8px;
+}
+
+.secondaryButton {
+  padding: 10px 20px;
+  border: 1px solid var(--page-border-strong);
+  border-radius: 6px;
+  background: var(--page-surface);
+  color: var(--page-text);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.secondaryButton:hover:not(:disabled) {
+  border-color: var(--page-text-muted);
+}
+
+.primaryInlineButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.primaryInlineButton:disabled {
+  background: var(--page-border-strong);
+  cursor: not-allowed;
+}
+
+.stackedCards {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.todayEmpty {
+  font-size: 13px;
+  color: var(--page-text-muted);
+  margin: 0;
+}
+
+.todayActivity {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.todayActivityRow {
+  display: grid;
+  grid-template-columns: 48px 1fr 28px;
+  align-items: center;
+  gap: 12px;
+}
+
+.todayActivityLabel {
+  font-size: 13px;
+  color: var(--page-text-secondary);
+}
+
+.todayActivityBarTrack {
+  height: 8px;
+  background: var(--page-surface-hover);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.todayActivityBarFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.2s ease;
+}
+
+.todayActivityCount {
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.todayActivityTotal {
+  font-size: 12px;
+  color: var(--page-text-muted);
+  margin: 4px 0 0;
+}
+
+/* Top Weakness Areas */
+
+.weaknessList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.weaknessItem {
+  display: flex;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid var(--page-border);
+  border-radius: 8px;
+}
+
+.weaknessRank {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--page-surface-hover);
+  color: var(--page-text);
+  font-weight: 700;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weaknessBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.weaknessHeadRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.weaknessTitle {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.categoryChip {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--page-surface-hover);
+  color: var(--page-text-secondary);
+}
+
+.weaknessBar {
+  height: 6px;
+  background: var(--page-surface-hover);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.weaknessBarFill {
+  height: 100%;
+}
+
+.weaknessMeta {
+  font-size: 12px;
+  color: var(--page-text-muted);
+  margin: 0 0 8px;
+}
+
+.weaknessDescription {
+  font-size: 13px;
+  color: var(--page-text-secondary);
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
+.ctaButton {
+  padding: 8px 16px;
+  border: 1px solid var(--page-border-strong);
+  border-radius: 6px;
+  background: var(--page-surface);
+  color: var(--page-text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ctaButton:hover {
+  border-color: var(--page-text-muted);
+}
+
+/* Error trend chart */
+
+.chartWrap {
+  position: relative;
+}
+
+.chartSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.gridline {
+  stroke: var(--page-border);
+  stroke-width: 1;
+}
+
+.axisLabel {
+  font-size: 10px;
+  fill: var(--page-text-muted);
+}
+
+.crosshair {
+  stroke: var(--page-border-strong);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.tooltipDate {
+  margin: 0 0 4px;
+  font-weight: 700;
+  color: var(--page-invert-text);
+  opacity: 0.8;
+}
+
+.tooltipRow {
+  margin: 2px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tooltipDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--page-text-secondary);
+}
+
+.legendDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}

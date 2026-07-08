@@ -1,0 +1,301 @@
+lang_id,level,word,meaning,example
+8,1,Chào,"안녕, 안녕하세요","Chào bạn, bạn khỏe không?"
+8,1,Tên,이름,Tên của bạn là gì?
+8,1,Tôi,"나, 저",Tôi là học sinh.
+8,1,Bạn,"너, 친구",Bạn có khỏe không?
+8,1,Cảm ơn,"감사합니다, 고마워",Cảm ơn bạn rất nhiều.
+8,1,Xin lỗi,"죄송합니다, 미안합니다","Xin lỗi, tôi không biết."
+8,1,Vâng,네,"Vâng, tôi hiểu rồi."
+8,1,Không,"아니요, 아니다","Không, tôi không ăn cơm."
+8,1,Ăn,먹다,Tôi muốn ăn phở.
+8,1,Uống,마시다,Bạn có muốn uống cà phê không?
+8,1,Cơm,밥,Tôi ăn cơm với gia đình.
+8,1,Nước,물,Cho tôi một ly nước.
+8,1,Nhà,집,Nhà tôi ở Hà Nội.
+8,1,Đi,가다,Tôi đi làm bằng xe máy.
+8,1,Đến,"오다, 도착하다",Khi nào bạn đến đây?
+8,1,Hôm nay,오늘,Hôm nay trời đẹp quá.
+8,1,Ngày mai,내일,Ngày mai tôi đi học.
+8,1,Học,"공부하다, 배우다",Tôi học tiếng Việt mỗi ngày.
+8,1,Làm,"하다, 일하다",Bạn làm nghề gì?
+8,1,Công việc,"일, 직업",Công việc của tôi rất bận.
+8,1,Mẹ,어머니,Mẹ tôi nấu ăn rất ngon.
+8,1,Cha,아버지,Cha tôi là bác sĩ.
+8,1,Anh,"형, 오빠",Anh ấy là anh trai của tôi.
+8,1,Chị,"누나, 언니",Chị tôi đang đi mua sắm.
+8,1,Em,동생,Em tôi đang học bài.
+8,1,Sách,책,Đây là cuốn sách tiếng Việt.
+8,1,Bút,펜,Tôi dùng bút để viết.
+8,1,Đẹp,"예쁘다, 아름답다",Cái áo này rất đẹp.
+8,1,Ngon,맛있다,Món ăn này rất ngon.
+8,1,Lớn,크다,Ngôi nhà này rất lớn.
+8,1,Nhỏ,작다,Con mèo này rất nhỏ.
+8,1,Đắt,비싸다,Cái máy tính này hơi đắt.
+8,1,Rẻ,싸다,"Cái này rẻ quá, tôi mua nhé."
+8,1,Muốn,원하다,Tôi muốn đi du lịch Việt Nam.
+8,1,Thích,좋아하다,Tôi thích nghe nhạc.
+8,1,Biết,알다,Tôi biết nói tiếng Việt một chút.
+8,1,Đọc,읽다,Tôi thích đọc sách buổi sáng.
+8,1,Viết,쓰다,Bạn viết tên vào đây nhé.
+8,1,Mua,사다,Tôi đi siêu thị mua trái cây.
+8,1,Bán,팔다,Chị ấy bán quần áo ở chợ.
+8,1,Trái cây,과일,Tôi rất thích ăn trái cây.
+8,1,Tiền,돈,Tôi không có nhiều tiền.
+8,1,Máy tính,컴퓨터,Tôi làm việc trên máy tính.
+8,1,Điện thoại,"전화기, 휴대폰",Điện thoại của tôi bị hỏng rồi.
+8,1,Bạn bè,친구들,Tôi đi chơi với bạn bè.
+8,1,Trường học,학교,Tôi đi đến trường học.
+8,1,Giáo viên,선생님,Giáo viên dạy rất nhiệt tình.
+8,1,Sinh viên,대학생,Anh ấy là sinh viên đại học.
+8,1,Người,사람,Việt Nam có nhiều người thân thiện.
+8,1,Việt Nam,베트남,Tôi yêu đất nước Việt Nam.
+8,2,ăn,먹다,Tôi ăn cơm vào lúc bảy giờ sáng.
+8,2,uống,마시다,Bạn có muốn uống cà phê không?
+8,2,đi,가다,Tôi đi làm bằng xe máy.
+8,2,ngủ,자다,Anh ấy đang ngủ trong phòng.
+8,2,đẹp,"예쁘다, 아름답다",Cô ấy mặc một chiếc váy rất đẹp.
+8,2,nóng,"덥다, 뜨겁다",Hôm nay trời rất nóng.
+8,2,lạnh,"춥다, 차갑다",Tôi không thích thời tiết lạnh.
+8,2,mua,사다,Tôi đi chợ để mua hoa quả.
+8,2,bán,팔다,Cửa hàng này bán rất nhiều đồ ăn ngon.
+8,2,làm,"하다, 일하다",Mẹ tôi làm việc ở ngân hàng.
+8,2,học,"배우다, 공부하다",Tôi học tiếng Việt mỗi ngày.
+8,2,nghe,듣다,Tôi thích nghe nhạc khi rảnh rỗi.
+8,2,nói,말하다,Bạn có thể nói tiếng Anh không?
+8,2,đọc,읽다,Tôi đọc sách trước khi đi ngủ.
+8,2,viết,쓰다,Hãy viết tên của bạn vào tờ giấy này.
+8,2,xem,보다 (구경하다),Tối nay chúng ta đi xem phim nhé.
+8,2,thích,좋아하다,Tôi rất thích đi du lịch.
+8,2,muốn,원하다,Tôi muốn uống một cốc nước cam.
+8,2,có,"있다, 가지다",Nhà tôi có bốn người.
+8,2,không,"아니다, 없다",Tôi không biết đường đến đó.
+8,2,cảm ơn,고맙다,Cảm ơn bạn đã giúp tôi.
+8,2,xin lỗi,미안하다,"Xin lỗi, tôi đến muộn."
+8,2,bạn,친구,Anh ấy là bạn thân của tôi.
+8,2,gia đình,가족,Gia đình tôi sống ở Hà Nội.
+8,2,nhà,집,Nhà của tôi ở gần trường học.
+8,2,trường học,학교,Trường học của con tôi rất gần đây.
+8,2,công việc,"일, 직업",Công việc của bạn thế nào?
+8,2,tiền,돈,Tôi không có nhiều tiền.
+8,2,thời gian,시간,Bạn có thời gian rảnh vào cuối tuần không?
+8,2,ngày,"날, 일",Một ngày có hai mươi bốn giờ.
+8,2,tuần,주,Tuần sau tôi sẽ đi Đà Nẵng.
+8,2,tháng,"달, 월",Tháng mười hai thời tiết rất mát mẻ.
+8,2,năm,년,Năm nay tôi hai mươi tuổi.
+8,2,sáng,아침,"Chào buổi sáng, bạn khỏe không?"
+8,2,tối,"저녁, 밤",Tối nay bạn có bận không?
+8,2,gần,가깝다,Nhà tôi gần siêu thị.
+8,2,xa,멀다,Nhà anh ấy rất xa trung tâm thành phố.
+8,2,nhanh,빠르다,Anh ấy chạy rất nhanh.
+8,2,chậm,느리다,Hãy nói chậm hơn một chút.
+8,2,to,크다,Căn phòng này rất to và sáng.
+8,2,nhỏ,작다,Con mèo nhỏ đang ngủ trên ghế.
+8,2,mới,새롭다,Tôi mới mua một chiếc xe máy mới.
+8,2,cũ,"낡다, 오래되다",Cuốn sách này đã rất cũ rồi.
+8,2,dễ,쉽다,Bài tập tiếng Việt này rất dễ.
+8,2,khó,어렵다,Tiếng Việt đối với tôi khá khó.
+8,2,đắt,비싸다,Cái áo này đắt quá.
+8,2,rẻ,싸다,Đồ ăn ở đây rất rẻ và ngon.
+8,2,thú vị,재미있다,Cuốn phim này rất thú vị.
+8,2,mệt,피곤하다,"Sau khi làm việc, tôi cảm thấy rất mệt."
+8,2,vui,"기쁘다, 즐겁다",Hôm nay là một ngày rất vui.
+8,3,quyết định,결정하다,Tôi đã quyết định học tiếng Việt từ tháng tới.
+8,3,ngạc nhiên,놀라다,Tôi rất ngạc nhiên khi thấy anh ấy ở đây.
+8,3,tuyệt vời,"훌륭하다, 멋지다",Đó là một ý tưởng tuyệt vời.
+8,3,thảo luận,토론하다,Chúng tôi cần thảo luận về kế hoạch dự án này.
+8,3,trải nghiệm,경험하다,Tôi muốn trải nghiệm văn hóa địa phương khi đi du lịch.
+8,3,cải thiện,"개선하다, 향상시키다",Tôi đang cố gắng cải thiện kỹ năng giao tiếp của mình.
+8,3,phổ biến,"보편적인, 인기 있는",Món ăn này rất phổ biến ở Việt Nam.
+8,3,căng thẳng,"스트레스를 받는, 긴장한",Công việc quá nhiều làm tôi cảm thấy căng thẳng.
+8,3,nhận xét,"비평하다, 의견을 말하다",Sếp đã đưa ra nhiều nhận xét hữu ích cho bài báo cáo.
+8,3,khuyến khích,"장려하다, 격려하다",Giáo viên luôn khuyến khích học sinh phát biểu trong lớp.
+8,3,hợp lý,"합리적인, 타당한",Giá cả ở đây rất hợp lý cho khách du lịch.
+8,3,cơ hội,기회,Đây là một cơ hội tốt để phát triển sự nghiệp.
+8,3,phàn nàn,불평하다,Khách hàng bắt đầu phàn nàn về chất lượng dịch vụ.
+8,3,phát triển,"발전하다, 개발하다",Công ty đang phát triển một sản phẩm mới.
+8,3,hiệu quả,효과적인,Phương pháp này rất hiệu quả đối với tôi.
+8,3,tích cực,긍정적인,Bạn nên có thái độ tích cực trong mọi tình huống.
+8,3,thành công,성공하다,Anh ấy đã rất thành công trong kinh doanh.
+8,3,quan trọng,중요한,Sức khỏe là điều quan trọng nhất đối với mỗi người.
+8,3,thay đổi,"변화하다, 바꾸다",Thời tiết thay đổi liên tục trong ngày.
+8,3,cần thiết,필요한,Việc học ngoại ngữ là rất cần thiết trong thời đại nay.
+8,3,chấp nhận,"받아들이다, 수락하다",Tôi sẵn sàng chấp nhận thử thách mới.
+8,3,cẩn thận,조심스러운,Hãy lái xe cẩn thận khi trời mưa.
+8,3,chuẩn bị,준비하다,Chúng tôi đang chuẩn bị cho bữa tiệc tối nay.
+8,3,chia sẻ,"공유하다, 나누다",Cô ấy thích chia sẻ kinh nghiệm của mình với người khác.
+8,3,đáng tin cậy,신뢰할 수 있는,Anh ấy là một nhân viên rất đáng tin cậy.
+8,3,trách nhiệm,책임,Mỗi người phải có trách nhiệm với hành động của mình.
+8,3,lựa chọn,선택하다,Bạn có rất nhiều lựa chọn cho món ăn tối.
+8,3,địa điểm,장소,Đâu là địa điểm họp mặt của chúng ta?
+8,3,giao tiếp,소통하다,Giao tiếp tốt giúp chúng ta xây dựng mối quan hệ bền vững.
+8,3,ngăn chặn,"방지하다, 막다",Chúng ta cần các biện pháp để ngăn chặn ô nhiễm môi trường.
+8,3,thuận lợi,"유리한, 순조로운",Thời tiết hôm nay rất thuận lợi cho việc dã ngoại.
+8,3,phương pháp,방법,Tôi đã tìm ra phương pháp học tiếng Việt mới.
+8,3,tận hưởng,즐기다,Hãy tận hưởng kỳ nghỉ của bạn thật thoải mái.
+8,3,ngưỡng mộ,"존경하다, 감탄하다",Tôi ngưỡng mộ sự chăm chỉ của anh ấy.
+8,3,tự tin,자신감 있는,Bạn nên tự tin hơn khi đứng trước đám đông.
+8,3,bất ngờ,"뜻밖의, 갑작스러운",Đó là một món quà bất ngờ dành cho tôi.
+8,3,tiết kiệm,절약하다,Chúng ta nên tiết kiệm điện và nước hàng ngày.
+8,3,xung đột,"충돌하다, 갈등",Họ đã giải quyết xung đột một cách hòa bình.
+8,3,cố gắng,노력하다,Bạn cần cố gắng hơn để đạt kết quả tốt.
+8,3,liên quan,관련된,Vấn đề này không liên quan đến tôi.
+8,3,quy định,규정,Bạn phải tuân thủ các quy định của công ty.
+8,3,đáng giá,가치 있는,Chuyến đi này thực sự rất đáng giá.
+8,3,khó khăn,어려움,Ai cũng sẽ gặp khó khăn trong cuộc sống.
+8,3,tổ chức,"조직하다, 개최하다",Nhà trường sẽ tổ chức một chuyến tham quan vào tuần sau.
+8,3,phân tích,분석하다,Chúng ta cần phân tích dữ liệu trước khi đưa ra kết luận.
+8,3,công bằng,공정한,Giáo viên luôn đối xử công bằng với tất cả học sinh.
+8,3,đặc biệt,특별한,Hôm nay là một ngày rất đặc biệt đối với tôi.
+8,3,phụ thuộc,의존하다,Đừng phụ thuộc quá nhiều vào người khác.
+8,3,tưởng tượng,상상하다,Bạn hãy tưởng tượng xem cuộc sống sẽ như thế nào nếu không có internet.
+8,4,đáng kể,"상당히, 현저히",Doanh thu của công ty đã tăng đáng kể trong quý này.
+8,4,thúc đẩy,"촉진하다, 장려하다",Chính phủ đang tìm cách thúc đẩy phát triển kinh tế bền vững.
+8,4,công nhận,"인정하다, 승인하다",Bằng cấp này được công nhận trên toàn quốc.
+8,4,đối phó,"대처하다, 대응하다",Làm thế nào để đối phó với áp lực công việc hiệu quả?
+8,4,áp dụng,적용하다,Công ty đã áp dụng công nghệ mới vào quy trình sản xuất.
+8,4,khả thi,실행 가능한,Dự án này rất khả thi nếu chúng ta có đủ ngân sách.
+8,4,đề xuất,제안하다,Tôi muốn đề xuất một ý tưởng mới cho cuộc họp ngày mai.
+8,4,nỗ lực,노력,Mọi nỗ lực của bạn sẽ được đền đáp xứng đáng.
+8,4,phát huy,발휘하다,Mỗi cá nhân cần phát huy sở trường của mình để đóng góp cho tập thể.
+8,4,triển khai,"전개하다, 실행하다",Chiến dịch quảng bá sẽ được triển khai vào tháng tới.
+8,4,tối ưu hóa,최적화하다,Chúng ta cần tối ưu hóa thời gian làm việc để đạt kết quả tốt hơn.
+8,4,đảm bảo,"보장하다, 확실하게 하다",Chúng tôi cam kết đảm bảo chất lượng sản phẩm tốt nhất.
+8,4,quan ngại,우려하다,Nhiều người bày tỏ sự quan ngại về vấn đề biến đổi khí hậu.
+8,4,phản hồi,"피드백, 응답하다",Vui lòng cho tôi biết phản hồi của bạn sau khi xem tài liệu.
+8,4,sáng kiến,"창의적인 생각, 발상",Đội ngũ của chúng tôi vừa đưa ra một sáng kiến mới lạ.
+8,4,cấu trúc,구조,Cấu trúc của câu tiếng Việt khá đơn giản và logic.
+8,4,giao lưu,교류하다,Buổi gặp mặt là cơ hội để mọi người giao lưu văn hóa.
+8,4,bền vững,지속 가능한,Chúng ta nên theo đuổi mục tiêu phát triển bền vững.
+8,4,tiềm năng,잠재력,Thị trường này vẫn còn nhiều tiềm năng chưa được khai thác.
+8,4,cân nhắc,고려하다,Bạn hãy cân nhắc kỹ lời đề nghị trước khi trả lời.
+8,4,tương tác,상호작용하다,Trẻ em cần được tương tác với thiên nhiên nhiều hơn.
+8,4,thích nghi,적응하다,Bạn cần nhanh chóng thích nghi với môi trường làm việc mới.
+8,4,ưu tiên,"우선순위, 우선하다",Việc hoàn thành báo cáo này là ưu tiên hàng đầu của tôi.
+8,4,khắc phục,"극복하다, 해결하다",Chúng tôi đang cố gắng khắc phục những sai sót kỹ thuật.
+8,4,thống kê,통계,"Theo số liệu thống kê, tỷ lệ thất nghiệp đang giảm."
+8,4,đặc điểm,특징,Một trong những đặc điểm của văn hóa Việt Nam là lòng hiếu khách.
+8,4,giải quyết,해결하다,Chúng ta cần họp để giải quyết vấn đề này ngay lập tức.
+8,4,tận dụng,"활용하다, 이용하다",Hãy tận dụng cơ hội này để học hỏi kinh nghiệm mới.
+8,4,cung cấp,"공급하다, 제공하다",Khách sạn này cung cấp đầy đủ các tiện nghi hiện đại.
+8,4,cạnh tranh,경쟁하다,Các doanh nghiệp phải cạnh tranh khốc liệt để tồn tại.
+8,4,đơn giản hóa,간소화하다,Chúng ta cần đơn giản hóa quy trình đăng ký để người dùng dễ tiếp cận.
+8,4,phức tạp,복잡한,Tình hình hiện tại đang trở nên khá phức tạp.
+8,4,tổng quát,"종합적인, 일반적인",Đây là cái nhìn tổng quát về tình hình kinh tế hiện nay.
+8,4,cụ thể,구체적인,Bạn hãy đưa ra một ví dụ cụ thể để tôi dễ hiểu hơn.
+8,4,đạt được,"달성하다, 도달하다",Chúng ta đã đạt được mục tiêu doanh số của năm nay.
+8,4,đầu tư,투자하다,Họ quyết định đầu tư vào lĩnh vực giáo dục trực tuyến.
+8,4,thu nhập,"수입, 소득",Thu nhập của người dân đã cải thiện đáng kể.
+8,4,triển vọng,전망,Nền kinh tế có triển vọng tươi sáng trong tương lai gần.
+8,4,cảm hứng,영감,Câu chuyện của anh ấy là nguồn cảm hứng cho nhiều người trẻ.
+8,4,phân chia,"분배하다, 나누다",Chúng ta cần phân chia công việc một cách công bằng.
+8,4,sáng tạo,창의적인,Công việc này đòi hỏi sự tư duy sáng tạo cao.
+8,4,tác động,영향,Quyết định này có tác động lớn đến tương lai của toàn bộ dự án.
+8,4,chứng minh,증명하다,Anh ấy đã chứng minh được năng lực của mình qua dự án vừa qua.
+8,5,thiết thực,"실용적인, 실제적인",Chúng ta cần đưa ra những giải pháp thiết thực cho vấn đề này.
+8,5,cốt lõi,핵심적인,Đổi mới sáng tạo là giá trị cốt lõi của doanh nghiệp này.
+8,5,tiềm ẩn,잠재적인,Việc đầu tư luôn đi kèm với những rủi ro tiềm ẩn.
+8,5,hệ lụy,"악영향, 결과",Chúng ta cần cân nhắc kỹ các hệ lụy trước khi đưa ra quyết định.
+8,5,nhạy bén,"예민한, 감각이 좋은",Cô ấy có tư duy nhạy bén trong việc nắm bắt thị trường.
+8,5,thỏa đáng,"타당한, 만족스러운",Ban lãnh đạo vẫn chưa đưa ra lời giải thích thỏa đáng cho nhân viên.
+8,5,quy mô,규모,Dự án này được thực hiện với quy mô lớn trên toàn quốc.
+8,5,đột phá,"돌파구, 획기적인",Đây là bước đột phá quan trọng trong lĩnh vực y học.
+8,5,thích ứng,적응하다,Con người cần học cách thích ứng với biến đổi khí hậu.
+8,5,cấp bách,긴급한,Giải quyết tình trạng ô nhiễm môi trường là vấn đề cấp bách hiện nay.
+8,5,thấu đáo,"철저한, 깊이 있는",Anh ấy luôn suy nghĩ rất thấu đáo trước khi bắt tay vào làm việc.
+8,5,hiệu suất,"효율, 능률",Nhân viên mới đã giúp nâng cao hiệu suất làm việc của cả nhóm.
+8,5,cảnh báo,경고하다,Các nhà khoa học đưa ra lời cảnh báo về mực nước biển dâng cao.
+8,5,thiết lập,"설립하다, 설정하다",Họ đang tiến hành thiết lập một hệ thống quản lý dữ liệu mới.
+8,5,cân bằng,균형을 맞추다,Việc cân bằng giữa công việc và cuộc sống là rất quan trọng.
+8,5,tầm nhìn,"비전, 전망",Một nhà lãnh đạo giỏi cần có tầm nhìn xa trông rộng.
+8,5,kiên trì,끈기 있는,Sự kiên trì là chìa khóa để dẫn đến thành công.
+8,5,đặc thù,특수성,Ngành y tế có những đặc thù riêng biệt so với các ngành khác.
+8,5,trọng tâm,"중심, 초점",Cuộc họp hôm nay sẽ lấy vấn đề tuyển dụng làm trọng tâm.
+8,5,tự chủ,"자주적인, 자율적인",Sinh viên đại học cần rèn luyện khả năng tự chủ trong học tập.
+8,5,áp đặt,강요하다,Đừng nên áp đặt suy nghĩ của mình lên người khác.
+8,5,khách quan,객관적인,Chúng ta cần nhìn nhận vấn đề này một cách khách quan.
+8,5,cơ chế,"메커니즘, 기제",Cơ chế thị trường đang thay đổi một cách nhanh chóng.
+8,5,chủ chốt,"핵심적인, 주된",Anh ấy là nhân sự chủ chốt trong đội ngũ dự án.
+8,5,tối ưu,최적의,Đâu là phương án tối ưu cho tình huống này?
+8,5,cam kết,"약속하다, 확약하다",Công ty cam kết bảo vệ quyền lợi của khách hàng.
+8,5,đánh giá,평가하다,Kết quả học tập sẽ được đánh giá qua nhiều tiêu chí.
+8,5,minh bạch,투명한,Tài chính của tổ chức này cần phải được minh bạch.
+8,5,thu hút,"유인하다, 매혹하다",Thành phố đang tìm cách thu hút thêm nhiều nhà đầu tư nước ngoài.
+8,5,quyết đoán,결단력 있는,Một người quản lý cần phải đưa ra quyết định một cách quyết đoán.
+8,5,tối giản,"단순화하다, 미니멀리즘의",Phong cách sống tối giản đang trở thành xu hướng của giới trẻ.
+8,5,gắn kết,"결속시키다, 연결하다",Hoạt động tập thể giúp gắn kết các thành viên trong nhóm.
+8,5,định hướng,"방향을 잡다, 지향하다",Nhà trường giúp học sinh định hướng nghề nghiệp từ sớm.
+8,5,đơn phương,일방적인,Họ đã đơn phương chấm dứt hợp đồng kinh tế.
+8,5,tranh luận,논쟁하다,Hai bên vẫn tiếp tục tranh luận về vấn đề bản quyền.
+8,5,phản biện,"비판적인, 반론하다",Kỹ năng tư duy phản biện là rất cần thiết trong môi trường làm việc.
+8,5,đặc quyền,특권,Việc tiếp cận thông tin là đặc quyền của ban quản trị.
+8,6,thỏa hiệp,타협하다,Hai bên cần phải thỏa hiệp để đạt được thỏa thuận cuối cùng.
+8,6,kiên định,"확고한, 변함없는",Anh ấy vẫn giữ thái độ kiên định trước những khó khăn.
+8,6,thực trạng,"실태, 현황",Báo cáo này phản ánh đúng thực trạng kinh tế hiện nay.
+8,6,hiện hữu,"실재하는, 눈앞에 보이는",Nguy cơ mất an toàn giao thông vẫn đang hiện hữu hàng ngày.
+8,6,vận dụng,"응용하다, 활용하다",Hãy biết vận dụng linh hoạt những kiến thức đã học vào thực tế.
+8,6,đối soát,대조 확인하다,Nhân viên kế toán đang đối soát các hóa đơn cuối tháng.
+8,6,bản sắc,"정체성, 본질",Giữ gìn bản sắc văn hóa là nhiệm vụ của mỗi người dân.
+8,6,tinh chỉnh,미세 조정하다,Chúng ta cần tinh chỉnh kế hoạch này cho phù hợp với yêu cầu mới.
+8,6,cận kề,"임박한, 가까운","Kỳ thi đã cận kề, bạn cần tập trung ôn luyện hơn nữa."
+8,6,khắc nghiệt,"가혹한, 혹독한",Các loài động vật phải thích nghi với điều kiện thời tiết khắc nghiệt.
+8,6,chú trọng,중시하다,Công ty rất chú trọng đến chất lượng dịch vụ khách hàng.
+8,6,chứng thực,"인증하다, 증명하다",Các tài liệu này cần được công chứng và chứng thực bởi cơ quan có thẩm quyền.
+8,6,hào phóng,"관대한, 아낌없는",Ông ấy rất hào phóng khi đóng góp cho các quỹ từ thiện.
+8,6,kỷ cương,"기강, 규율",Mọi nhân viên đều phải tuân thủ kỷ cương của công ty.
+8,6,phân định,"구분하다, 판가름하다",Rất khó để phân định đúng sai trong trường hợp này.
+8,6,sáng suốt,"현명한, 명석한",Anh ấy đã có một quyết định sáng suốt trong tình huống khó khăn.
+8,6,thao túng,조종하다,Hắn ta tìm cách thao túng thị trường chứng khoán để trục lợi.
+8,6,khái quát,"개괄하다, 요약하다",Ông ấy đã khái quát lại toàn bộ nội dung của buổi hội thảo.
+8,6,hệ thống hóa,체계화하다,Chúng ta cần hệ thống hóa các kiến thức để dễ dàng tra cứu.
+8,6,đột xuất,"돌발적인, 갑작스러운",Vì có cuộc họp đột xuất nên tôi không thể tham dự bữa tiệc.
+8,6,tiến thoái lưỡng nan,진퇴양난,Anh ấy đang rơi vào tình cảnh tiến thoái lưỡng nan trong việc chọn lựa.
+8,6,thâm nhập,"침투하다, 진입하다",Doanh nghiệp đang tìm cách thâm nhập vào thị trường quốc tế.
+8,6,tôn chỉ,"취지, 원칙",Phục vụ cộng đồng là tôn chỉ hoạt động của tổ chức này.
+8,6,đương đầu,맞서다,Chúng ta cần dũng cảm đương đầu với mọi thách thức.
+8,6,bất khả thi,불가능한,Việc hoàn thành báo cáo trong một giờ là điều bất khả thi.
+8,6,kiểm chứng,검증하다,Mọi thông tin trên mạng cần được kiểm chứng trước khi chia sẻ.
+8,6,tận tâm,헌신적인,Bác sĩ đã tận tâm chăm sóc cho bệnh nhân của mình.
+8,6,dư luận,여론,Sự việc này đã thu hút sự chú ý của đông đảo dư luận xã hội.
+8,6,công tâm,"공정한, 공평한",Người làm trọng tài phải giữ thái độ công tâm tuyệt đối.
+8,3,Kinh nghiệm,"경험, 노하우",Anh ấy có nhiều kinh nghiệm trong việc quản lý dự án.
+8,4,Bất cập,"불합리한 점, 미비점, 부적절함",Hệ thống quản lý hiện tại vẫn còn nhiều bất cập cần phải sửa đổi ngay.
+8,4,Cụ thể hóa,구체화하다,Chúng ta cần cụ thể hóa các mục tiêu đã đề ra thành những hành động thực tế.
+8,4,Duy trì,유지하다,Công ty đang nỗ lực duy trì mối quan hệ tốt đẹp với các đối tác chiến lược.
+8,4,Khả năng,"능력, 가능성",Anh ấy có khả năng giải quyết các tình huống khó khăn một cách bình tĩnh.
+8,4,Luân chuyển,"순환하다, 교대하다",Nhân viên thường được luân chuyển giữa các bộ phận để học hỏi thêm kinh nghiệm.
+8,4,Thực thi,"실행하다, 시행하다",Các quy định mới sẽ được chính thức thực thi bắt đầu từ đầu tháng sau.
+8,4,Xác thực,"인증하다, 확인하다",Người dùng cần cung cấp giấy tờ tùy thân để xác thực tài khoản ngân hàng.
+8,5,Bất biến,"불변의, 변하지 않는","Trong môi trường kinh doanh đầy biến động, tầm nhìn của công ty vẫn giữ được giá trị bất biến."
+8,5,Hệ lụy,"부작용, 후유증, 결과",Việc thiếu hụt nhân sự chất lượng cao đã gây ra nhiều hệ lụy cho tiến độ của dự án.
+8,5,Khả dụng,"사용 가능한, 이용할 수 있는",Chúng ta cần kiểm tra lại các nguồn lực khả dụng trước khi đưa ra quyết định cuối cùng.
+8,5,Kiến tạo,"창조하다, 형성하다, 건설하다",Nhà lãnh đạo tài ba luôn biết cách kiến tạo một môi trường làm việc sáng tạo cho nhân viên.
+8,5,Lợi thế cạnh tranh,경쟁 우위,Sản phẩm của chúng tôi đang sở hữu lợi thế cạnh tranh rất lớn nhờ vào công nghệ tiên tiến.
+8,5,Minh định,"명확히 하다, 규명하다",Luật sư cần minh định rõ ràng các điều khoản trong hợp đồng để tránh tranh chấp sau này.
+8,5,Nội hàm,"내포, 내적 의미","Khái niệm này rất sâu sắc, đòi hỏi chúng ta phải hiểu rõ nội hàm của nó."
+8,5,Phổ quát,보편적인,Giáo dục chất lượng cao là một quyền phổ quát mà mọi trẻ em đều được hưởng.
+8,5,Quy chiếu,"참조, 준거, 기준",Các tiêu chuẩn quốc tế thường được dùng làm hệ quy chiếu cho chất lượng sản phẩm.
+8,5,Tác phong,"태도, 업무 방식, 행동 양식",Tác phong làm việc chuyên nghiệp của anh ấy đã để lại ấn tượng mạnh mẽ cho đối tác.
+8,5,Thâm dụng,집약적인 (노동 집약적 등),Ngành công nghiệp may mặc hiện nay vẫn còn mang tính thâm dụng lao động cao.
+8,5,Tiến thoái,"진퇴, 나아가고 물러남","Trong tình huống khó khăn, việc cân nhắc kỹ lưỡng tiến thoái là vô cùng quan trọng."
+8,5,Ưu việt,"우월한, 탁월한",Phương pháp quản lý mới này tỏ ra ưu việt hơn hẳn so với cách làm truyền thống.
+8,6,Cố hữu,"고유의, 뿌리 깊은",Những tư duy cố hữu khó có thể thay đổi trong một sớm một chiều.
+8,6,Chấn chỉnh,"정비하다, 바로잡다",Công ty cần chấn chỉnh lại quy trình làm việc để nâng cao hiệu suất.
+8,6,Khơi thông,"소통하게 하다, 막힌 것을 뚫다",Chính phủ đang nỗ lực khơi thông nguồn vốn cho các doanh nghiệp vừa và nhỏ.
+8,6,Thấu thị,"통찰하다, 투시하다",Nhà lãnh đạo tài ba cần có khả năng thấu thị những biến động của thị trường.
+8,6,Vạch trần,"폭로하다, 적나라하게 드러내다",Bài báo đã vạch trần những sai phạm trong quản lý tài chính của tổ chức này.
+8,6,Hệ trọng,"중대한, 매우 중요한",Đây là vấn đề hệ trọng ảnh hưởng trực tiếp đến tương lai của dự án.
+8,6,Lan tỏa,"확산되다, 퍼지다",Hành động tử tế của cô ấy đã lan tỏa tinh thần tích cực trong cộng đồng.
+8,6,Thanh lọc,"정화하다, 불순물을 제거하다",Việc thanh lọc đội ngũ nhân sự là cần thiết để duy trì văn hóa doanh nghiệp lành mạnh.
+8,6,Khủng hoảng,"위기, 공황",Đội ngũ quản lý đang tìm cách giải quyết cuộc khủng hoảng truyền thông hiện tại.
+8,6,Kiến nghị,"건의하다, 제안하다",Các chuyên gia đã gửi bản kiến nghị lên cơ quan chức năng về việc sửa đổi luật.
+8,6,Cân não,"심리전, 머리를 써야 하는",Cuộc đàm phán giữa hai bên là một ván bài cân não kéo dài nhiều giờ đồng hồ.
+8,6,Ngụy biện,"궤변, 말도 안 되는 변명",Đừng cố dùng những lời ngụy biện để che đậy cho sai lầm của bản thân.
+8,6,Bão hòa,포화 상태의,Thị trường bất động sản đang có dấu hiệu bão hòa sau một thời gian tăng trưởng nóng.
+8,6,Thích đáng,"적절한, 합당한",Những kẻ phạm tội cần phải chịu sự trừng phạt thích đáng từ pháp luật.
+8,6,Cấu thành,구성하다,Những yếu tố này cấu thành nên giá trị cốt lõi của thương hiệu.
+8,6,Đồng thuận,"합의하다, 의견이 일치하다",Hội đồng quản trị đã đi đến sự đồng thuận về kế hoạch phát triển năm tới.
+8,6,Truy cứu,"추궁하다, 조사하다",Cần truy cứu trách nhiệm cá nhân trong vụ việc thất thoát ngân sách vừa qua.
+8,6,Thủ thuật,"수법, 기술",Anh ta sử dụng nhiều thủ thuật tinh vi để vượt qua hệ thống kiểm soát.
+8,6,Vận hành,"운영하다, 가동하다",Hệ thống máy móc mới đã được vận hành thử nghiệm thành công vào sáng nay.
+8,6,Ưu tư,"근심, 걱정",Ánh mắt của ông ấy chất chứa nhiều ưu tư về thế hệ tương lai.
+8,6,Kiến giải,"해석, 견해, 이해(특히 깊은 학문적이나 논리적인 시각)",Bài luận của anh ấy mang tính kiến giải sâu sắc về những vấn đề xã hội đương đại.

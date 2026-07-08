@@ -1,0 +1,17 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--page-border, #e5e5e5);
+  border-radius: 50%;
+  background: var(--page-surface, #fff);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  border-color: var(--page-border-strong, #ccc);
+}

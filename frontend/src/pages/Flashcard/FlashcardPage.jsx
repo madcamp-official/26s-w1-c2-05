@@ -2,70 +2,62 @@ import { useEffect, useRef, useState } from "react";
 import client from "../../api/client";
 import styles from "./FlashcardPage.module.css";
 
-const MOCK_VOCABULARIES = [
-    {
-        number: 1,
-        content_id: 4321,
-        language: "Spanish",
-        word: "el restaurante",
-        meaning: "the restaurant",
-        choices: ["the kitchen", "the restaurant", "the market", "the café"],
-        answer: "the restaurant",
-    },
-    {
-        number: 2,
-        content_id: 4322,
-        language: "Spanish",
-        word: "la mesa",
-        meaning: "the table",
-        choices: ["the chair", "the table", "the door", "the window"],
-        answer: "the table",
-    },
-    {
-        number: 3,
-        content_id: 4323,
-        language: "Spanish",
-        word: "el menú",
-        meaning: "the menu",
-        choices: ["the menu", "the bill", "the waiter", "the tip"],
-        answer: "the menu",
-    },
-];
-
 function FlashcardPage(){
-    const [vocabularies, setVocabularies] = useState(MOCK_VOCABULARIES);
+    const [vocabularies, setVocabularies] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadError, setLoadError] = useState(false);
     const [index, setIndex] = useState(0);
     const [selected, setSelected] = useState(null);
     const [correctCount, setCorrectCount] = useState(0);
     const [incorrectCount, setIncorrectCount] = useState(0);
-    const cardShownAt = useRef(Date.now());
+    const [lastResponseTime, setLastResponseTime] = useState(null);
+    const [isPaused, setIsPaused] = useState(false);
+    const [elapsed, setElapsed] = useState(0);
+    const cardShownAt = useRef(null);
+    const pausedAt = useRef(null);
 
     useEffect(() => {
         client.get("/flashcard", { params: { category: "flash" } })
             .then((res) => {
-                console.log("플래시카드 응답:", res.data);
                 if (Array.isArray(res.data?.vocabularies)){
                     setVocabularies(res.data.vocabularies);
+                    cardShownAt.current = Date.now();
                 }
             })
-            .catch((err) => console.error("플래시카드 조회 실패:", err));
+            .catch((err) => {
+                console.error("플래시카드 조회 실패:", err);
+                setLoadError(true);
+            })
+            .finally(() => setIsLoading(false));
     }, []);
 
     useEffect(() => {
         cardShownAt.current = Date.now();
     }, [index]);
 
+    useEffect(() => {
+        if (isPaused || selected) return undefined;
+
+        const tick = () => setElapsed((Date.now() - cardShownAt.current) / 1000);
+        tick();
+        const id = setInterval(tick, 100);
+        return () => clearInterval(id);
+    }, [isPaused, selected, index]);
+
     const current = vocabularies[index];
 
     const cardsDone = correctCount + incorrectCount;
     const accuracy = cardsDone === 0 ? "-" : `${Math.round((correctCount / cardsDone) * 100)}%`;
 
-    const handleSelect = (choice) => {
+    const handleSelect = (choice, choiceIndex) => {
         if (selected) return;
         setSelected(choice);
 
-        const isCorrect = choice === current.answer;
+        const isCorrect = choiceIndex + 1 === current.answer;
+        // 클릭 이벤트 핸들러 안에서만 호출되므로 렌더링과 무관함 (린트 규칙의 오탐).
+        // eslint-disable-next-line react-hooks/purity
         const responseTime = (Date.now() - cardShownAt.current) / 1000;
+        setLastResponseTime(responseTime);
 
         client.post("/answerlog", {
             content_id: current.content_id,
@@ -86,16 +78,67 @@ function FlashcardPage(){
         if (nextIndex < 0 || nextIndex >= vocabularies.length) return;
         setIndex(nextIndex);
         setSelected(null);
+        setLastResponseTime(null);
+        setIsPaused(false);
+        setElapsed(0);
+        pausedAt.current = null;
     };
 
-    if (!current){
+    const handleTogglePause = () => {
+        if (isPaused){
+            const pausedDuration = Date.now() - pausedAt.current;
+            cardShownAt.current += pausedDuration;
+            pausedAt.current = null;
+            setIsPaused(false);
+        } else {
+            pausedAt.current = Date.now();
+            setIsPaused(true);
+        }
+    };
+
+    const handleResetTimer = () => {
+        cardShownAt.current = Date.now();
+        setElapsed(0);
+        if (isPaused){
+            pausedAt.current = Date.now();
+        }
+    };
+
+    if (isLoading){
         return <div className={styles.page}>단어를 불러오는 중입니다...</div>;
+    }
+
+    if (loadError || !current){
+        return <div className={styles.page}>플래시카드를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.</div>;
     }
 
     return (
         <div className={styles.page}>
-            <h1 className={styles.title}>플래시카드 퀴즈</h1>
-            <p className={styles.subtitle}>Card {index + 1} of {vocabularies.length}</p>
+            <div className={styles.headerRow}>
+                <div>
+                    <h1 className={styles.title}>플래시카드 퀴즈</h1>
+                    <p className={styles.subtitle}>Card {index + 1} of {vocabularies.length}</p>
+                </div>
+
+                <div className={styles.timerCluster}>
+                    <span className={styles.timerBadge}>
+                        <span className={isPaused ? styles.timerDotPaused : styles.timerDot} />
+                        {elapsed.toFixed(1)}s
+                    </span>
+                    <button
+                        className={isPaused ? `${styles.pauseButton} ${styles.pauseButtonActive}` : styles.pauseButton}
+                        onClick={handleTogglePause}
+                    >
+                        {isPaused ? "▶ 재개" : "⏸ 일시정지"}
+                    </button>
+                    <button
+                        className={`${styles.pauseButton} ${styles.resetButton}`}
+                        onClick={handleResetTimer}
+                    >
+                        <span className={styles.resetIcon}>⟲</span> 리셋
+                    </button>
+                </div>
+            </div>
 
             <div className={styles.progressBar}>
                 <div
@@ -109,11 +152,18 @@ function FlashcardPage(){
                     <div className={styles.card}>
                         <p className={styles.word}>{current.word}</p>
                         <p className={styles.hint}>알맞은 뜻을 선택하세요</p>
+
+                        {isPaused && (
+                            <div className={styles.pauseOverlay}>
+                                <span className={styles.pauseOverlayIcon}>⏸</span>
+                                <span>일시정지 중</span>
+                            </div>
+                        )}
                     </div>
 
                     <div className={styles.choices}>
                         {current.choices.map((choice, i) => {
-                            const isCorrect = choice === current.answer;
+                            const isCorrect = i + 1 === current.answer;
                             const isSelected = choice === selected;
                             const showResult = selected !== null;
 
@@ -125,8 +175,8 @@ function FlashcardPage(){
                                 <button
                                     key={choice}
                                     className={choiceClass}
-                                    onClick={() => handleSelect(choice)}
-                                    disabled={showResult}
+                                    onClick={() => handleSelect(choice, i)}
+                                    disabled={showResult || isPaused}
                                 >
                                     <span className={styles.choiceLabel}>{String.fromCharCode(65 + i)}</span>
                                     {choice}
@@ -135,17 +185,21 @@ function FlashcardPage(){
                         })}
                     </div>
 
+                    {lastResponseTime !== null && (
+                        <p className={styles.hint}>{lastResponseTime.toFixed(1)}초 만에 답했어요</p>
+                    )}
+
                     <div className={styles.actions}>
-                        <button className={styles.secondaryButton} onClick={() => goToIndex(index - 1)}>
+                        <button className={styles.secondaryButton} onClick={() => goToIndex(index - 1)} disabled={isPaused}>
                             이전
                         </button>
-                        <button className={styles.secondaryButton} onClick={() => goToIndex(index + 1)}>
+                        <button className={styles.secondaryButton} onClick={() => goToIndex(index + 1)} disabled={isPaused}>
                             건너뛰기
                         </button>
                         <button
                             className={styles.primaryButton}
                             onClick={() => goToIndex(index + 1)}
-                            disabled={!selected}
+                            disabled={!selected || isPaused}
                         >
                             다음
                         </button>

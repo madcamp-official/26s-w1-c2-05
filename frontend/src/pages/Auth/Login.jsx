@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import client from "../../api/client";
-import { getCurrentUser } from "../../api/user";
+import { setCurrentLearningId } from "../../api/user";
 import "./Auth.css";
 
 function Login(){
@@ -18,14 +18,14 @@ function Login(){
 
         try {
             const res = await client.post("/auth/login", { id, password });
-            const { access_token, refresh_token } = res.data;
+            const { access_token, refresh_token, SurveyCompleted } = res.data;
 
             const storage = rememberMe ? localStorage : sessionStorage;
             storage.setItem("accessToken", access_token);
             storage.setItem("refreshToken", refresh_token);
 
-            const { current_learning_id } = await getCurrentUser();
-            navigate(current_learning_id ? "/vocab" : "/onboarding");
+            setCurrentLearningId(SurveyCompleted);
+            navigate(SurveyCompleted ? "/vocab" : "/onboarding");
         } catch (err) {
             const detail = err.response?.data?.detail;
             alert(typeof detail === "string" ? detail : "로그인에 실패했습니다.");
@@ -35,7 +35,7 @@ function Login(){
     return (
         <div className="auth-page">
             <div className="auth-form-side">
-                <p className="auth-logo">[서비스 이름]</p>
+                <p className="auth-logo">LinguaAI</p>
                 <p className="auth-tagline">Language Learning</p>
 
                 <h1 className="auth-title">로그인</h1>
@@ -75,7 +75,7 @@ function Login(){
                 <button className="auth-submit" onClick={handleLogin}>로그인</button>
 
                 <p className="auth-switch">
-                    계정이 없으신가요? <a>회원가입</a>
+                    계정이 없으신가요? <a href="/signup">회원가입</a>
                 </p>
             </div>
         </div>

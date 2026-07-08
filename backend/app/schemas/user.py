@@ -43,6 +43,20 @@ class OnboardingResponse(BaseModel):
     level: str
     StudyGoal: int
 
+class LanguageSwitchRequest(BaseModel):
+    language: int
+    # 이미 학습 이력이 있는 언어로 전환할 때는 필요 없고, 처음 시작하는 언어일 때만 필요.
+    level: str | None = None
+    StudyGoal: int | None = None
+
+class LanguageOption(BaseModel):
+    lang_id: int
+    language: str
+    in_progress: bool
+    is_current: bool
+    current_level: str | None = None
+    studied_days: int | None = None
+
 class UserProfileResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 

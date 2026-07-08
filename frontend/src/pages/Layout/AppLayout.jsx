@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
+import ThemeToggle from "../../theme/ThemeToggle";
 import "./AppLayout.css";
 
 const NAV_ITEMS = [
@@ -7,7 +8,6 @@ const NAV_ITEMS = [
     { to: "/flashcard", label: "플래시카드 퀴즈" },
     { to: "/grammar", label: "문법" },
     { to: "/speaking", label: "말하기" },
-    { to: "/weakness", label: "취약점 분석" },
     { to: "/profile", label: "프로필" },
 ];
 
@@ -15,7 +15,10 @@ function AppLayout(){
     return (
         <div className="app-layout">
             <aside className="app-sidebar">
-                <p className="app-sidebar-logo">[서비스 이름]</p>
+                <div className="app-sidebar-header">
+                    <p className="app-sidebar-logo">LinguaAI</p>
+                    <ThemeToggle />
+                </div>
                 <p className="app-sidebar-tagline">AI 학습 도우미</p>
 
                 <nav className="app-nav">

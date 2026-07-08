@@ -1,0 +1,301 @@
+lang_id,level,word,meaning,example
+5,1,bonjour,안녕하세요,"Bonjour, comment allez-vous ?"
+5,1,merci,감사합니다,Merci beaucoup pour votre aide.
+5,1,maison,집,J'habite dans une petite maison.
+5,1,famille,가족,Ma famille est très grande.
+5,1,ami,친구,Il est mon meilleur ami.
+5,1,école,학교,Les enfants vont à l'école le matin.
+5,1,livre,책,Je lis un livre intéressant.
+5,1,eau,물,Je bois de l'eau chaque matin.
+5,1,pain,빵,Nous achetons du pain frais.
+5,1,lait,우유,L'enfant boit du lait chaud.
+5,1,pomme,사과,Elle mange une pomme rouge.
+5,1,voiture,자동차,Il conduit une voiture bleue.
+5,1,rue,거리,La boulangerie est dans cette rue.
+5,1,ville,도시,Paris est une grande ville.
+5,1,jour,"날, 하루",Aujourd'hui est un beau jour.
+5,1,nuit,밤,Il travaille souvent la nuit.
+5,1,matin,아침,Je me lève tôt le matin.
+5,1,soir,저녁,Nous dînons ensemble le soir.
+5,1,semaine,주(일주일),"La semaine prochaine, je pars en vacances."
+5,1,mois,"달, 월",Le mois de juillet est très chaud.
+5,1,année,년,"Cette année, j'apprends le français."
+5,1,travail,"일, 직장",Il cherche un nouveau travail.
+5,1,chambre,방,Sa chambre est très propre.
+5,1,table,탁자,Les livres sont sur la table.
+5,1,chaise,의자,Assieds-toi sur cette chaise.
+5,1,fenêtre,창문,"Ouvre la fenêtre, s'il te plaît."
+5,1,porte,문,Ferme la porte derrière toi.
+5,1,chien,개,Mon chien aime jouer dans le jardin.
+5,1,chat,고양이,Le chat dort sur le canapé.
+5,1,oiseau,새,Un oiseau chante dans l'arbre.
+5,1,fleur,꽃,Elle a acheté des fleurs pour sa mère.
+5,1,soleil,태양,Le soleil brille aujourd'hui.
+5,1,pluie,비,Il y a beaucoup de pluie en automne.
+5,1,froid,추운,Il fait très froid en hiver.
+5,1,chaud,더운,Il fait chaud en été.
+5,1,grand,큰,C'est un grand bâtiment.
+5,1,petit,작은,Le chat est très petit.
+5,1,beau,"아름다운, 멋진",Le paysage est très beau.
+5,1,content,"기쁜, 만족한",Je suis content de te voir.
+5,1,fatigué,피곤한,Je suis très fatigué ce soir.
+5,1,professeur,"교사, 선생님",Le professeur explique la leçon.
+5,1,médecin,의사,Le médecin examine le patient.
+5,1,boulanger,제빵사,Le boulanger vend du pain frais.
+5,1,vêtement,옷,J'achète un nouveau vêtement.
+5,1,chemise,셔츠,Il porte une chemise blanche.
+5,1,chaussure,신발,Ces chaussures sont très confortables.
+5,1,rouge,빨간(색),Elle porte une robe rouge.
+5,1,bleu,파란(색),Le ciel est bleu aujourd'hui.
+5,1,tête,머리,Il a mal à la tête.
+5,1,main,손,Donne-moi la main.
+5,2,rencontrer,만나다,J'ai rencontré un ami au marché.
+5,2,voyage,여행,Notre voyage en Italie était magnifique.
+5,2,billet,"표, 티켓",J'ai acheté un billet de train.
+5,2,valise,여행가방,Elle a préparé sa valise pour le voyage.
+5,2,aéroport,공항,Nous sommes arrivés à l'aéroport tôt.
+5,2,hôtel,호텔,L'hôtel est près de la plage.
+5,2,restaurant,식당,On mange souvent dans ce restaurant.
+5,2,cuisine,"요리, 부엌",La cuisine française est délicieuse.
+5,2,addition,계산서,"L'addition, s'il vous plaît."
+5,2,dépenser,"소비하다, 쓰다",Il dépense trop d'argent.
+5,2,gagner,"벌다, 이기다",Elle gagne bien sa vie.
+5,2,économiser,절약하다,Nous essayons d'économiser de l'argent.
+5,2,métier,직업,Quel est votre métier ?
+5,2,entreprise,"회사, 기업",Il travaille dans une grande entreprise.
+5,2,collègue,동료,Mes collègues sont très sympathiques.
+5,2,réunion,회의,La réunion commence à dix heures.
+5,2,horaire,시간표,L'horaire du bus a changé.
+5,2,retard,"지각, 지연",Le train a du retard.
+5,2,quartier,"동네, 구역",J'aime beaucoup ce quartier.
+5,2,voisin,이웃,Mon voisin est très gentil.
+5,2,déménager,이사하다,Ils vont déménager le mois prochain.
+5,2,loyer,"집세, 임대료",Le loyer a augmenté cette année.
+5,2,propriétaire,"집주인, 소유자",Le propriétaire habite à l'étage.
+5,2,santé,건강,Il faut prendre soin de sa santé.
+5,2,maladie,"병, 질병",Cette maladie est très courante.
+5,2,médicament,약,Elle prend un médicament chaque matin.
+5,2,blessé,다친,Il est blessé à la jambe.
+5,2,inquiet,걱정하는,Elle est inquiète pour son examen.
+5,2,déçu,실망한,Il est déçu par le résultat.
+5,2,surpris,놀란,Nous étions surpris par la nouvelle.
+5,2,paysage,풍경,Le paysage de montagne est magnifique.
+5,2,forêt,숲,Nous avons marché dans la forêt.
+5,2,montagne,산,Ils font de la randonnée en montagne.
+5,2,plage,해변,Les enfants jouent sur la plage.
+5,2,rivière,강,La rivière traverse la ville.
+5,2,loisir,여가,La lecture est mon loisir préféré.
+5,2,spectacle,공연,Nous avons vu un spectacle hier soir.
+5,2,billetterie,매표소,La billetterie ouvre à neuf heures.
+5,2,abonnement,"정기구독, 회원권",J'ai un abonnement au cinéma.
+5,2,réduction,할인,Il y a une réduction pour les étudiants.
+5,2,pied,발,J'ai mal au pied.
+5,2,magasin,"가게, 상점",Le magasin ferme à vingt heures.
+5,2,gauche,왼쪽,Tournez à gauche au feu rouge.
+5,2,droite,오른쪽,Le musée est à droite de la banque.
+5,2,boutique,"부티크, 소규모 상점",Elle a ouvert une petite boutique de vêtements.
+5,2,vendeur,판매원,Le vendeur m'a bien conseillé.
+5,2,client,고객,Ce magasin a beaucoup de clients.
+5,2,prix,가격,Le prix a beaucoup augmenté.
+5,2,marché,시장,Nous faisons les courses au marché le samedi.
+5,2,direction,방향,Vous allez dans la mauvaise direction.
+5,3,environnement,환경,Il faut protéger l'environnement.
+5,3,pollution,오염,La pollution de l'air augmente en ville.
+5,3,recyclage,재활용,Le recyclage est important pour la planète.
+5,3,économie,경제,L'économie du pays se développe rapidement.
+5,3,société,사회,La société change constamment.
+5,3,gouvernement,정부,Le gouvernement a annoncé de nouvelles mesures.
+5,3,élection,선거,Les élections auront lieu en mai.
+5,3,citoyen,시민,Chaque citoyen a le droit de vote.
+5,3,loi,법,Cette loi a été votée l'année dernière.
+5,3,justice,"정의, 사법",Elle croit fermement en la justice.
+5,3,entretien,"면접, 인터뷰",Il a un entretien d'embauche demain.
+5,3,carrière,"경력, 커리어",Elle a fait une belle carrière.
+5,3,formation,"교육, 연수",Cette formation dure six mois.
+5,3,compétence,"능력, 역량",Il a de bonnes compétences en informatique.
+5,3,responsabilité,책임,C'est une grande responsabilité.
+5,3,avantage,"장점, 이점",Ce travail a plusieurs avantages.
+5,3,inconvénient,단점,Chaque solution a ses inconvénients.
+5,3,exigence,요구사항,Le poste a des exigences précises.
+5,3,négocier,협상하다,Ils négocient un nouveau contrat.
+5,3,accord,"합의, 협정",Les deux pays ont signé un accord.
+5,3,conflit,"갈등, 분쟁",Le conflit a duré plusieurs années.
+5,3,solution,해결책,Nous devons trouver une solution rapide.
+5,3,objectif,목표,Notre objectif est d'améliorer la qualité.
+5,3,stratégie,전략,L'entreprise a changé de stratégie.
+5,3,progrès,"발전, 진보",La médecine a fait beaucoup de progrès.
+5,3,évolution,"변화, 진화",L'évolution de la technologie est rapide.
+5,3,tendance,"경향, 트렌드",Cette tendance devient de plus en plus populaire.
+5,3,comportement,행동,Son comportement a beaucoup changé.
+5,3,attitude,태도,Elle a une attitude positive.
+5,3,opinion,의견,Chacun a le droit d'avoir son opinion.
+5,3,débat,토론,Le débat était très animé.
+5,3,argument,"논거, 주장",Il a présenté un bon argument.
+5,3,preuve,증거,Il n'y a aucune preuve de ce fait.
+5,3,conséquence,"결과, 결말",Cette décision aura des conséquences importantes.
+5,3,cause,원인,Quelle est la cause de ce problème ?
+5,3,facteur,요인,Plusieurs facteurs expliquent ce résultat.
+5,3,phénomène,현상,Ce phénomène intéresse les scientifiques.
+5,3,avenir,미래,Personne ne connaît l'avenir.
+5,3,époque,시대,"À cette époque, la vie était différente."
+5,3,génération,세대,Chaque génération a ses propres valeurs.
+5,3,candidat,"후보자, 지원자",Trois candidats se présentent à l'élection.
+5,3,employeur,고용주,Son employeur lui a proposé une promotion.
+5,3,salaire,급여,Son salaire a augmenté cette année.
+5,3,contrat,계약,Ils ont signé un contrat de travail.
+5,3,syndicat,노동조합,Le syndicat a organisé une réunion.
+5,3,grève,파업,Les employés sont en grève depuis trois jours.
+5,3,manifestation,시위,Une grande manifestation a eu lieu hier.
+5,3,réforme,개혁,Le gouvernement prépare une nouvelle réforme.
+5,3,budget,예산,Le budget de l'État a été voté.
+5,3,impôt,세금,Il faut payer ses impôts avant avril.
+5,4,néanmoins,그럼에도 불구하고,"Il pleuvait ; néanmoins, nous sommes sortis."
+5,4,cependant,"하지만, 그러나","Le projet est difficile ; cependant, il est possible."
+5,4,malgré,~에도 불구하고,"Malgré la pluie, ils ont continué le match."
+5,4,bien que,비록 ~일지라도,"Bien qu'il soit fatigué, il continue de travailler."
+5,4,souligner,강조하다,Le professeur a souligné l'importance du travail.
+5,4,envisager,"고려하다, 계획하다",Ils envisagent de déménager l'année prochaine.
+5,4,constater,"확인하다, 알아차리다",Nous avons constaté une amélioration.
+5,4,estimer,"추정하다, 평가하다",Les experts estiment que la situation va s'améliorer.
+5,4,susciter,"불러일으키다, 유발하다",Ce sujet suscite beaucoup de débats.
+5,4,concerner,관련되다,Cette règle concerne tous les employés.
+5,4,impliquer,"함의하다, 관련시키다",Cette décision implique des changements importants.
+5,4,faciliter,용이하게 하다,Cet outil facilite le travail quotidien.
+5,4,renforcer,강화하다,Il faut renforcer la sécurité.
+5,4,maintenir,유지하다,Ils veulent maintenir de bonnes relations.
+5,4,reposer sur,~에 근거하다,Cette théorie repose sur des données solides.
+5,4,remettre en question,의문을 제기하다,Ces résultats remettent en question notre méthode.
+5,4,la mesure,"조치, 정도",Le gouvernement a pris de nouvelles mesures.
+5,4,la portée,"범위, 영향력",Cette décision a une grande portée.
+5,4,l'enjeu,"쟁점, 이해관계",L'enjeu principal est la protection de l'environnement.
+5,4,la perspective,"관점, 전망",Il faut voir cela sous une autre perspective.
+5,4,le contexte,"맥락, 상황",Il faut comprendre le contexte historique.
+5,4,l'ampleur,"규모, 정도",L'ampleur des dégâts est impressionnante.
+5,4,le bilan,"결산, 총평",Le bilan de l'année est positif.
+5,4,la démarche,"절차, 접근방식",Cette démarche demande de la patience.
+5,4,la mise en œuvre,"실행, 시행",La mise en œuvre du projet a pris du temps.
+5,4,l'ambiguïté,모호함,Il faut éviter toute ambiguïté dans le contrat.
+5,4,la nuance,뉘앙스,Cette traduction perd certaines nuances.
+5,4,controversé,논쟁적인,C'est un sujet très controversé.
+5,4,paradoxal,역설적인,Il est paradoxal qu'il refuse cette aide.
+5,4,pertinent,"적절한, 타당한",C'est une remarque très pertinente.
+5,4,cohérent,일관성 있는,Son discours n'est pas très cohérent.
+5,4,rigoureux,"엄밀한, 철저한",Elle a une méthode de travail rigoureuse.
+5,4,approfondir,심화하다,Nous devons approfondir cette question.
+5,4,élaborer,"정교하게 만들다, 수립하다",Ils ont élaboré un nouveau plan.
+5,4,l'hypothèse,가설,Cette hypothèse n'a pas encore été prouvée.
+5,4,le raisonnement,"추론, 논리",Son raisonnement est logique.
+5,4,la controverse,논쟁,La controverse a duré plusieurs semaines.
+5,4,l'incidence,영향,Ce facteur a une incidence directe sur les résultats.
+5,4,le dispositif,"장치, 제도",Ce dispositif aide les jeunes entreprises.
+5,4,la disparité,"격차, 불균형",Il existe une grande disparité entre les régions.
+5,4,la lacune,"공백, 결함",Ce rapport présente plusieurs lacunes.
+5,4,le préjugé,편견,Il faut lutter contre les préjugés.
+5,4,l'aléa,"불확실 요소, 우발적 사건",Le projet dépend de nombreux aléas.
+5,4,la vraisemblance,"그럴듯함, 개연성",L'histoire manque de vraisemblance.
+5,4,le postulat,"공준, 전제",Toute la théorie repose sur ce postulat.
+5,4,la singularité,"특이성, 독특함",Ce phénomène présente une grande singularité.
+5,4,la conjoncture,"정세, 국면",La conjoncture économique est difficile.
+5,4,le consensus,합의,Un consensus a été trouvé entre les parties.
+5,4,l'omission,"누락, 생략",Cette omission a causé des problèmes.
+5,4,la légitimité,정당성,La légitimité de cette décision est contestée.
+5,5,l'ambivalence,양가성,Son ambivalence face à ce choix est visible.
+5,5,subordonner,종속시키다,Il ne faut pas subordonner la santé aux profits.
+5,5,l'entrave,"방해, 장애물",Cette règle constitue une entrave à la liberté.
+5,5,entraver,방해하다,Le manque de moyens entrave le projet.
+5,5,le préalable,전제조건,L'accord est un préalable à la négociation.
+5,5,la prérogative,특권,C'est une prérogative du président.
+5,5,l'inéluctable,불가피한 것,Le changement climatique semble inéluctable.
+5,5,le paradigme,패러다임,Ce paradigme domine la recherche actuelle.
+5,5,l'occurrence,"발생, 경우","En l'occurrence, il vaut mieux attendre."
+5,5,la corrélation,상관관계,Il existe une corrélation entre les deux phénomènes.
+5,5,inhérent,내재된,Ce risque est inhérent à toute entreprise.
+5,5,la véracité,진실성,On doute de la véracité de ces informations.
+5,5,l'antériorité,"선행성, 우선성",L'antériorité du projet n'est pas contestée.
+5,5,la prépondérance,"우세, 지배",La prépondérance de cette théorie s'explique facilement.
+5,5,tributaire,~에 의존하는,L'agriculture est tributaire du climat.
+5,5,subvenir,"부양하다, 조달하다",Il doit subvenir aux besoins de sa famille.
+5,5,l'affranchissement,"해방, 자유화",L'affranchissement des normes traditionnelles a pris du temps.
+5,5,le clivage,"분열, 균열",Il y a un clivage entre les générations.
+5,5,la dissension,"불화, 의견 대립",Des dissensions sont apparues au sein du groupe.
+5,5,l'imputation,"귀책, 전가",L'imputation de la faute reste incertaine.
+5,5,imputer,~탓으로 돌리다,On impute cet échec à un manque de préparation.
+5,5,la ténacité,끈기,Sa ténacité lui a permis de réussir.
+5,5,l'attenant,인접한,Le jardin attenant à la maison est très grand.
+5,5,la circonspection,신중함,Il faut agir avec circonspection.
+5,5,l'idiosyncrasie,"특이성, 개성",Chaque culture a ses propres idiosyncrasies.
+5,5,le truchement,"매개, 수단",Il a obtenu l'information par le truchement d'un ami.
+5,5,l'acuité,"예리함, 날카로움",Il analyse la situation avec acuité.
+5,5,la probité,"청렴, 정직",Sa probité est reconnue de tous.
+5,5,l'altérité,타자성,Le respect de l'altérité est essentiel.
+5,5,le désaveu,"부인, 철회",Ce vote est un désaveu du gouvernement.
+5,5,désavouer,부인하다,Il a désavoué les propos de son collègue.
+5,5,la parcimonie,"절약, 인색함",Il gère son budget avec parcimonie.
+5,5,l'obsolescence,"노후화, 진부화",L'obsolescence de cette technologie est rapide.
+5,5,le truisme,자명한 이치,Dire que le temps passe est un truisme.
+5,5,l'ostracisme,배척,Il a été victime d'ostracisme au travail.
+5,5,la propension,"경향, 성향",Il a une propension à exagérer.
+5,5,l'insidieux,"은근한, 교활한",Le danger est insidieux et difficile à voir.
+5,5,la présomption,추정,La présomption d'innocence est un droit fondamental.
+5,5,l'atavisme,격세유전적 성향,Sa violence semble relever de l'atavisme familial.
+5,5,l'expédient,임시방편,Cette mesure n'est qu'un expédient.
+5,5,l'intransigeance,"강경함, 비타협적 태도",Son intransigeance a bloqué les négociations.
+5,5,la dichotomie,이분법,Il existe une dichotomie entre théorie et pratique.
+5,5,la connivence,"공모, 결탁",On sentait une certaine connivence entre eux.
+5,5,la présupposition,"전제, 예단",Cette présupposition n'est pas fondée.
+5,5,la réfutation,"반박, 논박",Sa réfutation était très convaincante.
+5,5,l'irrévocable,돌이킬 수 없는 것,Sa décision semble irrévocable.
+5,5,la magnanimité,"관대함, 아량",Il a fait preuve de magnanimité envers ses rivaux.
+5,5,l'invective,"비난, 욕설",Le débat s'est terminé en invectives.
+5,5,la mordacité,"신랄함, 통렬함",Il critique toujours avec mordacité.
+5,5,l'apathie,"무기력, 무관심",L'apathie générale inquiète les organisateurs.
+5,6,l'acception,"단어의 의미, 뜻","Dans cette acception, le mot a un sens différent."
+5,6,l'acabit,"부류, 종류",Je n'aime pas les gens de cet acabit.
+5,6,l'acrimonie,"신랄함, 씁쓸함",Il a répondu avec acrimonie.
+5,6,l'adage,"격언, 속담","Comme le dit l'adage, il ne faut jamais dire jamais."
+5,6,l'apanage,"특권, 전유물",Ce talent n'est pas l'apanage des riches.
+5,6,l'apogée,"정점, 절정",Cette civilisation a atteint son apogée au XVe siècle.
+5,6,l'aporie,"난제, 역설",Ce raisonnement mène à une véritable aporie.
+5,6,sournois,"음흉한, 교활한",Son sourire sournois inquiétait tout le monde.
+5,6,la circonlocution,"완곡한 표현, 우회적 표현",Il a évité le sujet par des circonlocutions.
+5,6,l'impunité,"처벌받지 않음, 면책",Il a agi en toute impunité.
+5,6,le déliquescent,쇠퇴하는,Le régime déliquescent s'effondrait peu à peu.
+5,6,dévolu,"부여된, 할당된",Ce rôle lui est dévolu depuis des années.
+5,6,l'égide,"보호, 후원",L'événement se tient sous l'égide de l'UNESCO.
+5,6,l'emphase,"과장, 강조",Il parle toujours avec emphase.
+5,6,l'épigone,"아류, 모방자",Cet artiste n'est qu'un épigone de ses prédécesseurs.
+5,6,l'esquive,회피,Sa réponse était une pure esquive.
+5,6,l'exégèse,"주해, 해석",L'exégèse de ce texte demande des années d'étude.
+5,6,la fatuité,"자만, 허영",Sa fatuité agaçait tout le monde.
+5,6,le galimatias,횡설수설,Son discours n'était qu'un galimatias incompréhensible.
+5,6,l'idoine,적합한,Ce n'est pas le moment idoine pour discuter.
+5,6,l'impéritie,무능함,L'impéritie du gestionnaire a causé la faillite.
+5,6,l'incurie,"태만, 부주의",L'incurie administrative a aggravé la crise.
+5,6,l'inénarrable,이루 말할 수 없는,Il nous a raconté une histoire inénarrable.
+5,6,l'inextricable,"얽히고설킨, 해결 불가능한",La situation est devenue inextricable.
+5,6,la jactance,"허풍, 자랑",Il parle de ses exploits avec jactance.
+5,6,la loquacité,수다스러움,Sa loquacité contrastait avec le silence des autres.
+5,6,la mansuétude,관대함,Le juge a fait preuve de mansuétude.
+5,6,le nonobstant,~에도 불구하고,"Nonobstant les critiques, il a maintenu sa décision."
+5,6,l'obséquiosité,"아첨, 비굴함",Son obséquiosité envers son patron était gênante.
+5,6,l'opprobre,"치욕, 오명",Cette affaire a jeté l'opprobre sur toute l'entreprise.
+5,6,la pérennité,영속성,Il faut assurer la pérennité de ce projet.
+5,6,le pléonasme,중복 표현,Dire 'monter en haut' est un pléonasme.
+5,6,le prosélytisme,"포교, 개종 권유",Le prosélytisme religieux est interdit dans cette école.
+5,6,la quiétude,평온함,Il cherchait la quiétude à la campagne.
+5,6,la rémanence,"잔류, 잔존",La rémanence de cette odeur est surprenante.
+5,6,la roublardise,"잔꾀, 교활함",Sa roublardise lui a permis d'éviter les ennuis.
+5,6,le subterfuge,"술책, 계략",Il a utilisé un subterfuge pour s'échapper.
+5,6,la truculence,"익살스러움, 걸쭉함",Ses histoires sont pleines de truculence.
+5,6,l'ubiquité,"편재성, 동시 존재",Son ubiquité apparente impressionnait ses collègues.
+5,6,le zèle,"열성, 열의",Il travaille avec un grand zèle.
+5,6,le dédain,"경멸, 무시",Il a répondu avec un air de dédain.
+5,6,la vindicte,"복수심, 보복",La vindicte populaire s'est abattue sur lui.
+5,6,l'anathème,"저주, 파문",Ses propos ont été frappés d'anathème.
+5,6,l'hégémonie,패권,L'hégémonie de ce pays s'étend sur toute la région.
+5,6,la dialectique,변증법,Sa dialectique est difficile à suivre.
+5,6,l'ostentation,과시,Il affiche sa richesse avec ostentation.
+5,6,la réminiscence,"회상, 잔상",Ce parfum évoque une réminiscence d'enfance.
+5,6,la mésentente,불화,Une mésentente a éclaté entre les deux familles.
+5,6,le sophisme,궤변,Son argument n'est qu'un sophisme.
+5,6,la turpitude,"비열함, 부도덕",Ses turpitudes ont été révélées au grand jour.

@@ -3,8 +3,12 @@ import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import OnboardingPage from "./pages/Onboarding/OnboardingPage";
 import AppLayout from "./pages/Layout/AppLayout";
+import DashboardPage from "./pages/Dashboard/DashboardPage";
 import VocabPage from "./pages/Vocab/VocabPage";
 import FlashcardPage from "./pages/Flashcard/FlashcardPage";
+import SpeakingPage from "./pages/Speaking/SpeakingPage";
+import GrammarPage from "./pages/Grammar/GrammarPage";
+import ProfilePage from "./pages/Profile/ProfilePage";
 import RequireOnboarding from "./routes/RequireOnboarding";
 
 function App(){
@@ -17,8 +21,12 @@ function App(){
 
         <Route element={<RequireOnboarding />}>
           <Route element={<AppLayout />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/vocab" element={<VocabPage />} />
             <Route path="/flashcard" element={<FlashcardPage />} />
+            <Route path="/speaking" element={<SpeakingPage />} />
+            <Route path="/grammar" element={<GrammarPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Route>
         </Route>
 
