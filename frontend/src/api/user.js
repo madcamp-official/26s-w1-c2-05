@@ -23,6 +23,20 @@ export async function getProfile() {
     return res.data;
 }
 
+export async function getLanguages() {
+    const res = await client.get("/me/languages");
+    return res.data;
+}
+
+export async function switchLanguage({ language, level, studyGoal }) {
+    const res = await client.post("/me/language", {
+        language,
+        level,
+        StudyGoal: studyGoal,
+    });
+    return res.data;
+}
+
 export async function logout() {
     const storage = getAuthStorage();
     const refreshToken = storage.getItem("refreshToken");

@@ -7,17 +7,9 @@ from app.models.learning_progress import LearningProgresses
 from app.models.user import User
 
 from app.utils.security import get_current_user
+from app.utils.constants import STUDY_LEVELS as StudyLevel
 
 router = APIRouter()
-
-StudyLevel = {
-    "A1": 1,
-    "A2": 2,
-    "B1": 3,
-    "B2": 4,
-    "C1": 5,
-    "C2": 6
-}
 
 @router.post("/onboarding")
 async def post_survey(user_onboard: OnboardingResponse, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProfile, logout } from "../../api/user";
+import LanguageSwitchModal from "./LanguageSwitchModal";
 import styles from "./ProfilePage.module.css";
 
 function ProfilePage(){
@@ -9,9 +10,10 @@ function ProfilePage(){
     const [isLoading, setIsLoading] = useState(true);
     const [loadError, setLoadError] = useState(false);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
 
-    useEffect(() => {
-        getProfile()
+    const loadProfile = () => {
+        return getProfile()
             .then((data) => {
                 if (typeof data?.userID === "string") {
                     setProfile(data);
@@ -22,9 +24,17 @@ function ProfilePage(){
             .catch((err) => {
                 console.error("프로필 조회 실패:", err);
                 setLoadError(true);
-            })
-            .finally(() => setIsLoading(false));
+            });
+    };
+
+    useEffect(() => {
+        loadProfile().finally(() => setIsLoading(false));
     }, []);
+
+    const handleLanguageSwitched = () => {
+        setIsLanguageModalOpen(false);
+        loadProfile();
+    };
 
     const handleLogout = async () => {
         setIsLoggingOut(true);
@@ -71,7 +81,12 @@ function ProfilePage(){
 
                     <div className={styles.infoRow}>
                         <span>학습 언어</span>
-                        <span className={styles.infoValue}>{profile.current_language}</span>
+                        <span className={styles.infoValue}>
+                            {profile.current_language}
+                            <button className={styles.changeLanguageButton} onClick={() => setIsLanguageModalOpen(true)}>
+                                변경
+                            </button>
+                        </span>
                     </div>
                     <div className={styles.infoRow}>
                         <span>연속 학습</span>
@@ -89,6 +104,13 @@ function ProfilePage(){
                     </div>
                 </div>
             </div>
+
+            {isLanguageModalOpen && (
+                <LanguageSwitchModal
+                    onClose={() => setIsLanguageModalOpen(false)}
+                    onSwitched={handleLanguageSwitched}
+                />
+            )}
         </div>
     );
 };

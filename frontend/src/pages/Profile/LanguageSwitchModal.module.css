@@ -1,0 +1,225 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+
+.modal {
+  width: 100%;
+  max-width: 420px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  background: var(--page-surface);
+  color: var(--page-text);
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.closeButton {
+  border: none;
+  background: none;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--page-text-muted);
+  cursor: pointer;
+  padding: 0;
+}
+
+.langList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.langItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--page-border);
+  border-radius: 8px;
+  background: var(--page-surface);
+  font: inherit;
+  font-size: 14px;
+  color: var(--page-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.langItem:hover:not(:disabled) {
+  background: var(--page-surface-hover);
+}
+
+.langItem:disabled {
+  cursor: not-allowed;
+}
+
+.langItemCurrent {
+  border-color: var(--page-text-muted);
+  background: var(--page-surface-muted);
+}
+
+.langFlag {
+  font-size: 18px;
+}
+
+.langName {
+  font-weight: 600;
+  flex: 1;
+}
+
+.langTag {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--page-invert-text);
+  background: var(--page-invert-bg);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.langMeta {
+  font-size: 12px;
+  color: var(--page-text-muted);
+}
+
+.errorText {
+  font-size: 13px;
+  color: var(--page-danger);
+  margin: 0 0 12px;
+}
+
+/* 새 언어 시작 폼 */
+
+.newLangIntro {
+  font-size: 14px;
+  color: var(--page-text-secondary);
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+.fieldLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--page-text-secondary);
+  margin: 0 0 8px;
+}
+
+.levelGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.levelOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 6px;
+  border: 1px solid var(--page-border-strong);
+  border-radius: 8px;
+  background: var(--page-surface);
+  color: var(--page-text);
+  cursor: pointer;
+}
+
+.levelCode {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.levelText {
+  font-size: 11px;
+  color: var(--page-text-muted);
+}
+
+.levelOptionActive {
+  border-color: var(--page-invert-bg);
+  background: var(--page-invert-bg);
+}
+
+.levelOptionActive .levelCode,
+.levelOptionActive .levelText {
+  color: var(--page-invert-text);
+}
+
+.goalRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.goalOption {
+  flex: 1;
+  padding: 10px 6px;
+  border: 1px solid var(--page-border-strong);
+  border-radius: 8px;
+  background: var(--page-surface);
+  color: var(--page-text);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.goalOptionActive {
+  border-color: var(--page-invert-bg);
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
+}
+
+.formActions {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.secondaryButton {
+  padding: 10px 16px;
+  border: 1px solid var(--page-border-strong);
+  border-radius: 6px;
+  background: var(--page-surface);
+  color: var(--page-text);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.primaryButton {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

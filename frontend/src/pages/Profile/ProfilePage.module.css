@@ -111,6 +111,25 @@
 .infoValue {
   color: var(--page-text);
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.changeLanguageButton {
+  padding: 3px 10px;
+  border: 1px solid var(--page-border-strong);
+  border-radius: 999px;
+  background: var(--page-surface);
+  color: var(--page-text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.changeLanguageButton:hover {
+  border-color: var(--page-text-muted);
+  color: var(--page-text);
 }
 
 .progressHeader {
