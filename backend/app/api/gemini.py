@@ -79,6 +79,13 @@ def _build_system_instruction(
         "다음에 무엇을 할지, 어떤 전략으로 대화를 이끌지는 feedback에 쓰지 않는다.",
         "대화 기록(history)이 함께 주어지면, 그 안에서 이미 물어보거나 답한 내용을 다시 묻지 않는다 "
         "— 예를 들어 이름을 이미 받았다면 같은 flow 단계 안에서 다시 이름을 묻지 않는다.",
+        "advance_flow는 사용자의 응답이 문법적으로 자연스럽거나 그럴듯해 보인다는 이유만으로 true로 "
+        "판단해서는 안 된다. 현재 flow 단계(current_flow)가 실제로 요구하는 목적(예: 특정 정보를 "
+        "전달받는 것, 특정 요청을 완료하는 것 등)을 사용자의 응답이 실질적으로 충족했는지를 먼저 "
+        "판단 기준으로 삼는다. 응답 자체는 적절해 보여도 그 목적을 아직 달성하지 못했다면(예: "
+        "엉뚱한 정보를 주었거나, 필요한 내용의 일부만 답했거나, 질문을 회피한 경우) advance_flow를 "
+        "false로 판단하고, 같은 flow 단계에 머무르며 사용자가 그 목적을 달성하도록 자연스럽게 "
+        "유도하는 문장을 생성해라.",
     ]
     if target_words:
         words_text = ", ".join(target_words)
@@ -161,8 +168,10 @@ def generate_dialogue_turn(
         parts=[types.Part(text=(
             f"지금은 \"{current_flow}\" 단계이다.\n"
             f"사용자의 응답: \"{user_response}\"\n"
-            "위 대화 기록을 참고해서, 이 응답이 현재 단계를 통과할 만큼 충분한지 평가한 뒤, "
-            "advance_flow를 결정하고 그에 맞는 다음 대화 문장과 피드백을 생성해라."
+            "위 대화 기록을 참고해서, 이 응답이 현재 단계가 요구하는 목적을 실제로 충족했는지 "
+            "평가한 뒤(단순히 문장이 자연스러운지가 아니라), advance_flow를 결정하고 그에 맞는 "
+            "다음 대화 문장과 피드백을 생성해라. 목적을 아직 충족하지 못했다면 대화가 다음 "
+            "단계로 넘어가서는 안 된다."
         ))],
     ))
 
@@ -176,6 +185,51 @@ def generate_dialogue_turn(
         ),
     )
     return response.parsed
+
+class DialogueSummaryResult(BaseModel):
+    overall_feedback: str = Field(
+        description="대화가 모두 끝난 뒤 사용자에게 주는 총평 피드백. 개별 turn이 아니라 대화 전체에서 "
+                    "반복적으로 나타난 문법/어휘 패턴, 잘한 점과 개선하면 좋을 점을 종합해서 한국어로 "
+                    "3~5문장 이내로 작성한다."
+    )
+
+
+def generate_dialogue_summary(
+    subject: str,
+    language: str,
+    history: list,
+) -> DialogueSummaryResult:
+    '''
+    회화 세션이 완전히 끝났을 때(마지막 flow 단계까지 통과), 지금까지 오간 전체 대화 기록을
+    바탕으로 총평 피드백을 생성한다. generate_dialogue_turn의 feedback이 매 turn마다의 즉각적인
+    피드백이라면, 이 함수는 대화가 끝난 뒤 한 번만 호출되어 대화 전체를 관통하는 경향을 짚어준다.
+    '''
+    contents = _history_to_contents(history)
+    contents.append(types.Content(
+        role="user",
+        parts=[types.Part(text=(
+            "대화가 모두 끝났다. 지금까지의 대화 기록 전체를 돌아보며, 사용자가 반복적으로 보인 "
+            "문법/어휘 패턴과 잘한 점, 개선하면 좋을 점을 종합한 총평 피드백을 작성해라."
+        ))],
+    ))
+
+    response = client.models.generate_content(
+        model=GEMINI_MODEL,
+        contents=contents,
+        config=types.GenerateContentConfig(
+            system_instruction=(
+                f"당신은 {language} 회화 학습 앱에서 사용자의 대화 연습을 지켜본 학습 코치이다. "
+                f"방금 끝난 대화의 주제는 \"{subject}\"였다. 지금까지의 대화 기록을 바탕으로, "
+                "사용자의 학습에 도움이 되는 구체적이고 건설적인 총평을 한국어로 작성한다. "
+                "개별 turn에 대한 지적이 아니라, 대화 전체를 관통하는 경향(자주 틀린 부분, "
+                "눈에 띄게 나아진 부분 등)에 집중해라. 칭찬만 하거나 뭉뚱그리지 않는다."
+            ),
+            response_mime_type="application/json",
+            response_schema=DialogueSummaryResult,
+        ),
+    )
+    return response.parsed
+
 
 class CategoryFeedbackResult(BaseModel):
     feedback_voca: str = Field(

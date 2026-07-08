@@ -9,16 +9,20 @@ from app.models.user import User
 from app.models.learning_progress import LearningProgresses
 
 from app.utils.security import get_current_user
-from app.utils.learning import select_vocabulary_for_today
+from app.utils.learning import get_daily_vocabulary_selection
+from app.api.learning import DAILY_GOALS
 
 router = APIRouter()
 
 @router.get("/vocabulary", response_model=VocabularyResponse)
 async def get_vocabulary(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     # 이벤트 기록을 기반으로 사용자의 학습 수준을 추정하고, 그에 맞는 단어를 추천한다.
-
-    current_user_lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id
-    vocabulary_list = select_vocabulary_for_today(db, current_user.user_id, current_user_lang_id, limit=20)
+    # 오늘 이미 선정한 단어가 있으면 재사용한다(/flashcard와 선정 결과 공유, app/utils/learning.py 참고).
+    progress = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first()
+    vocabulary_list = get_daily_vocabulary_selection(
+        db, current_user.user_id, progress.lang_id, progress,
+        base_level=progress.current_level, limit=DAILY_GOALS["voca"],
+    )
     #key 중 level을 제거하고 프론트엔드가 알 수 있도록 임의 순서 key, value 페어도 부여.
     refined_voca_list = []
     i = 1

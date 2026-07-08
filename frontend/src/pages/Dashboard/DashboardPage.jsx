@@ -11,6 +11,11 @@ const CATEGORY_META = {
     dialogue: { label: "회화", color: "#eb6834", to: "/speaking" },
 };
 
+// error_trend(일별 오답률 추이)는 단어/문법만 보여준다. 회화는 정답 여부가 항상 고정 기록되어
+// 오답률 추이가 의미 없으므로(백엔드 app/api/dashboard.py도 회화를 제외하고 응답한다) 프론트에서도
+// 명시적으로 제외한다.
+const ERROR_TREND_CATEGORY_KEYS = ["voca", "grammar"];
+
 // 카테고리별 순위를 매길 단일 오답률이 없으므로, error_trend(최근 8일 일별 오답률)의
 // 평균을 근사치로 쓴다.
 function averageErrorRate(values){
@@ -41,7 +46,7 @@ function TrendChart({ errorTrend }){
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [trendLabels] = useState(buildTrendLabels);
 
-    const categoryKeys = Object.keys(CATEGORY_META).filter((key) => Array.isArray(errorTrend[key]));
+    const categoryKeys = ERROR_TREND_CATEGORY_KEYS.filter((key) => Array.isArray(errorTrend[key]));
 
     const xAt = (i) => marginLeft + (plotWidth * i) / (trendLabels.length - 1);
     const yAt = (v) => marginTop + plotHeight * (1 - v / maxValue);

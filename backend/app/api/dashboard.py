@@ -28,6 +28,11 @@ _CATEGORY_TYPES = {
 _CATEGORY_LABELS = {"voca": "단어", "grammar": "문법", "dialogue": "회화"}
 _TREND_DAYS = 8
 
+# error_trend(일별 오답률 추이)는 단어/문법만 제공한다. 회화는 event_logs.is_correct가
+# 아직 항상 True로 고정 기록되어(app/api/learning.py의 TODO 참고) 오답률이 항상 0%로만
+# 나와 추이로서 의미가 없기 때문에 제외한다.
+_ERROR_TREND_CATEGORIES = ("voca", "grammar")
+
 
 def _accuracy(correct: int, total: int) -> float | None:
     return round(100 * correct / total) if total else None
@@ -142,11 +147,11 @@ async def get_dashboard(current_user: User = Depends(get_current_user), db: Sess
     trend_events = [e for e in all_events if e.time_studied >= trend_start]
     buckets = _bucket_by_day(trend_events, now)
 
-    error_trend: dict[str, list[int]] = {key: [] for key in _CATEGORY_TYPES}
-    last_known = {key: 0 for key in _CATEGORY_TYPES}
+    error_trend: dict[str, list[int]] = {key: [] for key in _ERROR_TREND_CATEGORIES}
+    last_known = {key: 0 for key in _ERROR_TREND_CATEGORIES}
     for days_ago in range(_TREND_DAYS - 1, -1, -1):
         day_events = buckets.get(days_ago, [])
-        for key in _CATEGORY_TYPES:
+        for key in _ERROR_TREND_CATEGORIES:
             cat_day_events = category_events(day_events, key)
             accuracy = _accuracy(sum(1 for e in cat_day_events if e.is_correct), len(cat_day_events))
             error_rate = last_known[key] if accuracy is None else 100 - accuracy

@@ -79,6 +79,22 @@ with engine.begin() as conn:
         print(f"column added.")
     else:
         print(f"already exists.")
+    if "voca_selected_date" not in columns:
+        conn.execute(text(f"""
+            ALTER TABLE {"learning_progresses"}
+            ADD COLUMN {"voca_selected_date"} {"DATETIME"}
+        """))
+        print(f"column added.")
+    else:
+        print(f"already exists.")
+    if "voca_selected_ids" not in columns:
+        conn.execute(text(f"""
+            ALTER TABLE {"learning_progresses"}
+            ADD COLUMN {"voca_selected_ids"} {"TEXT"}
+        """))
+        print(f"column added.")
+    else:
+        print(f"already exists.")
 
 # 접속 끝나도 연결 유지
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

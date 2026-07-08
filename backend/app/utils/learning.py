@@ -190,16 +190,20 @@ def _content_level_map(db: Session, lang_id: int, model) -> dict[int, int]:
 
 
 def _estimate_target_level(
-    db: Session, user_id: str, lang_id: int, level_map: dict[int, int]
+    db: Session, user_id: str, lang_id: int, level_map: dict[int, int], base_level: int = _MIN_LEVEL
 ) -> int:
     '''
     사용자가 각 레벨에서 보인 정답률을 근거로 오늘 학습할 목표 레벨을 추정한다.
-    - event_log 기록이 없으면 최저 레벨(A1=1)에서 시작한다.
+    - event_log 기록이 없으면 base_level(온보딩에서 사용자가 직접 고른 CEFR 레벨,
+      learning_progresses.current_level)에서 시작한다 — 처음부터 A1을 강제하면 이미 실력이
+      있는 사용자에게 너무 쉬운 콘텐츠만 주게 되므로, 사용자가 신고한 수준을 사전(prior)으로 쓴다.
     - 어떤 레벨의 누적 시도 수/정답률이 임계치를 넘으면 다음 레벨로 승급시킨다(i+1).
     - 아직 숙달하지 못한 레벨을 만나면 그 자리에 머무른다.
     '''
+    base_level = max(_MIN_LEVEL, min(_MAX_LEVEL, base_level))
+
     if not level_map:
-        return _MIN_LEVEL
+        return base_level
 
     content_ids = list(level_map.keys())
     rows = (
@@ -212,7 +216,7 @@ def _estimate_target_level(
         .all()
     )
     if not rows:
-        return _MIN_LEVEL
+        return base_level
 
     per_level_correct: dict[int, int] = {}
     per_level_total: dict[int, int] = {}
@@ -224,8 +228,8 @@ def _estimate_target_level(
         if is_correct:
             per_level_correct[level] = per_level_correct.get(level, 0) + 1
 
-    target_level = _MIN_LEVEL
-    for level in range(_MIN_LEVEL, _MAX_LEVEL + 1):
+    target_level = base_level
+    for level in range(base_level, _MAX_LEVEL + 1):
         total = per_level_total.get(level, 0)
         if total == 0:
             break
@@ -243,7 +247,9 @@ def _estimate_target_level(
 # 오늘의 학습 항목 선정 (복습 + 신규, spaced-repetition + 레벨 적응 결합)
 # ---------------------------------------------------------------------------
 
-def _select_items(db: Session, user_id: str, lang_id: int, model, limit: int) -> list:
+def _select_items(
+    db: Session, user_id: str, lang_id: int, model, limit: int, base_level: int = _MIN_LEVEL
+) -> list:
     '''
     복습(review)과 신규 학습(new)을 섞어 오늘 학습할 콘텐츠(Vocabulary 또는 Grammar row)를 선정한다.
 
@@ -282,7 +288,7 @@ def _select_items(db: Session, user_id: str, lang_id: int, model, limit: int) ->
 
     remaining = limit - len(selected_ids)
     if remaining > 0:
-        target_level = _estimate_target_level(db, user_id, lang_id, level_map)
+        target_level = _estimate_target_level(db, user_id, lang_id, level_map, base_level=base_level)
         new_ids_by_level: dict[int, list[int]] = {}
         for content_id, level in level_map.items():
             if content_id in selected_ids or content_id in stats_map:
@@ -314,14 +320,50 @@ def _select_items(db: Session, user_id: str, lang_id: int, model, limit: int) ->
     return [row_map[cid] for cid in selected_ids if cid in row_map]
 
 
-def select_vocabulary_for_today(db: Session, user_id: str, lang_id: int, limit: int = 5) -> list[Vocabulary]:
-    '''오늘 학습할 단어(Vocabulary) 목록을 반환한다.'''
-    return _select_items(db, user_id, lang_id, Vocabulary, limit)
+def select_vocabulary_for_today(
+    db: Session, user_id: str, lang_id: int, limit: int = 5, base_level: int = _MIN_LEVEL
+) -> list[Vocabulary]:
+    '''오늘 학습할 단어(Vocabulary) 목록을 반환한다. base_level은 event_log가 없을 때 시작할 CEFR 레벨.'''
+    return _select_items(db, user_id, lang_id, Vocabulary, limit, base_level=base_level)
 
 
-def select_grammar_for_today(db: Session, user_id: str, lang_id: int, limit: int = 5) -> list[Grammar]:
-    '''오늘 학습할 문법(Grammar) 목록을 반환한다.'''
-    return _select_items(db, user_id, lang_id, Grammar, limit)
+def select_grammar_for_today(
+    db: Session, user_id: str, lang_id: int, limit: int = 5, base_level: int = _MIN_LEVEL
+) -> list[Grammar]:
+    '''오늘 학습할 문법(Grammar) 목록을 반환한다. base_level은 event_log가 없을 때 시작할 CEFR 레벨.'''
+    return _select_items(db, user_id, lang_id, Grammar, limit, base_level=base_level)
+
+
+# ---------------------------------------------------------------------------
+# 오늘의 단어 선정 결과 캐싱 — /flashcard, /vocabulary가 클릭할 때마다 재요청되는 문제 대응
+#
+# select_vocabulary_for_today는 event_logs가 바뀔 때마다(예: 세션 중간에 답을 제출) 결과가
+# 달라질 수 있어, 같은 날 안에 여러 번 호출하면(플래시카드 풀다가 단어장 페이지로 이동 등)
+# 오늘 목록이 학습 도중에 바뀌어 보이는 문제가 있었다. learning_progresses에 오늘 선정한
+# content_id 목록과 선정 날짜를 저장해두고, 같은 날짜 안에서는 재계산 없이 그대로 재사용한다.
+# ---------------------------------------------------------------------------
+
+def get_daily_vocabulary_selection(
+    db: Session, user_id: str, lang_id: int, progress: LearningProgresses, base_level: int, limit: int = 20,
+) -> list[Vocabulary]:
+    '''오늘 이미 선정한 단어 목록이 있으면 그대로 재사용하고, 없거나 날짜가 지났으면 새로 선정해 저장한다.'''
+    today = datetime.now(timezone.utc).date()
+    cached_date = progress.voca_selected_date.date() if progress.voca_selected_date else None
+
+    if cached_date == today and progress.voca_selected_ids:
+        cached_ids = [int(cid) for cid in progress.voca_selected_ids.split(",") if cid]
+        rows = db.query(Vocabulary).filter(Vocabulary.content_id.in_(cached_ids)).all()
+        row_map = {row.content_id: row for row in rows}
+        cached_list = [row_map[cid] for cid in cached_ids if cid in row_map]
+        if cached_list:
+            return cached_list
+
+    selected = select_vocabulary_for_today(db, user_id, lang_id, limit=limit, base_level=base_level)
+    progress.voca_selected_date = datetime.now(timezone.utc).replace(tzinfo=None)
+    progress.voca_selected_ids = ",".join(str(v.content_id) for v in selected)
+    db.add(progress)
+    db.commit()
+    return selected
 
 
 def select_grammar_quizzes(
@@ -449,9 +491,13 @@ def get_next_flow_stage(flow: str, current_flow: str) -> str | None:
 _DIALOGUE_TARGET_WORD_COUNT = 5
 
 
-def _recommended_words_for_dialogue(db: Session, user_id: str, lang_id: int) -> list[str]:
+def _recommended_words_for_dialogue(
+    db: Session, user_id: str, lang_id: int, base_level: int = _MIN_LEVEL
+) -> list[str]:
     '''오늘의 단어 학습 알고리즘(select_vocabulary_for_today)에서 대화에 사용할 추천 단어를 가져온다.'''
-    vocabularies = select_vocabulary_for_today(db, user_id, lang_id, limit=_DIALOGUE_TARGET_WORD_COUNT)
+    vocabularies = select_vocabulary_for_today(
+        db, user_id, lang_id, limit=_DIALOGUE_TARGET_WORD_COUNT, base_level=base_level
+    )
     return [vocabulary.word for vocabulary in vocabularies]
 
 
@@ -462,11 +508,11 @@ class DialogueOpeningLineResult:
 
 
 def generate_dialogue_opening_line(
-    db: Session, dialogue: Dialogue, language: str, user_id: str
+    db: Session, dialogue: Dialogue, language: str, user_id: str, base_level: int = _MIN_LEVEL
 ) -> DialogueOpeningLineResult:
     '''대화 주제(subject)와 flow의 첫 단계에 맞는 대화 시작 문장(및 한국어 번역)을 LLM으로 생성한다.'''
     flow_stages = parse_flow_stages(dialogue.flow)
-    target_words = _recommended_words_for_dialogue(db, user_id, dialogue.lang_id)
+    target_words = _recommended_words_for_dialogue(db, user_id, dialogue.lang_id, base_level=base_level)
     result = gemini.generate_dialogue_opening(
         subject=dialogue.subject,
         language=language,
@@ -487,7 +533,7 @@ class DialogueStepResult:
 
 def generate_dialogue_step(
     db: Session, dialogue: Dialogue, language: str, current_flow: str, user_response: str, user_id: str,
-    history: list | None = None,
+    history: list | None = None, base_level: int = _MIN_LEVEL,
 ) -> DialogueStepResult:
     '''
     사용자의 응답을 LLM으로 평가해 다음 대화 문장(content)과 한국어 피드백(feedback)을 생성하고,
@@ -503,7 +549,7 @@ def generate_dialogue_step(
     프론트가 함께 보낸 값을 그대로 gemini 호출에 전달한다.
     '''
     flow_stages = parse_flow_stages(dialogue.flow)
-    target_words = _recommended_words_for_dialogue(db, user_id, dialogue.lang_id)
+    target_words = _recommended_words_for_dialogue(db, user_id, dialogue.lang_id, base_level=base_level)
 
     turn = gemini.generate_dialogue_turn(
         subject=dialogue.subject,
@@ -525,6 +571,34 @@ def generate_dialogue_step(
         flow=next_flow if next_flow is not None else current_flow,
         is_end=is_end,
     )
+
+
+@dataclass
+class _HistoryTurn:
+    '''gemini._history_to_contents가 기대하는 (role, content) 형태를, 마지막 turn까지 포함한
+    전체 대화 기록을 조립할 때 쓰기 위한 최소 표현. schemas.answerlog.DialogueTurn과 duck-type 호환.'''
+    role: str
+    content: str
+
+
+def generate_dialogue_overall_feedback(
+    dialogue: Dialogue, language: str, history: list | None, final_user_response: str, final_content: str,
+) -> str:
+    '''
+    회화 세션이 완전히 끝났을 때(is_end=True) 한 번 호출되어, 대화 전체 기록을 바탕으로 총평
+    피드백을 생성한다. history(마지막 응답 이전까지의 turn)에 이번 turn의 사용자 응답과 그에 대한
+    NPC의 마지막 문장을 이어붙여 대화 전체를 완성한 뒤 LLM에 넘긴다.
+    '''
+    full_history = list(history or [])
+    full_history.append(_HistoryTurn(role="user", content=final_user_response))
+    full_history.append(_HistoryTurn(role="ai", content=final_content))
+
+    result = gemini.generate_dialogue_summary(
+        subject=dialogue.subject,
+        language=language,
+        history=full_history,
+    )
+    return result.overall_feedback
 
 
 # ---------------------------------------------------------------------------
