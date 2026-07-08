@@ -71,6 +71,14 @@ with engine.begin() as conn:
         print(f"column added.")
     else:
         print(f"already exists.")
+    if "current_level" not in columns:
+        conn.execute(text(f"""
+            ALTER TABLE {"learning_progresses"}
+            ADD COLUMN {"current_level"} {"INTEGER"}
+        """))
+        print(f"column added.")
+    else:
+        print(f"already exists.")
 
 # 접속 끝나도 연결 유지
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
