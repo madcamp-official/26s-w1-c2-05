@@ -262,7 +262,7 @@ function DashboardPage(){
             <div className={styles.sectionHeader}>
                 <div>
                     <p className={styles.sectionTitle}>취약점 분석</p>
-                    <p className={styles.sectionSubtitle}>AI 기반 분석</p>
+                    <p className={styles.sectionSubtitle}>학습 기록 기반 분석</p>
                 </div>
                 <div className={styles.headerActions}>
                     <button className={styles.secondaryButton} onClick={() => window.print()}>
@@ -274,24 +274,22 @@ function DashboardPage(){
                 </div>
             </div>
 
-            {(dashboard.most_weak || dashboard.most_improved) && (
-                <div className={styles.statGrid}>
-                    {dashboard.most_weak && (
-                        <div className={styles.statTile}>
-                            <p className={styles.statLabel}>취약 영역</p>
-                            <p className={styles.statValue}>{dashboard.most_weak}</p>
-                            <p className={styles.statUnit}>이번 주 정답률이 가장 낮은 영역</p>
-                        </div>
-                    )}
-                    {dashboard.most_improved && (
-                        <div className={styles.statTile}>
-                            <p className={styles.statLabel}>가장 개선됨</p>
-                            <p className={styles.statValue}>{dashboard.most_improved}</p>
-                            <p className={styles.statUnit}>지난주 대비 정답률이 가장 많이 오른 영역</p>
-                        </div>
-                    )}
+            <div className={styles.statGrid}>
+                <div className={styles.statTile}>
+                    <p className={styles.statLabel}>취약 영역</p>
+                    <p className={dashboard.most_weak ? styles.statValue : styles.statValueEmpty}>
+                        {dashboard.most_weak ?? "아직 데이터가 없어요"}
+                    </p>
+                    <p className={styles.statUnit}>이번 주 정답률이 가장 낮은 영역</p>
                 </div>
-            )}
+                <div className={styles.statTile}>
+                    <p className={styles.statLabel}>가장 개선됨</p>
+                    <p className={dashboard.most_improved ? styles.statValue : styles.statValueEmpty}>
+                        {dashboard.most_improved ?? "아직 데이터가 없어요"}
+                    </p>
+                    <p className={styles.statUnit}>지난주 대비 정답률이 가장 많이 오른 영역</p>
+                </div>
+            </div>
 
             <div className={styles.stackedCards}>
                 <div className={styles.card}>
