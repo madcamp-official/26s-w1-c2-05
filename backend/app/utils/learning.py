@@ -295,7 +295,7 @@ def _select_items(db: Session, user_id: str, lang_id: int, model, limit: int) ->
             if remaining <= 0:
                 break
             candidates = new_ids_by_level[level]
-            random.shuffle(candidates)
+            candidates.sort(key=lambda cid: _daily_tiebreaker(user_id, lang_id, cid, kind=model.__name__))
             take = candidates[:remaining]
             selected_ids.extend(take)
             remaining -= len(take)
@@ -306,7 +306,7 @@ def _select_items(db: Session, user_id: str, lang_id: int, model, limit: int) ->
 
     if not selected_ids:
         selected_ids = list(level_map.keys())
-        random.shuffle(selected_ids)
+        selected_ids.sort(key=lambda cid: _daily_tiebreaker(user_id, lang_id, cid, kind=model.__name__))
         selected_ids = selected_ids[:limit]
 
     rows = db.query(model).filter(model.content_id.in_(selected_ids)).all()
@@ -341,11 +341,12 @@ def select_grammar_quizzes(
     stats_map = _aggregate_event_stats(db, user_id, lang_id, content_ids)
 
     def priority(quiz: GrammarQuiz) -> tuple[int, float, float]:
+        tiebreak = _daily_tiebreaker(user_id, lang_id, quiz.content_id, kind="grammar_quiz")
         stats = stats_map.get(quiz.content_id)
         if stats is None or stats.n_total == 0:
-            return (0, 0.0, random.random())  # 미시도 문제 최우선
+            return (0, 0.0, tiebreak)  # 미시도 문제 최우선
         accuracy = stats.n_correct / stats.n_total
-        return (1, accuracy, random.random())  # 정답률이 낮을수록 먼저
+        return (1, accuracy, tiebreak)  # 정답률이 낮을수록 먼저
 
     quizzes.sort(key=priority)
     return quizzes[:limit]
@@ -355,17 +356,19 @@ def select_grammar_quizzes(
 # 회화(Dialogue) 주제 선정
 # ---------------------------------------------------------------------------
 
-def _daily_tiebreaker(user_id: str, lang_id: int, content_id: int) -> float:
+def _daily_tiebreaker(user_id: str, lang_id: int, content_id: int, kind: str = "dialogue") -> float:
     '''
     user_id/lang_id/content_id/오늘 날짜(UTC)로 시드를 고정한 난수를 반환한다.
 
-    select_dialogue_for_today는 아직 시도하지 않은 주제가 여러 개면 무작위로 순서를 정하는데,
-    매 요청마다 전역 random을 쓰면 진행 중인 학습 이력(EventLog) 변화가 전혀 없어도 화면에
-    들어갈 때마다 다른 주제가 뽑힌다. content_id별로 오늘 하루는 항상 같은 값이 나오도록 고정하되,
-    날짜가 바뀌면 자연스럽게 다른 조합이 나오도록 시드에 날짜를 포함한다.
+    아직 시도하지 않은 후보가 여러 개면 무작위로 순서를 정해야 하는 선정 로직(회화 주제,
+    단어/문법 신규 항목)에서 매 요청마다 전역 random을 쓰면, 진행 중인 학습 이력(EventLog)
+    변화가 전혀 없어도 화면에 들어갈 때마다 다른 항목이 뽑힌다. content_id별로 오늘 하루는
+    항상 같은 값이 나오도록 고정하되, 날짜가 바뀌면 자연스럽게 다른 조합이 나오도록 시드에
+    날짜를 포함한다. kind는 서로 다른 종류(단어/문법/회화 등)의 셔플이 같은 content_id에서
+    우연히 같은 순서로 얽히지 않도록 구분하는 용도.
     '''
     today = datetime.now(timezone.utc).date().isoformat()
-    seed = f"{user_id}:{lang_id}:{today}:{content_id}"
+    seed = f"{kind}:{user_id}:{lang_id}:{today}:{content_id}"
     return random.Random(seed).random()
 
 
