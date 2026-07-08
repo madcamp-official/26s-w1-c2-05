@@ -14,6 +14,7 @@ LLM에게 맡긴다.
 '''
 
 import os
+import re
 from typing import Optional
 
 from dotenv import load_dotenv
@@ -44,6 +45,19 @@ class DialogueTurnResult(BaseModel):
     content: str = Field(description="사용자에게 보여줄 다음 대화 문장. 반드시 학습 언어(language)로 작성한다.")
     translation: str = Field(description="content를 자연스러운 한국어로 옮긴 번역문.")
     feedback: str = Field(description="사용자의 직전 응답에 대한 한국어 피드백. 간결하고 구체적으로 작성한다.")
+
+
+_HANGUL_RE = re.compile(r"[가-힣]")
+
+
+def _sanitize_translation(translation: str) -> str:
+    '''
+    system_instruction으로 한국어 번역을 명시해도, 모델이 종종 content를 학습 언어로
+    한 번 더 바꿔 쓴("번역"이 아닌 같은 언어의 다른 표현) 문장을 translation에 채워 넣는다.
+    이 경우 프론트에서 content 아래에 같은 언어 문장이 중복 표시되므로, 한글이 전혀
+    없는 translation은 신뢰하지 않고 빈 문자열로 대체한다(프론트는 빈 translation은 표시하지 않음).
+    '''
+    return translation if _HANGUL_RE.search(translation) else ""
 
 
 def _build_system_instruction(
