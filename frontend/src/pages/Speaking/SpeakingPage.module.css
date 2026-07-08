@@ -148,6 +148,12 @@
   margin: 0 0 16px;
 }
 
+.errorText {
+  font-size: 13px;
+  color: #c62828;
+  margin: -6px 0 12px;
+}
+
 .playbackHint {
   font-size: 13px;
   color: #666;

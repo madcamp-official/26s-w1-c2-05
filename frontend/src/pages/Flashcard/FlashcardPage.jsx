@@ -2,35 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import client from "../../api/client";
 import styles from "./FlashcardPage.module.css";
 
-const MOCK_VOCABULARIES = [
-    {
-        number: 1,
-        content_id: 4321,
-        language: "Spanish",
-        word: "el restaurante",
-        choices: ["the kitchen", "the restaurant", "the market", "the café"],
-        answer: 2,
-    },
-    {
-        number: 2,
-        content_id: 4322,
-        language: "Spanish",
-        word: "la mesa",
-        choices: ["the chair", "the table", "the door", "the window"],
-        answer: 2,
-    },
-    {
-        number: 3,
-        content_id: 4323,
-        language: "Spanish",
-        word: "el menú",
-        choices: ["the menu", "the bill", "the waiter", "the tip"],
-        answer: 1,
-    },
-];
-
 function FlashcardPage(){
-    const [vocabularies, setVocabularies] = useState(MOCK_VOCABULARIES);
+    const [vocabularies, setVocabularies] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadError, setLoadError] = useState(false);
     const [index, setIndex] = useState(0);
     const [selected, setSelected] = useState(null);
     const [correctCount, setCorrectCount] = useState(0);
@@ -44,13 +19,16 @@ function FlashcardPage(){
     useEffect(() => {
         client.get("/flashcard", { params: { category: "flash" } })
             .then((res) => {
-                console.log("플래시카드 응답:", res.data);
                 if (Array.isArray(res.data?.vocabularies)){
                     setVocabularies(res.data.vocabularies);
                     cardShownAt.current = Date.now();
                 }
             })
-            .catch((err) => console.error("플래시카드 조회 실패:", err));
+            .catch((err) => {
+                console.error("플래시카드 조회 실패:", err);
+                setLoadError(true);
+            })
+            .finally(() => setIsLoading(false));
     }, []);
 
     useEffect(() => {
@@ -126,8 +104,12 @@ function FlashcardPage(){
         }
     };
 
-    if (!current){
+    if (isLoading){
         return <div className={styles.page}>단어를 불러오는 중입니다...</div>;
+    }
+
+    if (loadError || !current){
+        return <div className={styles.page}>플래시카드를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.</div>;
     }
 
     return (

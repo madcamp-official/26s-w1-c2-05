@@ -42,10 +42,38 @@ from app.models.dialogue import Dialogue
 from app.models.eventlog import EventLog
 from app.models.grammar import Grammar
 from app.models.grammar_quiz import GrammarQuiz
+from app.models.learning_progress import LearningProgresses
 from app.models.vocabulary import Vocabulary
 
 
 import random
+
+
+# ---------------------------------------------------------------------------
+# 학습일수(study_days)/연속 학습일(daily_streak) 갱신
+# ---------------------------------------------------------------------------
+
+def record_daily_activity(db: Session, progress: LearningProgresses) -> None:
+    '''
+    오늘 처음으로 학습 활동(답변 제출/회화 turn)이 발생했을 때만 study_days와
+    daily_streak을 갱신한다. last_studied의 날짜를 기준으로 판단하므로, 같은 날
+    여러 번 답을 제출해도(플래시카드 20문제 등) 하루에 한 번만 반영된다.
+
+    - 어제 학습했다면 streak을 이어서 +1.
+    - 어제가 아니라면(하루 이상 건너뛰었거나 첫 학습이라면) streak을 1로 리셋.
+    '''
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    today = now.date()
+    last_date = progress.last_studied.date() if progress.last_studied else None
+
+    if last_date == today:
+        return
+
+    progress.daily_streak = progress.daily_streak + 1 if last_date == today - timedelta(days=1) else 1
+    progress.study_days += 1
+    progress.last_studied = now
+    db.add(progress)
+    db.commit()
 
 
 # ---------------------------------------------------------------------------

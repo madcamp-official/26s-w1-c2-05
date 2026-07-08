@@ -13,6 +13,7 @@ from app.models.user import User
 from app.models.vocabulary import Vocabulary
 
 from app.utils.security import get_current_user
+from app.api.learning import DAILY_GOALS
 
 router = APIRouter()
 
@@ -52,6 +53,7 @@ async def get_dashboard(current_user: User = Depends(get_current_user), db: Sess
     language_name = db.query(Language.language).filter(Language.lang_id == lang_id).scalar()
 
     now = datetime.now(timezone.utc).replace(tzinfo=None)
+    today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
     trend_start = now - timedelta(days=_TREND_DAYS - 1)
     week_ago = now - timedelta(days=7)
     two_weeks_ago = now - timedelta(days=14)
@@ -63,6 +65,7 @@ async def get_dashboard(current_user: User = Depends(get_current_user), db: Sess
     )
     language_total = len(all_events)
 
+    today_events = [e for e in all_events if e.time_studied >= today_start]
     this_week_events = [e for e in all_events if e.time_studied >= week_ago]
     prev_week_events = [e for e in all_events if two_weeks_ago <= e.time_studied < week_ago]
 
@@ -86,15 +89,25 @@ async def get_dashboard(current_user: User = Depends(get_current_user), db: Sess
             sum(1 for e in cat_prev_week if e.is_correct), len(cat_prev_week)
         )
 
+    # 오늘 카테고리별로 몇 개를 풀었는지(정오답 무관 학습량)와, 각 GET 엔드포인트가 하루치로
+    # 내려주는 콘텐츠 개수(DAILY_GOALS) 대비 목표 달성 여부 — 대시보드의 "오늘 학습량" 시각화용.
+    today_activity = {
+        key: {"count": len(category_events(today_events, key)), "goal": DAILY_GOALS[key]}
+        for key in _CATEGORY_TYPES
+    }
+
+    # 이번 주 학습 기록이 전혀 없으면(scored/improved가 비어있으면) 억지로 카테고리를
+    # 정해 보여주지 않고 None을 반환한다 — 데이터가 없는데 "회화"/"단어" 같은 기본값을
+    # 취약점/개선점인 것처럼 보여주면 사용자를 오도하게 된다.
     scored = {k: v for k, v in category_week_accuracy.items() if v is not None}
-    most_weak_key = min(scored, key=scored.get) if scored else "dialogue"
+    most_weak_key = min(scored, key=scored.get) if scored else None
 
     improved = {
         key: category_week_accuracy[key] - category_prev_accuracy[key]
         for key in _CATEGORY_TYPES
         if category_week_accuracy[key] is not None and category_prev_accuracy[key] is not None
     }
-    most_improved_key = max(improved, key=improved.get) if improved else "voca"
+    most_improved_key = max(improved, key=improved.get) if improved else None
 
     # 단어/문법은 이번 주 오답이 가장 많았던 콘텐츠를 짚어 피드백 문장을 만들고,
     # 회화는 문항 단위 채점이 없어 학습량 자체를 기준으로 안내한다.
@@ -145,10 +158,11 @@ async def get_dashboard(current_user: User = Depends(get_current_user), db: Sess
         "daily_streak": progress.daily_streak,
         "language_total": language_total,
         "accuracy_rate": accuracy_rate,
-        "most_weak": _CATEGORY_LABELS[most_weak_key],
-        "most_improved": _CATEGORY_LABELS[most_improved_key],
+        "most_weak": _CATEGORY_LABELS.get(most_weak_key),
+        "most_improved": _CATEGORY_LABELS.get(most_improved_key),
         "feedback_voca": feedback_voca,
         "feedback_grammar": feedback_grammar,
         "feedback_dialogue": feedback_dialogue,
         "error_trend": error_trend,
+        "today_activity": today_activity,
     }

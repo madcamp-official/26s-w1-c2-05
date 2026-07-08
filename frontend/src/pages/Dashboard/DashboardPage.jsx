@@ -28,24 +28,6 @@ function buildTrendLabels(){
     });
 }
 
-// 백엔드 /dashboard가 아직 없을 때 화면 확인용으로 쓰는 목업 데이터.
-const MOCK_DASHBOARD = {
-    language: "Spanish",
-    daily_streak: 10,
-    language_total: 312,
-    accuracy_rate: 78,
-    most_weak: "회화",
-    most_improved: "단어",
-    feedback_voca: "이번 주 가장 헷갈려 한 단어는 instinct에요.",
-    feedback_grammar: "가장 많이 헷갈려하는 부분은 현재분사와 과거분사 구분이에요.",
-    feedback_dialogue: "회화 세션에서 목적어를 자주 빠뜨리는 경향이 있어요.",
-    error_trend: {
-        voca: [20, 19, 18, 18, 19, 18, 16, 16],
-        grammar: [20, 19, 18, 18, 19, 18, 16, 16],
-        dialogue: [20, 19, 18, 18, 19, 18, 16, 16],
-    },
-};
-
 function TrendChart({ errorTrend }){
     const width = 600;
     const height = 200;
@@ -147,10 +129,47 @@ function TrendChart({ errorTrend }){
     );
 }
 
+// 오늘 카테고리별로 몇 개를 풀었는지를, 백엔드가 하루치로 내려주는 콘텐츠 개수(goal:
+// 단어 20개/문법 3개/회화 1개, app/api/learning.py의 DAILY_GOALS와 동일) 대비 진행률로 보여준다.
+function TodayActivityChart({ todayActivity }){
+    const categoryKeys = Object.keys(CATEGORY_META);
+    const total = categoryKeys.reduce((sum, key) => sum + (todayActivity[key]?.count ?? 0), 0);
+
+    if (total === 0){
+        return <p className={styles.todayEmpty}>오늘 아직 학습 기록이 없어요. 학습을 시작해보세요!</p>;
+    }
+
+    return (
+        <div className={styles.todayActivity}>
+            {categoryKeys.map((key) => {
+                const { count = 0, goal = 0 } = todayActivity[key] ?? {};
+                const percent = goal > 0 ? Math.min(100, Math.round((count / goal) * 100)) : 0;
+                const achieved = goal > 0 && count >= goal;
+                return (
+                    <div key={key} className={styles.todayActivityRow}>
+                        <span className={styles.todayActivityLabel}>{CATEGORY_META[key].label}</span>
+                        <div className={styles.todayActivityBarTrack}>
+                            <div
+                                className={styles.todayActivityBarFill}
+                                style={{ width: `${percent}%`, background: CATEGORY_META[key].color }}
+                            />
+                        </div>
+                        <span className={styles.todayActivityCount}>
+                            {count}/{goal}{achieved ? " ✓" : ""}
+                        </span>
+                    </div>
+                );
+            })}
+            <p className={styles.todayActivityTotal}>오늘 총 {total}개 학습</p>
+        </div>
+    );
+}
+
 function DashboardPage(){
     const navigate = useNavigate();
-    const [dashboard, setDashboard] = useState(MOCK_DASHBOARD);
+    const [dashboard, setDashboard] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [loadError, setLoadError] = useState(false);
     const [{ greeting, dateLabel }] = useState(() => {
         const now = new Date();
         const hour = now.getHours();
@@ -162,8 +181,14 @@ function DashboardPage(){
 
     const fetchDashboard = () => {
         return client.get("/dashboard")
-            .then((res) => setDashboard(res.data))
-            .catch((err) => console.error("대시보드 조회 실패:", err))
+            .then((res) => {
+                setDashboard(res.data);
+                setLoadError(false);
+            })
+            .catch((err) => {
+                console.error("대시보드 조회 실패:", err);
+                setLoadError(true);
+            })
             .finally(() => setIsLoading(false));
     };
 
@@ -175,6 +200,26 @@ function DashboardPage(){
         setIsLoading(true);
         fetchDashboard();
     };
+
+    // 최초 로딩 중이거나(dashboard 없음) 실패했을 때는 전체 화면을 대체한다.
+    // "다시 분석하기" 재조회 중에는 기존 데이터를 유지한 채 버튼만 비활성화한다.
+    if (isLoading && !dashboard){
+        return (
+            <div className={styles.page}>
+                <PageHeader title={`${greeting} 👋`} subtitle={dateLabel} />
+                <p className={styles.loadingText}>대시보드를 불러오는 중입니다...</p>
+            </div>
+        );
+    }
+
+    if (loadError && !dashboard){
+        return (
+            <div className={styles.page}>
+                <PageHeader title={`${greeting} 👋`} subtitle={dateLabel} />
+                <p className={styles.loadingText}>대시보드를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.</p>
+            </div>
+        );
+    }
 
     const feedbackItems = [
         { key: "voca", text: dashboard.feedback_voca },
@@ -209,6 +254,11 @@ function DashboardPage(){
                 </div>
             </div>
 
+            <div className={styles.card}>
+                <p className={styles.cardTitle}>오늘 학습량</p>
+                <TodayActivityChart todayActivity={dashboard.today_activity ?? {}} />
+            </div>
+
             <div className={styles.sectionHeader}>
                 <div>
                     <p className={styles.sectionTitle}>취약점 분석</p>
@@ -224,18 +274,24 @@ function DashboardPage(){
                 </div>
             </div>
 
-            <div className={styles.statGrid}>
-                <div className={styles.statTile}>
-                    <p className={styles.statLabel}>취약 영역</p>
-                    <p className={styles.statValue}>{dashboard.most_weak}</p>
-                    <p className={styles.statUnit}>이번 주 정답률이 가장 낮은 영역</p>
+            {(dashboard.most_weak || dashboard.most_improved) && (
+                <div className={styles.statGrid}>
+                    {dashboard.most_weak && (
+                        <div className={styles.statTile}>
+                            <p className={styles.statLabel}>취약 영역</p>
+                            <p className={styles.statValue}>{dashboard.most_weak}</p>
+                            <p className={styles.statUnit}>이번 주 정답률이 가장 낮은 영역</p>
+                        </div>
+                    )}
+                    {dashboard.most_improved && (
+                        <div className={styles.statTile}>
+                            <p className={styles.statLabel}>가장 개선됨</p>
+                            <p className={styles.statValue}>{dashboard.most_improved}</p>
+                            <p className={styles.statUnit}>지난주 대비 정답률이 가장 많이 오른 영역</p>
+                        </div>
+                    )}
                 </div>
-                <div className={styles.statTile}>
-                    <p className={styles.statLabel}>가장 개선됨</p>
-                    <p className={styles.statValue}>{dashboard.most_improved}</p>
-                    <p className={styles.statUnit}>지난주 대비 정답률이 가장 많이 오른 영역</p>
-                </div>
-            </div>
+            )}
 
             <div className={styles.stackedCards}>
                 <div className={styles.card}>

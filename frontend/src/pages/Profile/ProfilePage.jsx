@@ -3,18 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { getProfile, logout } from "../../api/user";
 import styles from "./ProfilePage.module.css";
 
-const MOCK_PROFILE = {
-    userID: "MADCAMP123",
-    email: "madcamp@example.com",
-    current_language: "English",
-    target_days: 180,
-    studied_days: 10,
-    daily_streak: 5,
-};
-
 function ProfilePage(){
     const navigate = useNavigate();
-    const [profile, setProfile] = useState(MOCK_PROFILE);
+    const [profile, setProfile] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadError, setLoadError] = useState(false);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     useEffect(() => {
@@ -22,9 +15,15 @@ function ProfilePage(){
             .then((data) => {
                 if (typeof data?.userID === "string") {
                     setProfile(data);
+                } else {
+                    setLoadError(true);
                 }
             })
-            .catch((err) => console.error("프로필 조회 실패:", err));
+            .catch((err) => {
+                console.error("프로필 조회 실패:", err);
+                setLoadError(true);
+            })
+            .finally(() => setIsLoading(false));
     }, []);
 
     const handleLogout = async () => {
@@ -32,6 +31,14 @@ function ProfilePage(){
         await logout();
         navigate("/login", { replace: true });
     };
+
+    if (isLoading){
+        return <div className={styles.page}>프로필을 불러오는 중입니다...</div>;
+    }
+
+    if (loadError || !profile){
+        return <div className={styles.page}>프로필을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.</div>;
+    }
 
     const progressPercent = Math.min(
         100,

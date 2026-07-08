@@ -18,25 +18,19 @@ const LANGUAGE_TO_SPEECH_LOCALE = {
 const SpeechRecognitionClass =
     typeof window !== "undefined" ? window.SpeechRecognition || window.webkitSpeechRecognition : null;
 
-// 백엔드 /dialogue, /dialoguelog가 아직 없을 때 화면 확인용으로 쓰는 목업 대화 흐름.
-const MOCK_TURNS = [
-    { content_id: 4321, subject: "Restaurant", flow: "greeting", content: "Welcome to our restaurant. Have you made a reservation?", translation: "저희 식당에 오신 것을 환영합니다. 예약하셨나요?" },
-    { content_id: 4321, subject: "Restaurant", flow: "ordering", content: "Ok, I checked your name. Now, what can I get for you?", translation: "네, 성함 확인했습니다. 무엇을 드릴까요?", feedback: "의미는 통하지만 목적어가 빠졌습니다." },
-    { content_id: 4321, subject: "Restaurant", flow: "recommendation", content: "Great choice! Would you like a drink with that?", translation: "좋은 선택이에요! 음료도 함께 하시겠어요?", feedback: "좋아요, 자연스러운 문장이었어요." },
-    { content_id: 4321, subject: "Restaurant", flow: "closing", content: "Perfect. Your order will be ready shortly. Enjoy your meal!", translation: "완벽해요. 곧 준비해드리겠습니다. 맛있게 드세요!", feedback: "완벽한 문장이에요.", end: true },
-];
-
 function SpeakingPage(){
-    const [dialogue, setDialogue] = useState(MOCK_TURNS[0]);
-    const [messages, setMessages] = useState([{ sender: "ai", text: MOCK_TURNS[0].content, translation: MOCK_TURNS[0].translation }]);
+    const [dialogue, setDialogue] = useState(null);
+    const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
     const [interimText, setInterimText] = useState("");
     const [ended, setEnded] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadError, setLoadError] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState(false);
     const [isRecording, setIsRecording] = useState(false);
     const [speechLocale, setSpeechLocale] = useState("en-US");
     const recognitionRef = useRef(null);
-    const mockStepRef = useRef(0);
     const turnShownAt = useRef(Date.now());
 
     useEffect(() => {
@@ -50,9 +44,18 @@ function SpeakingPage(){
                     setDialogue(data);
                     setMessages([{ sender: "ai", text: data.content, translation: data.translation }]);
                     turnShownAt.current = Date.now();
+                } else {
+                    setLoadError(true);
                 }
             })
-            .catch((err) => console.error("회화 학습 조회 실패:", err));
+            .catch((err) => {
+                if (ignore) return;
+                console.error("회화 학습 조회 실패:", err);
+                setLoadError(true);
+            })
+            .finally(() => {
+                if (!ignore) setIsLoading(false);
+            });
 
         getProfile()
             .then((data) => {
@@ -79,6 +82,7 @@ function SpeakingPage(){
         setMessages((prev) => [...prev, { sender: "user", text: responseText }]);
         setInput("");
         setIsSubmitting(true);
+        setSubmitError(false);
 
         client.post("/dialoguelog", {
             content_id: dialogue.content_id,
@@ -103,18 +107,11 @@ function SpeakingPage(){
                 if (data.end) setEnded(true);
             })
             .catch((err) => {
-                console.error("회화 응답 전송 실패, 목업 대화로 대체:", err);
-                mockStepRef.current = Math.min(mockStepRef.current + 1, MOCK_TURNS.length - 1);
-                const nextTurn = MOCK_TURNS[mockStepRef.current];
-                setMessages((prev) => {
-                    const next = [...prev];
-                    next[next.length - 1] = { ...next[next.length - 1], feedback: nextTurn.feedback };
-                    next.push({ sender: "ai", text: nextTurn.content, translation: nextTurn.translation });
-                    return next;
-                });
-                setDialogue(nextTurn);
-                turnShownAt.current = Date.now();
-                if (nextTurn.end) setEnded(true);
+                console.error("회화 응답 전송 실패:", err);
+                setSubmitError(true);
+                // 실패한 응답은 되돌려서 사용자가 다시 입력해 재전송할 수 있게 한다.
+                setMessages((prev) => prev.slice(0, -1));
+                setInput(responseText);
             })
             .finally(() => setIsSubmitting(false));
     };
@@ -173,6 +170,23 @@ function SpeakingPage(){
     };
 
     const turnCount = messages.filter((m) => m.sender === "user").length;
+
+    if (isLoading){
+        return (
+            <div className={styles.page}>
+                <PageHeader title="Speaking Practice" subtitle="대화를 불러오는 중입니다..." />
+            </div>
+        );
+    }
+
+    if (loadError || !dialogue){
+        return (
+            <div className={styles.page}>
+                <PageHeader title="Speaking Practice" subtitle="회화 콘텐츠를 불러오지 못했습니다" />
+                <p className={styles.placeholder}>잠시 후 다시 시도해주세요.</p>
+            </div>
+        );
+    }
 
     return (
         <div className={styles.page}>
@@ -233,6 +247,11 @@ function SpeakingPage(){
                                 {!SpeechRecognitionClass && (
                                     <p className={styles.interimHint}>
                                         이 브라우저는 음성 인식을 지원하지 않아요. 텍스트로 입력해주세요.
+                                    </p>
+                                )}
+                                {submitError && (
+                                    <p className={styles.errorText}>
+                                        전송에 실패했어요. 다시 시도해주세요.
                                     </p>
                                 )}
                                 <div className={styles.actions}>

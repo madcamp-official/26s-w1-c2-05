@@ -3,15 +3,11 @@ import { useNavigate } from "react-router-dom";
 import client from "../../api/client";
 import styles from "./VocabPage.module.css";
 
-const MOCK_VOCABULARIES = [
-    { number: 1, word: "careless", meaning: "경솔한", example: "Careless people need to think twice before they move on." },
-    { number: 2, word: "restaurant", meaning: "식당", example: "We booked a table at the restaurant." },
-    { number: 3, word: "order", meaning: "주문하다", example: "I'd like to order the pasta, please." },
-];
-
 function VocabPage(){
     const navigate = useNavigate();
-    const [vocabularies, setVocabularies] = useState(MOCK_VOCABULARIES);
+    const [vocabularies, setVocabularies] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [loadError, setLoadError] = useState(false);
 
     useEffect(() => {
         client.get("/vocabulary", { params: { category: "voca" } })
@@ -20,8 +16,20 @@ function VocabPage(){
                     setVocabularies(res.data.vocabularies);
                 }
             })
-            .catch((err) => console.error("단어장 조회 실패:", err));
+            .catch((err) => {
+                console.error("단어장 조회 실패:", err);
+                setLoadError(true);
+            })
+            .finally(() => setIsLoading(false));
     }, []);
+
+    if (isLoading){
+        return <div className={styles.page}>단어장을 불러오는 중입니다...</div>;
+    }
+
+    if (loadError){
+        return <div className={styles.page}>단어장을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.</div>;
+    }
 
     return (
         <div className={styles.page}>
