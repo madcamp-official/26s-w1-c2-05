@@ -11,7 +11,22 @@ const CATEGORY_META = {
     dialogue: { label: "회화", color: "#eb6834", to: "/speaking" },
 };
 
-const TREND_LABELS = ["-7일", "-6일", "-5일", "-4일", "-3일", "-2일", "-1일", "오늘"];
+// 카테고리별 순위를 매길 단일 오답률이 없으므로, error_trend(최근 8일 일별 오답률)의
+// 평균을 근사치로 쓴다.
+function averageErrorRate(values){
+    if (!Array.isArray(values) || values.length === 0) return 0;
+    return Math.round(values.reduce((sum, v) => sum + v, 0) / values.length);
+}
+
+// error_trend 배열은 (오늘 포함) 최근 8일치이므로, 실제 날짜(M/D)로 라벨을 만든다.
+function buildTrendLabels(){
+    const today = new Date();
+    return Array.from({ length: 8 }, (_, i) => {
+        const d = new Date(today);
+        d.setDate(d.getDate() - (7 - i));
+        return `${d.getMonth() + 1}/${d.getDate()}`;
+    });
+}
 
 // 백엔드 /dashboard가 아직 없을 때 화면 확인용으로 쓰는 목업 데이터.
 const MOCK_DASHBOARD = {
@@ -42,10 +57,11 @@ function TrendChart({ errorTrend }){
     const plotHeight = height - marginTop - marginBottom;
     const maxValue = 60;
     const [hoveredIndex, setHoveredIndex] = useState(null);
+    const [trendLabels] = useState(buildTrendLabels);
 
     const categoryKeys = Object.keys(CATEGORY_META).filter((key) => Array.isArray(errorTrend[key]));
 
-    const xAt = (i) => marginLeft + (plotWidth * i) / (TREND_LABELS.length - 1);
+    const xAt = (i) => marginLeft + (plotWidth * i) / (trendLabels.length - 1);
     const yAt = (v) => marginTop + plotHeight * (1 - v / maxValue);
 
     const linePath = (values) => values.map((v, i) => `${i === 0 ? "M" : "L"}${xAt(i)},${yAt(v)}`).join(" ");
@@ -88,12 +104,12 @@ function TrendChart({ errorTrend }){
                     ))
                 )}
 
-                {TREND_LABELS.map((label, i) => (
-                    <g key={label}>
+                {trendLabels.map((label, i) => (
+                    <g key={`${label}-${i}`}>
                         <rect
-                            x={xAt(i) - plotWidth / (TREND_LABELS.length - 1) / 2}
+                            x={xAt(i) - plotWidth / (trendLabels.length - 1) / 2}
                             y={marginTop}
-                            width={plotWidth / (TREND_LABELS.length - 1)}
+                            width={plotWidth / (trendLabels.length - 1)}
                             height={plotHeight}
                             fill="transparent"
                             onMouseEnter={() => setHoveredIndex(i)}
@@ -109,7 +125,7 @@ function TrendChart({ errorTrend }){
                     className={styles.tooltip}
                     style={{ left: `${(xAt(hoveredIndex) / width) * 100}%` }}
                 >
-                    <p className={styles.tooltipDate}>{TREND_LABELS[hoveredIndex]}</p>
+                    <p className={styles.tooltipDate}>{trendLabels[hoveredIndex]}</p>
                     {categoryKeys.map((key) => (
                         <p key={key} className={styles.tooltipRow}>
                             <span className={styles.tooltipDot} style={{ background: CATEGORY_META[key].color }} />
@@ -212,10 +228,12 @@ function DashboardPage(){
                 <div className={styles.statTile}>
                     <p className={styles.statLabel}>취약 영역</p>
                     <p className={styles.statValue}>{dashboard.most_weak}</p>
+                    <p className={styles.statUnit}>이번 주 정답률이 가장 낮은 영역</p>
                 </div>
                 <div className={styles.statTile}>
                     <p className={styles.statLabel}>가장 개선됨</p>
                     <p className={styles.statValue}>{dashboard.most_improved}</p>
+                    <p className={styles.statUnit}>지난주 대비 정답률이 가장 많이 오른 영역</p>
                 </div>
             </div>
 

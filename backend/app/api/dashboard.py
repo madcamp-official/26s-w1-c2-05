@@ -1,3 +1,4 @@
+from collections import Counter
 from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, Depends
@@ -105,7 +106,14 @@ async def get_dashboard(current_user: User = Depends(get_current_user), db: Sess
         if not wrong:
             return f"이번 주 {_CATEGORY_LABELS[key]}에서 틀린 문제가 없었어요. 완벽해요!"
 
-        content_id = max({e.content_id for e in wrong}, key=lambda cid: sum(1 for e in wrong if e.content_id == cid))
+        # 오답 횟수가 아닌 오답률(해당 콘텐츠를 틀린 비율) 기준으로 고른다 —
+        # 자주 풀어서 어쩌다 틀린 것보다, 시도할 때마다 틀리는 콘텐츠가 더 "헷갈리는" 것이다.
+        total_by_content = Counter(e.content_id for e in cat_events)
+        wrong_by_content = Counter(e.content_id for e in wrong)
+        content_id = max(
+            wrong_by_content,
+            key=lambda cid: (wrong_by_content[cid] / total_by_content[cid], wrong_by_content[cid]),
+        )
         if key == "voca":
             word = db.query(Vocabulary.word).filter(Vocabulary.content_id == content_id).scalar()
             return f"이번 주 가장 헷갈려 한 단어는 {word}예요." if word else None

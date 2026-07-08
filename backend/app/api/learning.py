@@ -105,9 +105,15 @@ async def get_dialogue(current_user: User = Depends(get_current_user), db: Sessi
     language = db.query(Language).filter(Language.lang_id == dialogue.lang_id).first()
 
     first_flow = parse_flow_stages(dialogue.flow)[0]
-    content = generate_dialogue_opening_line(db, dialogue, language.language, current_user.user_id)
+    opening = generate_dialogue_opening_line(db, dialogue, language.language, current_user.user_id)
 
-    return {"content_id": dialogue.content_id, "subject": dialogue.subject, "flow": first_flow, "content": content}
+    return {
+        "content_id": dialogue.content_id,
+        "subject": dialogue.subject,
+        "flow": first_flow,
+        "content": opening.content,
+        "translation": opening.translation,
+    }
 
 @router.post("/answerlog")
 async def post_answer(user_answer: AnswerResponse, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
@@ -154,7 +160,8 @@ async def get_more_dialogue(user_answer: DialogueResponse, current_user: User = 
 
     language = db.query(Language).filter(Language.lang_id == dialogue.lang_id).first()
     step = generate_dialogue_step(
-        db, dialogue, language.language, user_answer.flow, user_answer.response, current_user.user_id
+        db, dialogue, language.language, user_answer.flow, user_answer.response, current_user.user_id,
+        history=user_answer.history,
     )
 
     if step.is_end:
@@ -177,5 +184,6 @@ async def get_more_dialogue(user_answer: DialogueResponse, current_user: User = 
         "subject": dialogue.subject,
         "flow": step.flow,
         "content": step.content,
+        "translation": step.translation,
         "feedback": step.feedback,
     }
