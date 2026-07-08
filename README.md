@@ -43,14 +43,19 @@
 
 ### 선택 기능
 
-- []
+- [다크모드]
+- [학습 언어 전환 (여러 언어를 각각 진도 유지하며 학습)]
+- [대시보드 (주간 학습 통계, 취약 카테고리 분석, 오답률 추이 그래프)]
+- [문법 전체 커리큘럼 조회]
+- [Spaced-repetition 기반 복습 문제 출제]
+- [Gemini 기반 AI 회화 상대 및 실시간 피드백]
 
 
 ## IA 및 화면 설계서
 
 > 서비스의 전체 페이지 구조와 페이지 간 이동 흐름; 각 페이지의 주요 UI 구성, 입력 요소, 버튼, 사용자 행동 흐름 등을 간단한 와이어프레임 형태로 정리
 
-<!-- Figma 링크 또는 이미지 첨부 -->
+<img width="1264" alt="IA 구조도" src="docs/ia-map.png" />
 
 ---
 
@@ -72,7 +77,6 @@
 
 ### 공통 사항
 
-- **Base URL:** 로컬 개발 기준 `http://localhost:8000` (별도 prefix 없이 아래 경로가 그대로 붙습니다)
 - **인증 방식:** `POST /auth/login`으로 받은 `access_token`을 이후 요청의 헤더에 `Authorization: Bearer {access_token}`로 실어 보냅니다. 표에 "인증 필요"로 표시된 엔드포인트는 헤더가 없으면 요청 자체가 거부됩니다.
 - **인증 공통 에러**
   - 헤더에 `Authorization`이 아예 없는 경우 → `401 Unauthorized` `{"detail": "Not authenticated"}`
@@ -502,7 +506,17 @@ null
 - **실행 방법:**
 
 ```bash
-# 실행 방법 작성
+# 백엔드
+cd backend
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+# backend/.env 파일에 DATABASE_URL, GEMINI_API_KEY 등 환경변수 설정
+uvicorn app.main:app --reload --port 8000
+
+# 프론트엔드 (별도 터미널)
+cd frontend
+npm install
+npm run dev   # http://localhost:5173 — /auth, /dashboard 등은 vite.config.js 프록시로 localhost:8000에 전달됨
 ```
 
 ---
