@@ -11,6 +11,7 @@ from app.models.language import Language
 from app.models.user import User
 from app.models.eventlog import EventLog
 from app.models.dialogue import Dialogue
+from app.models.grammar import Grammar
 
 from app.utils.security import get_current_user
 from app.utils.learning import (
@@ -92,6 +93,29 @@ async def get_grammar(current_user: User = Depends(get_current_user), db: Sessio
         i += 1
     return {"grammars": refined_grammar_list}
 
+@router.get("/grammar/all")
+async def get_all_grammar(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    # 오늘의 학습(select_grammar_for_today)과 달리 spaced-repetition 선별 없이,
+    # 현재 학습 언어의 전체 문법 개념을 level 순으로 반환한다 (커리큘럼 조회용, 퀴즈 미포함).
+    current_user_lang_id = db.query(LearningProgresses).filter(current_user.current_learning_id == LearningProgresses.learning_id).first().lang_id
+    grammar_list = (
+        db.query(Grammar)
+        .filter(Grammar.lang_id == current_user_lang_id)
+        .order_by(Grammar.level, Grammar.content_id)
+        .all()
+    )
+
+    refined_grammar_list = [
+        {
+            "content_id": grammar.content_id,
+            "level": grammar.level,
+            "subject": grammar.subject,
+            "explanation": grammar.grammar_expl,
+        }
+        for grammar in grammar_list
+    ]
+    return {"grammars": refined_grammar_list}
+
 type_converter = {"flash": 1, "grammar": 2, "dialogue": 3}
 
 @router.get("/dialogue")
@@ -110,13 +134,15 @@ async def get_dialogue(current_user: User = Depends(get_current_user), db: Sessi
     dialogue = dialogue_list[0]
     language = db.query(Language).filter(Language.lang_id == dialogue.lang_id).first()
 
-    first_flow = parse_flow_stages(dialogue.flow)[0]
+    flow_stages = parse_flow_stages(dialogue.flow)
+    first_flow = flow_stages[0]
     opening = generate_dialogue_opening_line(db, dialogue, language.language, current_user.user_id)
 
     return {
         "content_id": dialogue.content_id,
         "subject": dialogue.subject,
         "flow": first_flow,
+        "flow_stages": flow_stages,
         "content": opening.content,
         "translation": opening.translation,
     }
@@ -194,6 +220,7 @@ async def get_more_dialogue(user_answer: DialogueResponse, current_user: User = 
         "end": step.is_end,
         "subject": dialogue.subject,
         "flow": step.flow,
+        "flow_stages": parse_flow_stages(dialogue.flow),
         "content": step.content,
         "translation": step.translation,
         "feedback": step.feedback,

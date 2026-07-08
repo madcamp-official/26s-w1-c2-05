@@ -39,6 +39,13 @@ function GrammarPage(){
     // 학습 여부 표시가 사라지지 않게 한다.
     const [visited, setVisited] = useState(() => new Set([0]));
 
+    // "오늘의 학습"(spaced-repetition으로 선별된 소수) 과 별개로, 전체 문법 커리큘럼을
+    // level 순으로 훑어볼 수 있는 모드. /grammar/all은 첫 전환 시에만 불러온다.
+    const [mode, setMode] = useState("today");
+    const [allGrammars, setAllGrammars] = useState([]);
+    const [allLoaded, setAllLoaded] = useState(false);
+    const [selectedAllIndex, setSelectedAllIndex] = useState(0);
+
     useEffect(() => {
         client.get("/grammar")
             .then((res) => {
@@ -50,7 +57,21 @@ function GrammarPage(){
             .catch((err) => console.error("문법 학습 데이터 조회 실패:", err));
     }, []);
 
-    const selectedConcept = grammars[selectedIndex];
+    useEffect(() => {
+        if (mode !== "all" || allLoaded) return;
+        client.get("/grammar/all")
+            .then((res) => {
+                if (Array.isArray(res.data?.grammars)){
+                    setAllGrammars(res.data.grammars);
+                    setAllLoaded(true);
+                }
+            })
+            .catch((err) => console.error("전체 문법 커리큘럼 조회 실패:", err));
+    }, [mode, allLoaded]);
+
+    const currentList = mode === "today" ? grammars : allGrammars;
+    const currentIndex = mode === "today" ? selectedIndex : selectedAllIndex;
+    const selectedConcept = currentList[currentIndex];
     const { concept, form, exampleMain, exampleTranslation } = parseExplanation(selectedConcept?.explanation);
 
     const handleTakeQuiz = () => {
@@ -66,6 +87,10 @@ function GrammarPage(){
         // 클릭 이벤트 핸들러 안에서만 호출되므로 렌더링과 무관함 (린트 규칙의 오탐).
         // eslint-disable-next-line react-hooks/purity
         conceptShownAt.current = Date.now();
+    };
+
+    const handleSelectAllConcept = (index) => {
+        setSelectedAllIndex(index);
     };
 
     const handleAnswerChange = (quizContentId, value) => {
@@ -92,6 +117,20 @@ function GrammarPage(){
         return (
             <div className={styles.page}>
                 <PageHeader title="문법 학습" subtitle="문법 데이터를 불러오는 중입니다..." />
+                <div className={styles.tabs}>
+                    <button
+                        className={mode === "today" ? `${styles.tab} ${styles.tabActive}` : styles.tab}
+                        onClick={() => setMode("today")}
+                    >
+                        오늘의 학습
+                    </button>
+                    <button
+                        className={mode === "all" ? `${styles.tab} ${styles.tabActive}` : styles.tab}
+                        onClick={() => setMode("all")}
+                    >
+                        전체 커리큘럼
+                    </button>
+                </div>
             </div>
         );
     }
@@ -100,18 +139,34 @@ function GrammarPage(){
         <div className={styles.page}>
             <PageHeader
                 title="문법 학습"
-                subtitle={`단원: ${selectedConcept.subject} · ${selectedIndex + 1}강`}
+                subtitle={
+                    mode === "today"
+                        ? `단원: ${selectedConcept.subject} · ${selectedIndex + 1}강`
+                        : `Lv.${selectedConcept.level} · ${selectedConcept.subject}`
+                }
                 actions={
                     <>
                         <button className={styles.secondaryButton} onClick={() => navigate("/dashboard")}>
                             ← 전체 단원
                         </button>
-                        <button className={styles.primaryInlineButton} onClick={handleTakeQuiz}>
-                            퀴즈 풀기
-                        </button>
                     </>
                 }
             />
+
+            <div className={styles.tabs}>
+                <button
+                    className={mode === "today" ? `${styles.tab} ${styles.tabActive}` : styles.tab}
+                    onClick={() => setMode("today")}
+                >
+                    오늘의 학습
+                </button>
+                <button
+                    className={mode === "all" ? `${styles.tab} ${styles.tabActive}` : styles.tab}
+                    onClick={() => setMode("all")}
+                >
+                    전체 커리큘럼
+                </button>
+            </div>
 
             <div className={styles.body}>
                 <div className={styles.main}>
@@ -137,6 +192,7 @@ function GrammarPage(){
                         )}
                     </div>
 
+                    {Array.isArray(selectedConcept.quiz) && (
                     <div className={styles.exerciseCard} ref={exerciseCardRef}>
                         <h2 className={styles.exerciseTitle}>연습 문제</h2>
                         <p className={styles.exerciseSubtitle}>빈칸에 알맞은 표현을 입력하세요.</p>
@@ -182,10 +238,12 @@ function GrammarPage(){
                             {showAnswers ? "정답 숨기기" : "정답 보기"}
                         </button>
                     </div>
+                    )}
                 </div>
 
                 <div className={styles.sidebar}>
-                    <p className={styles.sidebarTitle}>개념 일람</p>
+                    <p className={styles.sidebarTitle}>{mode === "today" ? "개념 일람" : "전체 커리큘럼"}</p>
+                    {mode === "today" ? (
                     <ul className={styles.conceptList}>
                         {grammars.map((concept, index) => {
                             const isSelected = index === selectedIndex;
@@ -207,6 +265,32 @@ function GrammarPage(){
                             );
                         })}
                     </ul>
+                    ) : (
+                    <ul className={styles.conceptList}>
+                        {allGrammars.map((item, index) => {
+                            const isSelected = index === selectedAllIndex;
+                            const prevLevel = index > 0 ? allGrammars[index - 1].level : null;
+                            const showLevelHeading = item.level !== prevLevel;
+                            return (
+                                <li key={item.content_id}>
+                                    {showLevelHeading && (
+                                        <p className={styles.sidebarGroupLabel}>레벨 {item.level}</p>
+                                    )}
+                                    <button
+                                        className={
+                                            isSelected
+                                                ? `${styles.conceptItem} ${styles.conceptItemActive}`
+                                                : styles.conceptItem
+                                        }
+                                        onClick={() => handleSelectAllConcept(index)}
+                                    >
+                                        {item.subject}
+                                    </button>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    )}
                 </div>
             </div>
         </div>
