@@ -20,6 +20,7 @@ const SpeechRecognitionClass =
 
 function SpeakingPage(){
     const [dialogue, setDialogue] = useState(null);
+    const [flowStages, setFlowStages] = useState([]);
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
     const [interimText, setInterimText] = useState("");
@@ -42,6 +43,7 @@ function SpeakingPage(){
                 const data = res.data;
                 if (data?.content){
                     setDialogue(data);
+                    setFlowStages(Array.isArray(data.flow_stages) ? data.flow_stages : []);
                     setMessages([{ sender: "ai", text: data.content, translation: data.translation }]);
                     turnShownAt.current = Date.now();
                 } else {
@@ -103,6 +105,7 @@ function SpeakingPage(){
                     return next;
                 });
                 setDialogue(data);
+                if (Array.isArray(data.flow_stages)) setFlowStages(data.flow_stages);
                 turnShownAt.current = Date.now();
                 if (data.end) setEnded(true);
             })
@@ -170,6 +173,7 @@ function SpeakingPage(){
     };
 
     const turnCount = messages.filter((m) => m.sender === "user").length;
+    const currentStageIndex = dialogue ? flowStages.indexOf(dialogue.flow) : -1;
 
     if (isLoading){
         return (
@@ -192,8 +196,40 @@ function SpeakingPage(){
         <div className={styles.page}>
             <PageHeader
                 title="Speaking Practice"
-                subtitle={ended ? "대화가 종료되었습니다" : `Topic: ${dialogue.subject} · ${dialogue.flow}`}
+                subtitle={ended ? "대화가 종료되었습니다" : `Topic: ${dialogue.subject}`}
             />
+
+            {flowStages.length > 0 && (
+                <div className={styles.flowProgress}>
+                    {flowStages.map((stage, i) => {
+                        const isDone = ended || i < currentStageIndex;
+                        const isCurrent = !ended && i === currentStageIndex;
+                        return (
+                            <div key={stage} className={styles.flowStep}>
+                                <div className={styles.flowStepHead}>
+                                    <span
+                                        className={
+                                            isDone
+                                                ? `${styles.flowDot} ${styles.flowDotDone}`
+                                                : isCurrent
+                                                    ? `${styles.flowDot} ${styles.flowDotCurrent}`
+                                                    : styles.flowDot
+                                        }
+                                    >
+                                        {isDone ? "✓" : i + 1}
+                                    </span>
+                                    {i < flowStages.length - 1 && (
+                                        <span className={isDone ? `${styles.flowConnector} ${styles.flowConnectorDone}` : styles.flowConnector} />
+                                    )}
+                                </div>
+                                <span className={isCurrent ? `${styles.flowLabel} ${styles.flowLabelCurrent}` : styles.flowLabel}>
+                                    {stage}
+                                </span>
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
 
             <div className={styles.body}>
                 <div className={styles.main}>
@@ -283,10 +319,6 @@ function SpeakingPage(){
                         <div className={styles.infoRow}>
                             <span>Subject</span>
                             <span className={styles.infoValue}>{dialogue.subject}</span>
-                        </div>
-                        <div className={styles.infoRow}>
-                            <span>Flow</span>
-                            <span className={styles.infoValue}>{dialogue.flow}</span>
                         </div>
                         <div className={styles.infoRow}>
                             <span>Turns</span>
