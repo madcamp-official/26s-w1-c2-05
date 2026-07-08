@@ -59,7 +59,7 @@
 > 필요한 테이블, 주요 필드, 데이터 타입, 테이블 간 관계를 정리
 
 <!-- ERD 이미지 또는 테이블 정의 -->
-<img width="1472" height="868" alt="image" src="https://github.com/user-attachments/assets/94a25548-16fb-444a-ae22-8f49691c3edb" />
+[<img width="1472" height="868" alt="image" src="https://github.com/user-attachments/assets/94a25548-16fb-444a-ae22-8f49691c3edb" />](https://d2sqqdb3t4xrq5.cloudfront.net/upload/YxR4m4XjAfBmnvqyk/YjVBVDhMVGRiWlN2WWh0QXhfZ2hxeUN5ZjhpeEhNWnhpU3kucG5n)
 
 
 ---
