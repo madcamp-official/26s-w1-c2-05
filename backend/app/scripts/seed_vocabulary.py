@@ -9,10 +9,11 @@ from pathlib import Path
 from app.database import SessionLocal
 from app.models.content import Content
 from app.models.vocabulary import Vocabulary
-# Content의 relationship()이 문자열로 Grammar/GrammarQuiz를 참조하므로,
+# Content의 relationship()이 문자열로 Grammar/GrammarQuiz/Dialogue를 참조하므로,
 # 매퍼 설정 시점에 registry에 등록돼 있도록 함께 import 해야 한다.
 from app.models.grammar import Grammar  # noqa: F401
 from app.models.grammar_quiz import GrammarQuiz  # noqa: F401
+from app.models.dialogue import Dialogue  # noqa: F401
 
 SEED_DIR = Path(__file__).resolve().parent.parent.parent / "data" / "vocabulary" / "seed"
 VOCAB_CONTENT_TYPE = 1
