@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import client from "../../api/client";
 import { getProfile } from "../../api/user";
 import PageHeader from "../../components/PageHeader";
+import { setLeaveGuard, clearLeaveGuard } from "../../routes/leaveGuard";
 import styles from "./SpeakingPage.module.css";
 
 const LANGUAGE_TO_SPEECH_LOCALE = {
@@ -171,6 +172,28 @@ function SpeakingPage(){
         recognition.start();
         setIsRecording(true);
     };
+
+    // 대화가 시작됐지만 아직 끝나지 않았으면, 사이드바로 다른 페이지로 이동할 때
+    // 확인을 받는다(새로고침/탭 닫기는 beforeunload로 별도 처리). 끝났거나 페이지를
+    // 벗어나면(언마운트) 가드를 반드시 해제해야 다른 페이지 이동이 막히지 않는다.
+    useEffect(() => {
+        if (dialogue && !ended){
+            setLeaveGuard("대화가 아직 끝나지 않았습니다. 지금 나가면 현재 대화 내용이 사라집니다. 이동하시겠습니까?");
+        } else {
+            clearLeaveGuard();
+        }
+        return clearLeaveGuard;
+    }, [dialogue, ended]);
+
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            if (!dialogue || ended) return;
+            e.preventDefault();
+            e.returnValue = "";
+        };
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+    }, [dialogue, ended]);
 
     const turnCount = messages.filter((m) => m.sender === "user").length;
     const currentStageIndex = dialogue ? flowStages.indexOf(dialogue.flow) : -1;
