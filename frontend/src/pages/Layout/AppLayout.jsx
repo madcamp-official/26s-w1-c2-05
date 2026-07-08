@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import ThemeToggle from "../../theme/ThemeToggle";
+import { confirmLeave } from "../../routes/leaveGuard";
 import "./AppLayout.css";
 
 const NAV_ITEMS = [
@@ -19,7 +20,6 @@ function AppLayout(){
                     <p className="app-sidebar-logo">LinguaAI</p>
                     <ThemeToggle />
                 </div>
-                <p className="app-sidebar-tagline">AI 학습 도우미</p>
 
                 <nav className="app-nav">
                     {NAV_ITEMS.map((item) => (
@@ -29,6 +29,9 @@ function AppLayout(){
                             className={({ isActive }) =>
                                 isActive ? "app-nav-item app-nav-item-active" : "app-nav-item"
                             }
+                            onClick={(e) => {
+                                if (!confirmLeave()) e.preventDefault();
+                            }}
                         >
                             {item.label}
                         </NavLink>
