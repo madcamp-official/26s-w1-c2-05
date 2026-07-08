@@ -67,22 +67,431 @@
 ## API 문서
 
 > API 주소, 요청 방식, 요청값, 응답값, 에러 상황을 정리
+>
+> 아래 명세는 실제 실행 중인 백엔드(로컬 테스트 DB 기준)에 대해 각 엔드포인트를 직접 호출해 응답을 확인한 뒤 작성했습니다.
 
-| Method | Endpoint | 설명 | 요청 | 응답 |
-|---|---|---|---|---|
-| POST | /auth/signup | 회원가입 | JSON {"username": "madcamp", "email": "madcamp@gmail.com", "password": "123456", "pw_repeat": "123456"} | 200 OK {"user_id": "madcamp", "email": "madcamp@gmail.com", "nickname": "The curiositarian", "profile_img": null, "current_learning_id": null} 400 Bad Request {"detail": "이미 가입된 이메일입니다."} {"detail": "중복된 ID입니다."} {"detail": "비밀번호와 비밀번호 확인 문자가 같은지 확인해주세요."} {"detail": "비밀번호는 숫자와 문자로 구성되고 8자리 이상이어야 합니다."}|
-|POST|/auth/login|로그인|JSON {"id": "madcamp", "password": "123456"}|200 OK {"access_token": "...", "refresh_token": "...", "token_type": "bearer", "SurveyCompleted": true} 401 Unauthorized {"detail": "Incorrect id or password"}|
-|POST|/auth/logout|로그아웃|JSON {"refresh_token": "..."}|200 OK {"message": "로그아웃 하였습니다."} 400 Bad Request {"detail": "Invalid refresh-token."}|
-|POST|/refresh|엑세스토큰 재발급|JSON {"refresh_token": "..."}|200 OK {"access_token": "...", "type": "bearer"} 401 UNAUTHORIZED {"detail": "Refresh-token이 만료되었거나 유효하지 않습니다."} {"detail": "사용자를 찾을 수 없습니다."}|
-|POST|/onboarding|최초 설문조사|Header: Authorization: Bearer {access_token} / JSON {"language": 1, "level": "B1", "StudyGoal": 90}|200 OK {"detail": "다 되었습니다! 이제 메인화면으로 이동합니다.", "userInfo": {"userID": "MADCAMP123", "DailyStreak": 0}} 400 Bad Request {"detail": "올바르지 않은 응답입니다."}|
-|GET|/users/me|본인 프로필 조회|Header: Authorization: Bearer {access_token}|200 OK {"userID": "MADCAMP123", "email": "madcamp@example.com", "current_language": "English", "target_days": 180, "studied_days": 10, "daily_streak": 5}|
-|GET|/vocabulary|단어장으로 이동|Header: Authorization: Bearer {access_token}|200 OK {"vocabularies": [{"number": 1,  "word": "careless", "meaning": "경솔한", "example": "Careless people need to think twice before they move on."}]}|
-|GET|/flashcard|플래시카드로 이동|JSON {"user_id": "MADCAMP123", "category": "flash"}|200 OK {"vocabularies": [{"number": 1, "content_id": 4321, "language": "Spanish", "word": "careless", "meaning": "경솔한", "choices": ["choice1", "choice2", "choice3", "choice4"], answer: "choice3"}]}|
-|POST|/answerlog|응답 결과를 전송|JSON {"user_id": "MADCAMP123", "content_id": 4321, "type": "flash", "response_time": 5.2324242s, "is_correct": true, "time": 2023-07-04T14:30:00Z}|204 No Content|
-|GET|/grammar|문법학습으로 이동||200 OK {"grammars": [{"numbers": 1, "content_id": 4321, "subject": "...", "explanatation": "...", "quiz": [{"quiz": "...", "quiz_content_id": 54321, "answer": "..."}]}]}|
-|GET|/dialogue|회화학습으로 이동||200 OK {"content_id": 4321, "subject": "Restaurant", "flow": "Greeting", "content": "Welcome to our restaurant. Have you made a reservation?"}|
-|POST|/dialoguelog|회화 응답을 전송|JSON {"content_id": 4321, "flow": "greeting", "response": "Yes, I've made with the name Alice."}|200 OK {"content_id": 4321, "end" = false, "subject": "Restaurant", "flow": "ordering", "content": "Ok, I checked your name. Now, what can I get for you?" "feedback": "의미는 통하지만 목적어가 빠졌습니다."}|
-|GET|/dashboard|본인의 학습 상태와 취약점 요청||200 OK {"language": "Spanish", "daily_streak": 10, "language_total": 312, "accuracy_rate": 78, "most_weak": "회화", "most_improved": "단어", "feedback_voca": "이번 주 가장 헷갈려 한 단어는 instinct에요.", "feedback_grammar": "가장 많이 헷갈려하는 부분은 현재분사와 과거분사 구분이에요", "feedback_dialogue": "error_trend": {"voca": [20, 19, 18, 18, 19, 18, 16, 16], "grammar": [20, 19, 18, 18, 19, 18, 16, 16], "dialogue": [20, 19, 18, 18, 19, 18, 16, 16]}}|
+### 공통 사항
+
+- **Base URL:** 로컬 개발 기준 `http://localhost:8000` (별도 prefix 없이 아래 경로가 그대로 붙습니다)
+- **인증 방식:** `POST /auth/login`으로 받은 `access_token`을 이후 요청의 헤더에 `Authorization: Bearer {access_token}`로 실어 보냅니다. 표에 "인증 필요"로 표시된 엔드포인트는 헤더가 없으면 요청 자체가 거부됩니다.
+- **인증 공통 에러**
+  - 헤더에 `Authorization`이 아예 없는 경우 → `401 Unauthorized` `{"detail": "Not authenticated"}`
+  - 토큰이 있지만 만료·위조되었거나 토큰의 사용자가 존재하지 않는 경우 → `401 Unauthorized` `{"detail": "인증 정보를 확인할 수 없습니다"}` (헤더 `WWW-Authenticate: Bearer` 포함)
+- **언어 코드(`lang_id`):** `languages` 테이블 시딩값 기준 1=English, 2=Japanese, 3=Chinese, 4=Spanish, 5=French, 6=German, 7=Italian, 8=Vietnamese (프론트 `frontend/src/pages/Onboarding/data/languages.js`와 순서 동일)
+- **레벨 코드:** `A1`(1) · `A2`(2) · `B1`(3) · `B2`(4) · `C1`(5) · `C2`(6)
+
+---
+
+### 인증 (`app/api/auth.py`)
+
+| Method | Endpoint | 설명 | 인증 필요 |
+|---|---|---|:---:|
+| POST | `/auth/signup` | 회원가입 | ✗ |
+| POST | `/auth/login` | 로그인, access/refresh 토큰 발급 | ✗ |
+| POST | `/auth/refresh` | refresh token으로 access token 재발급 | ✗ |
+| POST | `/auth/logout` | 서버에 저장된 refresh token 폐기 | ✗ |
+
+<details>
+<summary>POST /auth/signup</summary>
+
+요청
+```json
+{ "username": "madcamp", "email": "madcamp@gmail.com", "password": "abcd1234", "pw_repeat": "abcd1234" }
+```
+비밀번호는 8자 이상이면서 숫자·문자를 모두 포함해야 합니다.
+
+응답
+```
+200 OK
+{ "user_id": "madcamp", "email": "madcamp@gmail.com", "nickname": "The curiositarian", "profile_img": null, "current_learning_id": null }
+
+400 Bad Request
+{ "detail": "이미 가입된 이메일입니다." }
+{ "detail": "중복된 ID입니다." }
+{ "detail": "비밀번호와 비밀번호 확인 문자가 같은지 확인해주세요." }
+{ "detail": "비밀번호는 숫자와 문자로 구성되고 8자리 이상이어야 합니다." }
+```
+</details>
+
+<details>
+<summary>POST /auth/login</summary>
+
+요청
+```json
+{ "id": "madcamp", "password": "abcd1234" }
+```
+
+응답
+```
+200 OK
+{ "access_token": "...", "refresh_token": "...", "token_type": "bearer", "SurveyCompleted": true }
+```
+`SurveyCompleted`는 `current_learning_id`(= 온보딩 완료 여부)를 기준으로 계산되며, 프론트가 로그인 직후 `/onboarding`으로 보낼지 `/dashboard`로 보낼지 판단하는 데 씁니다.
+```
+401 Unauthorized
+{ "detail": "Incorrect id or password" }
+```
+</details>
+
+<details>
+<summary>POST /auth/refresh</summary>
+
+요청
+```json
+{ "refresh_token": "..." }
+```
+
+응답
+```
+200 OK
+{ "access_token": "...", "token_type": "bearer" }
+
+401 Unauthorized
+{ "detail": "Invalid refresh-token." }                        // DB에 없는(이미 로그아웃된 포함) 토큰
+{ "detail": "Refresh-token이 만료되었거나 유효하지 않습니다." }   // JWT 자체가 만료/위조
+{ "detail": "사용자를 찾을 수 없습니다." }
+```
+</details>
+
+<details>
+<summary>POST /auth/logout</summary>
+
+요청
+```json
+{ "refresh_token": "..." }
+```
+
+응답
+```
+200 OK
+{ "message": "로그아웃 하였습니다." }
+
+400 Bad Request
+{ "detail": "Invalid refresh-token." }   // 이미 로그아웃되었거나 존재하지 않는 토큰
+```
+</details>
+
+---
+
+### 온보딩 & 프로필 (`app/api/onboarding.py`, `app/api/me.py`)
+
+| Method | Endpoint | 설명 | 인증 필요 |
+|---|---|---|:---:|
+| POST | `/onboarding` | 최초 설문조사(학습 언어/레벨/목표 기간) 등록 | ✓ |
+| GET | `/users/me` | 본인 프로필 + 현재 학습 언어 진도 조회 | ✓ |
+| GET | `/me/languages` | 지원하는 8개 언어 전체와, 언어별 학습 이력/현재 학습 여부 조회 | ✓ |
+| POST | `/me/language` | 학습 언어 전환(이미 학습한 언어면 진도 유지, 처음이면 새로 시작) | ✓ |
+
+<details>
+<summary>POST /onboarding</summary>
+
+**한 계정당 한 번만 성공합니다.** 이미 `current_learning_id`가 설정된 사용자가 다시 호출하면 언어·레벨 값과 무관하게 400이 반환됩니다 — 학습 언어를 바꾸고 싶을 때는 `/me/language`를 사용하세요.
+
+요청 (헤더: `Authorization: Bearer {access_token}`)
+```json
+{ "language": 1, "level": "B1", "StudyGoal": 90 }
+```
+- `language`: 1~8
+- `level`: `A1`~`C2`
+- `StudyGoal`: 1~365 (일)
+
+응답
+```
+200 OK
+{ "detail": "다 되었습니다! 이제 메인화면으로 이동합니다.", "userInfo": { "userID": "madcamp", "DailyStreak": 0 } }
+
+400 Bad Request
+{ "detail": "올바르지 않은 응답입니다" }   // 값 범위 벗어남, 또는 이미 온보딩을 완료한 사용자
+```
+</details>
+
+<details>
+<summary>GET /users/me</summary>
+
+응답
+```
+200 OK
+{
+  "userID": "madcamp",
+  "email": "madcamp@example.com",
+  "current_language": "English",
+  "target_days": 90,
+  "studied_days": 10,
+  "daily_streak": 5
+}
+```
+</details>
+
+<details>
+<summary>GET /me/languages</summary>
+
+프로필 화면의 "학습 언어 변경" 모달이 사용합니다. 항목 순서는 `lang_id` 오름차순(1~8) 고정입니다.
+
+응답
+```
+200 OK
+[
+  { "lang_id": 1, "language": "English", "in_progress": true, "is_current": true, "current_level": "B1", "studied_days": 12 },
+  { "lang_id": 2, "language": "Japanese", "in_progress": false, "is_current": false, "current_level": null, "studied_days": null },
+  ...
+]
+```
+- `in_progress`: 이 사용자가 해당 언어로 학습을 시작한 적이 있는지 (LearningProgresses row 존재 여부)
+- `is_current`: 지금 활성화된 학습 언어인지
+- `current_level` / `studied_days`: `in_progress`가 `false`면 항상 `null`
+</details>
+
+<details>
+<summary>POST /me/language</summary>
+
+요청 (헤더: `Authorization: Bearer {access_token}`)
+```json
+{ "language": 8 }
+```
+이미 학습 이력이 있는 언어(`in_progress: true`)로 전환할 때는 `language`만 보내면 됩니다 — 기존 레벨/목표 기간/연속 학습일 등 진도가 그대로 이어집니다.
+
+처음 시작하는 언어라면 `level`, `StudyGoal`을 함께 보내야 합니다 (온보딩과 동일한 규칙):
+```json
+{ "language": 8, "level": "A1", "StudyGoal": 30 }
+```
+
+응답
+```
+200 OK
+{ "detail": "학습 언어가 전환되었습니다.", "current_language": "Vietnamese" }
+
+400 Bad Request
+{ "detail": "올바르지 않은 언어입니다" }                                  // language가 1~8 범위 밖
+{ "detail": "처음 시작하는 언어는 레벨과 목표 기간을 함께 보내야 합니다" }   // 새 언어인데 level/StudyGoal 누락 또는 범위 밖
+```
+</details>
+
+---
+
+### 학습 콘텐츠 (`app/api/vocabulary.py`, `app/api/learning.py`)
+
+모든 학습 콘텐츠 조회는 로그인한 사용자의 `current_learning_id`(= 현재 학습 언어)를 기준으로 응답이 결정됩니다.
+
+| Method | Endpoint | 설명 | 인증 필요 |
+|---|---|---|:---:|
+| GET | `/vocabulary` | 단어장(오늘 학습할 단어, spaced-repetition 20개) | ✓ |
+| GET | `/flashcard` | 플래시카드(단어 20개 + 오답 선택지 3개씩) | ✓ |
+| GET | `/grammar` | 오늘의 문법 학습(spaced-repetition 3개 + 각 개념별 퀴즈) | ✓ |
+| GET | `/grammar/all` | 전체 문법 커리큘럼(레벨순, 퀴즈 미포함) | ✓ |
+| POST | `/answerlog` | 단어/문법 문제 풀이 결과 기록 | ✓ |
+
+<details>
+<summary>GET /vocabulary</summary>
+
+응답
+```
+200 OK
+{
+  "vocabularies": [
+    { "number": 1, "content_id": 46, "word": "begin", "meaning": "시작하다", "example": "The class will begin at nine." }
+  ]
+}
+```
+</details>
+
+<details>
+<summary>GET /flashcard</summary>
+
+응답
+```
+200 OK
+{
+  "vocabularies": [
+    {
+      "number": 1,
+      "content_id": 46,
+      "language": "English",
+      "word": "begin",
+      "choices": ["걱정하는", "시작하다", "순조로운", "장소, 곳"],
+      "answer": 2
+    }
+  ]
+}
+```
+`answer`는 정답이 `choices` 배열에서 몇 번째(1-base)인지를 가리키는 인덱스입니다.
+</details>
+
+<details>
+<summary>GET /grammar</summary>
+
+응답
+```
+200 OK
+{
+  "grammars": [
+    {
+      "number": 1,
+      "content_id": 8,
+      "subject": "be동사 과거",
+      "explanation": "was, were, is 형태: ... 예문: ...",
+      "quiz": [
+        { "quiz": "She _____ a professor once upon a time.", "quiz_content_id": 11, "answer": "was" }
+      ]
+    }
+  ]
+}
+```
+</details>
+
+<details>
+<summary>GET /grammar/all</summary>
+
+학습 진도 알고리즘을 거치지 않고 현재 학습 언어의 전체 문법 개념을 `level` 오름차순으로 반환합니다. 퀴즈는 포함하지 않습니다 (프론트의 "전체 커리큘럼" 탭용).
+
+응답
+```
+200 OK
+{
+  "grammars": [
+    { "content_id": 6, "level": 1, "subject": "be동사", "explanation": "am are is 형태: ... 예문: ..." },
+    { "content_id": 7, "level": 1, "subject": "일반동사", "explanation": "..." }
+  ]
+}
+```
+</details>
+
+<details>
+<summary>POST /answerlog</summary>
+
+요청
+```json
+{
+  "content_id": 4321,
+  "type": "grammar",
+  "response_time": 5.23,
+  "is_correct": true,
+  "time": "2026-07-08T14:30:00Z"
+}
+```
+- `type`: `"flash"`(단어/플래시카드) · `"grammar"`(문법) 중 하나. `content_id`는 각각 `/flashcard`·`/grammar`가 내려준 `content_id`(단어) 또는 `quiz_content_id`(문법)를 그대로 돌려보냅니다.
+
+응답
+```
+200 OK
+null
+
+400 Bad Request
+{ "detail": "잘못된 접근: 학습 type이 맞지 않습니다." }
+```
+</details>
+
+---
+
+### 회화 (`app/api/learning.py`, 내부적으로 `app/api/gemini.py`가 Gemini로 문장을 생성)
+
+| Method | Endpoint | 설명 | 인증 필요 |
+|---|---|---|:---:|
+| GET | `/dialogue` | 오늘의 회화 주제 + 시작 문장 생성 | ✓ |
+| POST | `/dialoguelog` | 사용자 응답 전송, 다음 대화 턴 + 피드백 생성 | ✓ |
+
+<details>
+<summary>GET /dialogue</summary>
+
+응답
+```
+200 OK
+{
+  "content_id": 3881,
+  "subject": "호텔 체크인하기",
+  "flow": "greeting",
+  "flow_stages": ["greeting", "reservation_check", "room_preference", "payment", "key_handoff", "closing"],
+  "content": "Welcome to our hotel! Are you here to check in today?",
+  "translation": "저희 호텔에 오신 것을 환영합니다! 오늘 체크인하시러 오셨나요?"
+}
+
+404 Not Found
+{ "detail": "학습할 수 있는 회화 콘텐츠가 없습니다." }
+```
+`flow_stages`는 이 대화 주제 전체의 단계 목록이고, `flow`는 그중 현재 단계입니다. 프론트는 이 값으로 상단 진행 단계 표시줄을 그립니다.
+</details>
+
+<details>
+<summary>POST /dialoguelog</summary>
+
+요청
+```json
+{
+  "content_id": 3881,
+  "flow": "greeting",
+  "response": "Yes, I have a reservation under the name Alice.",
+  "response_time": 4.5,
+  "time": "2026-07-08T14:30:00Z",
+  "history": [
+    { "role": "ai", "content": "Welcome to our hotel! Are you here to check in today?" },
+    { "role": "user", "content": "Yes, I have a reservation under the name Alice." }
+  ]
+}
+```
+`history`는 이번 응답 이전까지의 전체 대화입니다. 서버가 턴 단위 대화를 저장하지 않으므로, LLM이 문맥(예: 이미 말한 이름을 또 묻는 등)을 잃지 않도록 매 요청마다 프론트가 함께 보냅니다.
+
+응답
+```
+200 OK
+{
+  "content_id": 3881,
+  "end": false,
+  "subject": "호텔 체크인하기",
+  "flow": "reservation_check",
+  "flow_stages": ["greeting", "reservation_check", "room_preference", "payment", "key_handoff", "closing"],
+  "content": "Great, let me check that for you. Could you spell your last name, please?",
+  "translation": "네, 확인해 드릴게요. 성함 스펠링을 말씀해주시겠어요?",
+  "feedback": "문법적으로 완벽하며 상대방에게 본인의 신원을 밝히는 적절한 인사입니다."
+}
+
+400 Bad Request
+{ "detail": "잘못된 접근: flow가 해당 회화 콘텐츠의 흐름에 속하지 않습니다." }
+
+404 Not Found
+{ "detail": "회화 콘텐츠를 찾을 수 없습니다." }
+```
+`end: true`가 내려오면 해당 대화가 마지막 단계까지 끝난 것이며, 서버가 자동으로 `event_logs`에 학습 기록을 남깁니다(별도로 `/answerlog`를 호출할 필요 없음).
+</details>
+
+---
+
+### 대시보드 (`app/api/dashboard.py`)
+
+| Method | Endpoint | 설명 | 인증 필요 |
+|---|---|---|:---:|
+| GET | `/dashboard` | 현재 학습 언어의 이번 주 학습 현황·취약점 분석 | ✓ |
+
+<details>
+<summary>GET /dashboard</summary>
+
+응답
+```
+200 OK
+{
+  "language": "English",
+  "daily_streak": 5,
+  "language_total": 312,
+  "accuracy_rate": 78,
+  "most_weak": "회화",
+  "most_improved": "단어",
+  "feedback_voca": "이번 주 가장 헷갈려 한 단어는 instinct예요.",
+  "feedback_grammar": "가장 많이 헷갈려하는 부분은 현재분사와 과거분사 구분이에요.",
+  "feedback_dialogue": "이번 주 회화 학습 기록이 없어요. 학습을 시작해보세요!",
+  "error_trend": {
+    "voca": [20, 19, 18, 18, 19, 18, 16, 16],
+    "grammar": [20, 19, 18, 18, 19, 18, 16, 16],
+    "dialogue": [20, 19, 18, 18, 19, 18, 16, 16]
+  },
+  "today_activity": {
+    "voca": { "count": 0, "goal": 20 },
+    "grammar": { "count": 1, "goal": 3 },
+    "dialogue": { "count": 0, "goal": 1 }
+  }
+}
+```
+- `error_trend`는 오늘을 포함한 최근 8일의 카테고리별 오답률(%) 추이입니다. 해당 날짜에 기록이 없으면 그 전날 값을 그대로 이어씁니다(그래프가 0으로 끊겨 보이지 않도록).
+- `most_weak` / `most_improved`와 각 `feedback_*`는 이번 주 학습 기록이 전혀 없는 카테고리라면 오해를 막기 위해 `null` 대신 "기록이 없다"는 안내 문장을 내려줍니다.
+- `today_activity.goal`은 카테고리별 "오늘의 학습" 목표 개수로, 각 GET 엔드포인트(`/vocabulary`,`/grammar`,`/dialogue`)가 실제로 내려주는 콘텐츠 개수와 항상 일치합니다.
+</details>
 ---
 
 ## 배포 결과물
