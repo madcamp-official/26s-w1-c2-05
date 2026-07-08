@@ -22,7 +22,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://linguaai.madcamp-kaist.org"],
+    allow_origins=["https://languaai.madcamp-kaist.org"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
