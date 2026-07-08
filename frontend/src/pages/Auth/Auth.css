@@ -2,8 +2,8 @@
   display: flex;
   min-height: 100vh;
   font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-  color: #08060d;
-  background: #fff;
+  color: var(--text-h);
+  background: var(--page-surface);
   text-align: left;
   justify-content: center;
 }
@@ -26,7 +26,7 @@
 }
 
 .auth-tagline {
-  color: #6b6375;
+  color: var(--text);
   margin: 6px 0 40px;
   font-size: 14px;
 }
@@ -53,13 +53,13 @@
   padding: 12px 14px;
   font-family: inherit;
   font-size: 14px;
-  border: 1px solid #08060d;
-  background: #fff;
-  color: #08060d;
+  border: 1px solid var(--text-h);
+  background: var(--page-surface);
+  color: var(--text-h);
 }
 
 .auth-field input::placeholder {
-  color: #b3b0b8;
+  color: var(--page-placeholder);
 }
 
 .auth-field input:focus {
@@ -84,7 +84,7 @@
 }
 
 .auth-row a {
-  color: #08060d;
+  color: var(--text-h);
   text-decoration: underline;
   cursor: pointer;
 }
@@ -93,23 +93,24 @@
   width: 100%;
   padding: 14px;
   margin-top: 8px;
-  background: #08060d;
-  color: #fff;
-  border: 1px solid #08060d;
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
+  border: 1px solid var(--page-invert-bg);
   font-family: inherit;
   font-size: 14px;
   cursor: pointer;
 }
 
 .auth-submit:hover {
-  background: #2a2733;
+  background: var(--page-invert-bg-hover);
+  border-color: var(--page-invert-bg-hover);
 }
 
 .auth-divider {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #b3b0b8;
+  color: var(--page-placeholder);
   font-size: 12px;
   margin: 24px 0;
 }
@@ -118,33 +119,33 @@
 .auth-divider::after {
   content: "";
   flex: 1;
-  border-top: 1px solid #e5e4e7;
+  border-top: 1px solid var(--border);
 }
 
 .auth-google {
   width: 100%;
   padding: 12px;
-  background: #fff;
-  color: #08060d;
-  border: 1px solid #e5e4e7;
+  background: var(--page-surface);
+  color: var(--text-h);
+  border: 1px solid var(--border);
   font-family: inherit;
   font-size: 14px;
   cursor: pointer;
 }
 
 .auth-google:hover {
-  border-color: #08060d;
+  border-color: var(--text-h);
 }
 
 .auth-switch {
   text-align: center;
   margin-top: 28px;
   font-size: 14px;
-  color: #6b6375;
+  color: var(--text);
 }
 
 .auth-switch a {
-  color: #08060d;
+  color: var(--text-h);
   text-decoration: underline;
   cursor: pointer;
 }

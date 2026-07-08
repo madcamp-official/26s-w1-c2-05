@@ -1,11 +1,11 @@
 .page {
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: #1a1a1a;
+  color: var(--page-text);
 }
 
 .loadingText {
   font-size: 14px;
-  color: #999;
+  color: var(--page-text-muted);
 }
 
 .statGrid {
@@ -16,10 +16,10 @@
 }
 
 .statTile {
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--page-border);
   border-radius: 10px;
   padding: 18px 20px;
-  background: #fff;
+  background: var(--page-surface);
   box-sizing: border-box;
 }
 
@@ -27,7 +27,7 @@
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: #666;
+  color: var(--page-text-secondary);
   margin: 0 0 8px;
   text-transform: uppercase;
 }
@@ -41,21 +41,21 @@
 .statValueEmpty {
   font-size: 14px;
   font-weight: 400;
-  color: #999;
+  color: var(--page-text-muted);
   margin: 0;
 }
 
 .statUnit {
   font-size: 12px;
-  color: #999;
+  color: var(--page-text-muted);
   margin: 4px 0 0;
 }
 
 .card {
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--page-border);
   border-radius: 10px;
   padding: 24px;
-  background: #fff;
+  background: var(--page-surface);
   box-sizing: border-box;
 }
 
@@ -63,7 +63,7 @@
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: #666;
+  color: var(--page-text-secondary);
   margin: 0 0 16px;
   text-transform: uppercase;
 }
@@ -87,7 +87,7 @@
 
 .sectionSubtitle {
   font-size: 13px;
-  color: #888;
+  color: var(--page-text-muted);
   margin: 0;
 }
 
@@ -98,30 +98,30 @@
 
 .secondaryButton {
   padding: 10px 20px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--page-border-strong);
   border-radius: 6px;
-  background: #fff;
-  color: #1a1a1a;
+  background: var(--page-surface);
+  color: var(--page-text);
   font-size: 14px;
   cursor: pointer;
 }
 
 .secondaryButton:hover:not(:disabled) {
-  border-color: #999;
+  border-color: var(--page-text-muted);
 }
 
 .primaryInlineButton {
   padding: 10px 20px;
   border: none;
   border-radius: 6px;
-  background: #1a1a1a;
-  color: #fff;
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
   font-size: 14px;
   cursor: pointer;
 }
 
 .primaryInlineButton:disabled {
-  background: #ccc;
+  background: var(--page-border-strong);
   cursor: not-allowed;
 }
 
@@ -133,7 +133,7 @@
 
 .todayEmpty {
   font-size: 13px;
-  color: #999;
+  color: var(--page-text-muted);
   margin: 0;
 }
 
@@ -152,12 +152,12 @@
 
 .todayActivityLabel {
   font-size: 13px;
-  color: #666;
+  color: var(--page-text-secondary);
 }
 
 .todayActivityBarTrack {
   height: 8px;
-  background: #eee;
+  background: var(--page-surface-hover);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -176,7 +176,7 @@
 
 .todayActivityTotal {
   font-size: 12px;
-  color: #999;
+  color: var(--page-text-muted);
   margin: 4px 0 0;
 }
 
@@ -195,7 +195,7 @@
   display: flex;
   gap: 16px;
   padding: 18px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--page-border);
   border-radius: 8px;
 }
 
@@ -204,8 +204,8 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #f0f0f0;
-  color: #1a1a1a;
+  background: var(--page-surface-hover);
+  color: var(--page-text);
   font-weight: 700;
   font-size: 13px;
   display: flex;
@@ -235,13 +235,13 @@
   font-size: 12px;
   padding: 3px 10px;
   border-radius: 999px;
-  background: #f0f0f0;
-  color: #666;
+  background: var(--page-surface-hover);
+  color: var(--page-text-secondary);
 }
 
 .weaknessBar {
   height: 6px;
-  background: #eee;
+  background: var(--page-surface-hover);
   border-radius: 3px;
   overflow: hidden;
   margin-bottom: 8px;
@@ -253,30 +253,30 @@
 
 .weaknessMeta {
   font-size: 12px;
-  color: #999;
+  color: var(--page-text-muted);
   margin: 0 0 8px;
 }
 
 .weaknessDescription {
   font-size: 13px;
-  color: #444;
+  color: var(--page-text-secondary);
   line-height: 1.5;
   margin: 0 0 12px;
 }
 
 .ctaButton {
   padding: 8px 16px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--page-border-strong);
   border-radius: 6px;
-  background: #fff;
-  color: #1a1a1a;
+  background: var(--page-surface);
+  color: var(--page-text);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
 }
 
 .ctaButton:hover {
-  border-color: #999;
+  border-color: var(--page-text-muted);
 }
 
 /* Error trend chart */
@@ -293,17 +293,17 @@
 }
 
 .gridline {
-  stroke: #e5e5e5;
+  stroke: var(--page-border);
   stroke-width: 1;
 }
 
 .axisLabel {
   font-size: 10px;
-  fill: #999;
+  fill: var(--page-text-muted);
 }
 
 .crosshair {
-  stroke: #ccc;
+  stroke: var(--page-border-strong);
   stroke-width: 1;
   stroke-dasharray: 3 3;
 }
@@ -312,8 +312,8 @@
   position: absolute;
   top: 0;
   transform: translateX(-50%);
-  background: #1a1a1a;
-  color: #fff;
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
   border-radius: 6px;
   padding: 8px 12px;
   font-size: 12px;
@@ -325,7 +325,8 @@
 .tooltipDate {
   margin: 0 0 4px;
   font-weight: 700;
-  color: #ccc;
+  color: var(--page-invert-text);
+  opacity: 0.8;
 }
 
 .tooltipRow {
@@ -354,7 +355,7 @@
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  color: #666;
+  color: var(--page-text-secondary);
 }
 
 .legendDot {

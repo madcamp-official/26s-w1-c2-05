@@ -1,6 +1,6 @@
 .page {
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: #1a1a1a;
+  color: var(--page-text);
 }
 
 .title {
@@ -11,7 +11,7 @@
 
 .subtitle {
   font-size: 14px;
-  color: #888;
+  color: var(--page-text-muted);
   margin: 0;
 }
 
@@ -34,19 +34,19 @@
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--page-border);
   border-radius: 999px;
-  background: #fafafa;
+  background: var(--page-surface-muted);
   font-size: 14px;
   font-variant-numeric: tabular-nums;
-  color: #1a1a1a;
+  color: var(--page-text);
 }
 
 .timerDot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #2e7d32;
+  background: var(--page-success);
   animation: timerPulse 1.4s ease-in-out infinite;
 }
 
@@ -54,7 +54,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #ccc;
+  background: var(--page-border-strong);
 }
 
 @keyframes timerPulse {
@@ -64,27 +64,27 @@
 
 .pauseButton {
   padding: 8px 18px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--page-border-strong);
   border-radius: 999px;
-  background: #fff;
-  color: #1a1a1a;
+  background: var(--page-surface);
+  color: var(--page-text);
   font-size: 14px;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .pauseButton:hover {
-  border-color: #999;
+  border-color: var(--page-text-muted);
 }
 
 .pauseButtonActive {
-  background: #1a1a1a;
-  color: #fff;
-  border-color: #1a1a1a;
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
+  border-color: var(--page-invert-bg);
 }
 
 .pauseButtonActive:hover {
-  border-color: #1a1a1a;
+  border-color: var(--page-invert-bg);
 }
 
 .resetButton {
@@ -100,7 +100,7 @@
 
 .progressBar {
   height: 4px;
-  background: #e5e5e5;
+  background: var(--page-border);
   border-radius: 2px;
   overflow: hidden;
   margin-bottom: 32px;
@@ -108,7 +108,7 @@
 
 .progressBarFill {
   height: 100%;
-  background: #1a1a1a;
+  background: var(--page-invert-bg);
   transition: width 0.2s ease;
 }
 
@@ -128,11 +128,11 @@
 
 .card {
   position: relative;
-  border: 1px dashed #ccc;
+  border: 1px dashed var(--page-border-strong);
   border-radius: 12px;
   padding: 96px 32px;
   text-align: center;
-  background: #fff;
+  background: var(--page-surface);
   margin-bottom: 24px;
   overflow: hidden;
 }
@@ -144,11 +144,11 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: rgba(255, 255, 255, 0.72);
+  background: color-mix(in srgb, var(--page-surface) 72%, transparent);
   backdrop-filter: blur(3px);
   font-size: 17px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--page-text);
 }
 
 .pauseOverlayIcon {
@@ -163,7 +163,7 @@
 
 .hint {
   font-size: 13px;
-  color: #999;
+  color: var(--page-text-muted);
   margin: 0;
 }
 
@@ -179,9 +179,9 @@
   align-items: center;
   gap: 12px;
   padding: 18px 22px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--page-border);
   border-radius: 8px;
-  background: #fff;
+  background: var(--page-surface);
   font: inherit;
   font-size: 15px;
   text-align: left;
@@ -189,7 +189,7 @@
 }
 
 .choice:hover:not(:disabled) {
-  border-color: #bbb;
+  border-color: var(--page-border-strong);
 }
 
 .choice:disabled {
@@ -204,30 +204,30 @@
   height: 22px;
   min-width: 22px;
   border-radius: 50%;
-  background: #f0f0f0;
-  color: #666;
+  background: var(--page-surface-hover);
+  color: var(--page-text-secondary);
   font-size: 12px;
   font-weight: 600;
 }
 
 .choiceCorrect {
-  border-color: #1a1a1a;
-  background: #f0f7f0;
+  border-color: var(--page-text);
+  background: var(--page-success-bg);
 }
 
 .choiceCorrect .choiceLabel {
-  background: #2e7d32;
-  color: #fff;
+  background: var(--page-success);
+  color: var(--page-invert-text);
 }
 
 .choiceIncorrect {
-  border-color: #c62828;
-  background: #fdf0f0;
+  border-color: var(--page-danger);
+  background: var(--page-danger-bg);
 }
 
 .choiceIncorrect .choiceLabel {
-  background: #c62828;
-  color: #fff;
+  background: var(--page-danger);
+  color: var(--page-invert-text);
 }
 
 .actions {
@@ -237,31 +237,31 @@
 
 .secondaryButton {
   padding: 10px 20px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--page-border-strong);
   border-radius: 6px;
-  background: #fff;
-  color: #1a1a1a;
+  background: var(--page-surface);
+  color: var(--page-text);
   font-size: 14px;
   cursor: pointer;
 }
 
 .secondaryButton:hover {
-  border-color: #999;
+  border-color: var(--page-text-muted);
 }
 
 .primaryButton {
   padding: 10px 20px;
   border: none;
   border-radius: 6px;
-  background: #1a1a1a;
-  color: #fff;
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
   font-size: 14px;
   cursor: pointer;
   margin-left: auto;
 }
 
 .primaryButton:disabled {
-  background: #ccc;
+  background: var(--page-border-strong);
   cursor: not-allowed;
 }
 
@@ -269,10 +269,10 @@
   flex: 1 1 220px;
   max-width: 280px;
   min-width: 200px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--page-border);
   border-radius: 10px;
   padding: 20px;
-  background: #fff;
+  background: var(--page-surface);
   box-sizing: border-box;
 }
 
@@ -280,7 +280,7 @@
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: #666;
+  color: var(--page-text-secondary);
   margin: 0 0 16px;
 }
 
@@ -289,7 +289,7 @@
   justify-content: space-between;
   font-size: 14px;
   padding: 8px 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--page-surface-hover);
 }
 
 .statRow:last-child {

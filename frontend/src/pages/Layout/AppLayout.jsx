@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
+import ThemeToggle from "../../theme/ThemeToggle";
 import "./AppLayout.css";
 
 const NAV_ITEMS = [
@@ -14,7 +15,10 @@ function AppLayout(){
     return (
         <div className="app-layout">
             <aside className="app-sidebar">
-                <p className="app-sidebar-logo">[서비스 이름]</p>
+                <div className="app-sidebar-header">
+                    <p className="app-sidebar-logo">LinguaAI</p>
+                    <ThemeToggle />
+                </div>
                 <p className="app-sidebar-tagline">AI 학습 도우미</p>
 
                 <nav className="app-nav">

@@ -5,12 +5,12 @@
   margin: 0 auto;
   padding: 32px 24px 64px;
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: #1a1a1a;
+  color: var(--page-text);
 }
 
 .progressBar {
   height: 4px;
-  background: #e5e5e5;
+  background: var(--page-border);
   border-radius: 2px;
   overflow: hidden;
   margin-bottom: 40px;
@@ -18,7 +18,7 @@
 
 .progressBarFill {
   height: 100%;
-  background: #1a1a1a;
+  background: var(--page-invert-bg);
   transition: width 0.2s ease;
 }
 
@@ -46,31 +46,31 @@
   height: 24px;
   min-width: 24px;
   border-radius: 50%;
-  border: 1px solid #d9d9d9;
-  background: #fff;
-  color: #999;
+  border: 1px solid var(--page-border-strong);
+  background: var(--page-surface);
+  color: var(--page-text-muted);
   font-size: 12px;
   font-weight: 600;
 }
 
 .circleActive,
 .circleDone {
-  border-color: #1a1a1a;
-  background: #1a1a1a;
-  color: #fff;
+  border-color: var(--page-invert-bg);
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
 }
 
 .stepLabel {
   margin: 0 12px 0px 8px;
   font-size: 13px;
-  color: #555;
+  color: var(--page-text-secondary);
   white-space: nowrap;
 }
 
 .stepLine {
   flex: 1;
   height: 1px;
-  background: #d9d9d9;
+  background: var(--page-border-strong);
   margin-right: 8px;
 }
 
@@ -82,7 +82,7 @@
 
 .stepSubtitle {
   font-size: 14px;
-  color: #666;
+  color: var(--page-text-secondary);
   margin: 0 0 24px;
 }
 
@@ -102,18 +102,18 @@
   padding: 24px 8px;
   border: 2px solid transparent;
   border-radius: 8px;
-  background: #e8e8e8;
+  background: var(--page-surface-hover);
   cursor: pointer;
   font: inherit;
 }
 
 .languageCard:hover {
-  background: #dedede;
+  background: var(--page-border);
 }
 
 .languageCardSelected {
-  border-color: #1a1a1a;
-  background: #dedede;
+  border-color: var(--page-invert-bg);
+  background: var(--page-border);
 }
 
 .languageFlag {
@@ -122,21 +122,21 @@
 
 .languageName {
   font-size: 13px;
-  color: #333;
+  color: var(--page-text-secondary);
 }
 
 .nextButton {
   padding: 12px 32px;
   border: none;
   border-radius: 6px;
-  background: #1a1a1a;
-  color: #fff;
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
   font-size: 14px;
   cursor: pointer;
 }
 
 .nextButton:disabled {
-  background: #ccc;
+  background: var(--page-border-strong);
   cursor: not-allowed;
 }
 
@@ -152,21 +152,21 @@
   align-items: flex-start;
   gap: 12px;
   padding: 16px 20px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--page-border);
   border-radius: 8px;
-  background: #fff;
+  background: var(--page-surface);
   cursor: pointer;
   text-align: left;
   font: inherit;
 }
 
 .levelOption:hover {
-  background: #fafafa;
+  background: var(--page-surface-muted);
 }
 
 .levelOptionSelected {
-  border-color: #1a1a1a;
-  background: #f0f0f0;
+  border-color: var(--page-invert-bg);
+  background: var(--page-surface-hover);
 }
 
 .levelRadio {
@@ -175,12 +175,12 @@
   height: 16px;
   min-width: 16px;
   border-radius: 50%;
-  border: 1px solid #b3b3b3;
-  background: #fff;
+  border: 1px solid var(--page-border-strong);
+  background: var(--page-surface);
 }
 
 .levelRadioChecked {
-  border: 5px solid #1a1a1a;
+  border: 5px solid var(--page-invert-bg);
 }
 
 .levelText {
@@ -196,7 +196,7 @@
 
 .levelDescription {
   font-size: 13px;
-  color: #666;
+  color: var(--page-text-secondary);
 }
 
 .fieldLabel {
@@ -209,9 +209,10 @@
   width: 100%;
   box-sizing: border-box;
   padding: 12px 40px 12px 16px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--page-border-strong);
   border-radius: 6px;
-  background-color: #fff;
+  background-color: var(--page-surface);
+  color: var(--page-text);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 16px center;
@@ -224,7 +225,7 @@
 }
 
 .errorText {
-  color: #d33;
+  color: var(--page-danger);
   font-size: 13px;
   margin: -16px 0 24px;
 }
@@ -236,10 +237,10 @@
 
 .backButton {
   padding: 12px 32px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--page-border-strong);
   border-radius: 6px;
-  background: #fff;
-  color: #1a1a1a;
+  background: var(--page-surface);
+  color: var(--page-text);
   font-size: 14px;
   cursor: pointer;
 }

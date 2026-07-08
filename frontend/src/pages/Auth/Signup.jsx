@@ -49,7 +49,7 @@ function Signup(){
     return (
         <div className="auth-page">
             <div className="auth-form-side">
-                <p className="auth-logo">[서비스 이름]</p>
+                <p className="auth-logo">LinguaAI</p>
                 <p className="auth-tagline">Language Learning</p>
 
                 <h1 className="auth-title">회원가입</h1>

@@ -1,6 +1,6 @@
 .page {
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: #1a1a1a;
+  color: var(--page-text);
 }
 
 .title {
@@ -11,7 +11,7 @@
 
 .subtitle {
   font-size: 14px;
-  color: #888;
+  color: var(--page-text-muted);
   margin: 0 0 24px;
 }
 
@@ -25,10 +25,10 @@
 .card {
   flex: 1 1 320px;
   min-width: 280px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--page-border);
   border-radius: 10px;
   padding: 24px;
-  background: #fff;
+  background: var(--page-surface);
   box-sizing: border-box;
 }
 
@@ -36,7 +36,7 @@
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: #666;
+  color: var(--page-text-secondary);
   margin: 0 0 16px;
   text-transform: uppercase;
 }
@@ -55,8 +55,8 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #1a1a1a;
-  color: #fff;
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
   font-size: 15px;
   font-weight: 700;
   display: flex;
@@ -72,28 +72,28 @@
 
 .userEmail {
   font-size: 13px;
-  color: #888;
+  color: var(--page-text-muted);
   margin: 0;
 }
 
 .logoutButton {
   padding: 10px 20px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--page-border-strong);
   border-radius: 6px;
-  background: #fff;
-  color: #c62828;
+  background: var(--page-surface);
+  color: var(--page-danger);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
 }
 
 .logoutButton:hover:not(:disabled) {
-  border-color: #c62828;
-  background: #fdf0f0;
+  border-color: var(--page-danger);
+  background: var(--page-danger-bg);
 }
 
 .logoutButton:disabled {
-  color: #ccc;
+  color: var(--page-border-strong);
   cursor: not-allowed;
 }
 
@@ -103,13 +103,13 @@
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  color: #666;
+  color: var(--page-text-secondary);
   padding: 10px 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--page-surface-hover);
 }
 
 .infoValue {
-  color: #1a1a1a;
+  color: var(--page-text);
   font-weight: 600;
 }
 
@@ -117,19 +117,19 @@
   display: flex;
   justify-content: space-between;
   font-size: 13px;
-  color: #666;
+  color: var(--page-text-secondary);
   margin: 16px 0 8px;
 }
 
 .progressBar {
   height: 6px;
-  background: #eee;
+  background: var(--page-surface-hover);
   border-radius: 3px;
   overflow: hidden;
 }
 
 .progressBarFill {
   height: 100%;
-  background: #1a1a1a;
+  background: var(--page-invert-bg);
   transition: width 0.2s ease;
 }

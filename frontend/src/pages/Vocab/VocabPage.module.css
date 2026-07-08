@@ -1,6 +1,6 @@
 .page {
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: #1a1a1a;
+  color: var(--page-text);
 }
 
 .header {
@@ -21,15 +21,15 @@
   padding: 10px 20px;
   border: none;
   border-radius: 6px;
-  background: #1a1a1a;
-  color: #fff;
+  background: var(--page-invert-bg);
+  color: var(--page-invert-text);
   font-size: 14px;
   cursor: pointer;
   white-space: nowrap;
 }
 
 .flashcardButton:hover {
-  background: #333;
+  background: var(--page-invert-bg-hover);
 }
 
 .wordList {
@@ -46,19 +46,19 @@
   display: flex;
   gap: 16px;
   padding: 20px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--page-border);
   border-radius: 10px;
-  background: #fff;
+  background: var(--page-surface);
 }
 
 .wordItem:hover {
-  border-color: #ccc;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border-color: var(--page-border-strong);
+  box-shadow: var(--shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.04));
 }
 
 .wordNumber {
   flex: 0 0 24px;
-  color: #999;
+  color: var(--page-text-muted);
   font-size: 13px;
 }
 
@@ -76,13 +76,13 @@
 
 .meaning {
   font-size: 14px;
-  color: #555;
+  color: var(--page-text-secondary);
   margin: 0;
 }
 
 .example {
   font-size: 13px;
-  color: #888;
+  color: var(--page-text-muted);
   font-style: italic;
   margin: 4px 0 0;
 }

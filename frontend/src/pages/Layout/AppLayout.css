@@ -2,8 +2,8 @@
   display: flex;
   min-height: 100vh;
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: #1a1a1a;
-  background: #fff;
+  color: var(--page-text);
+  background: var(--page-surface);
 }
 
 .app-sidebar {
@@ -11,8 +11,15 @@
   flex: 0 0 220px;
   box-sizing: border-box;
   padding: 24px 16px;
-  border-right: 1px solid #e5e5e5;
-  background: #fafafa;
+  border-right: 1px solid var(--page-border);
+  background: var(--page-surface-muted);
+}
+
+.app-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .app-sidebar-logo {
@@ -23,7 +30,7 @@
 
 .app-sidebar-tagline {
   font-size: 12px;
-  color: #888;
+  color: var(--page-text-muted);
   margin: 4px 0 24px;
 }
 
@@ -38,18 +45,18 @@
   padding: 10px 12px;
   border-radius: 6px;
   font-size: 14px;
-  color: #333;
+  color: var(--page-text-secondary);
   text-decoration: none;
 }
 
 .app-nav-item:hover {
-  background: #eee;
+  background: var(--page-surface-hover);
 }
 
 .app-nav-item-active {
-  background: #e0e0e0;
+  background: var(--page-border);
   font-weight: 600;
-  color: #000;
+  color: var(--page-text);
 }
 
 .app-content {
