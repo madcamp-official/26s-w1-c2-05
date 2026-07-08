@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.models.content import Content
 from app.models.grammar import Grammar
@@ -18,6 +19,14 @@ app = FastAPI(
     title="LinguaAI",
     version="0.1.0",
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://linguaai.madcamp-kaist.org"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(auth.router)
 app.include_router(vocabulary.router)
 app.include_router(onboarding.router)
